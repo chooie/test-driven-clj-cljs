@@ -1,6 +1,8 @@
 (ns user
-  (:require  [clojure.tools.namespace.repl :refer [refresh]]))
+  (:require
+   [clojure.tools.namespace.repl :refer [refresh]]
+   [alembic.still :as alembic]))
 
-(defn foobar
+(defn reload-dependencies
   []
-  "foobar!")
+  (alembic/load-project))

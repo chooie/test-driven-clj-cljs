@@ -1,4 +1,5 @@
 (ns test-lein.core
+  (:require [com.stuartsierra.component :as component])
   (:gen-class))
 
 (defn -main
@@ -9,3 +10,10 @@
 (defn hello
   []
   "Hello, world!")
+
+(defrecord Server [port]
+  component/Lifecycle
+
+  (start [component]
+    (println "Starting Server...")
+    (let [])))

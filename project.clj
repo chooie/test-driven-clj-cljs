@@ -3,9 +3,12 @@
   :url "http://my-test-app.com"
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}
-  :dependencies [[org.clojure/clojure "1.8.0"]]
+  :dependencies [[com.stuartsierra/component "0.3.2"]
+                 [org.clojure/clojure "1.8.0"]
+                 [ring "1.6.2"]]
   :profiles {:dev {:source-paths ["dev"]
-                   :dependencies [[org.clojure/tools.namespace "0.2.11"]]}
+                   :dependencies [[alembic "0.3.2"]
+                                  [org.clojure/tools.namespace "0.2.11"]]}
              :uberjar {:aot :all}}
   :plugins [[lein-eftest "0.3.1"]]
   :eftest {:multithread? false}
