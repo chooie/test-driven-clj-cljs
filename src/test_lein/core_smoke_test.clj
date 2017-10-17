@@ -20,7 +20,6 @@
    #'system
    (fn [system] (when system (component/stop system)))))
 
-
 (defn fixture
   [f]
   (init)

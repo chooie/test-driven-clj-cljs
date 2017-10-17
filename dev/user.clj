@@ -1,6 +1,7 @@
 (ns user
   (:require
    [alembic.still :as alembic]
+   [clojure.pprint :refer [pprint]]
    [clojure.tools.namespace.repl :as tools-namespace-repl :refer [refresh]]
    [com.stuartsierra.component :as component]
    [test-lein.core :as test-lein]))
