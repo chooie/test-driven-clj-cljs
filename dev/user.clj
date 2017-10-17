@@ -42,7 +42,6 @@
 
 (defn t []
   (let [refresh-result (safe-refresh)]
-    (humane-test-output/activate!)
     (if (= refresh-result :ok)
       (let [results (clojure-test/run-all-tests #"test-lein.*-test")
             number-of-fails (:fail results)]
