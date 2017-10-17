@@ -5,3 +5,7 @@
 (defn set-logging-level
   [level-key]
   (timbre/merge-config! {:level level-key}))
+
+(defn info
+  [message]
+  (timbre/info message))

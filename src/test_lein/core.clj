@@ -2,9 +2,7 @@
   (:require
    [com.stuartsierra.component :as component]
    [ring.adapter.jetty :as ring-jetty]
-   [test-lein.log :as log]
-   [taoensso.timbre :as timbre]
-   [clojure.test :as test])
+   [test-lein.log :as log])
   (:gen-class))
 
 (log/set-logging-level :warn)
@@ -12,11 +10,7 @@
 (defn -main
   "I don't do a whole lot ... yet."
   [& args]
-  (timbre/info "Hello, World!"))
-
-(defn hello
-  []
-  "Hello, world!")
+  (log/info "Hello, World!"))
 
 (defn handler [request]
   {:status 200
@@ -27,15 +21,15 @@
   component/Lifecycle
 
   (start [component]
-    (timbre/info "Starting Server...")
+    (log/info "Starting Server...")
     (let [server (ring-jetty/run-jetty handler {:port port
                                                 :join? false})]
       (assoc component :server server)))
 
   (stop [component]
-    (timbre/info "Stopping server")
+    (log/info "Stopping server")
     (let [server (:server component)]
-      (timbre/info server)
+      (log/info server)
       (.stop server)
       (assoc component :server nil))))
 

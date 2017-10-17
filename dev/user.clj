@@ -40,7 +40,11 @@
   (tools-namespace-repl/refresh))
 
 (defn t []
-  (let [result (safe-refresh)]
-    (if (= result :ok)
-      (clojure-test/run-all-tests #"test-lein.*")
-      (throw result))))
+  (let [refresh-result (safe-refresh)]
+    (if (= refresh-result :ok)
+      (let [results (clojure-test/run-all-tests #"test-lein.*-test")
+            number-of-fails (:fail results)]
+        (if (> number-of-fails 0)
+          (throw (Exception. (str "FAIL: " number-of-fails)))
+          "."))
+      (throw refresh-result))))
