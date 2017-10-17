@@ -1,6 +1,7 @@
 (ns test-lein.core-test
-  (:require [clojure.test :refer :all]
-            [test-lein.core :as test-lein]))
+  (:require
+   [clojure.test :as test]
+   [test-lein.core :as test-lein]))
 
 (defn- before
   []
@@ -16,11 +17,11 @@
   (each-test)
   (after))
 
-(use-fixtures :each my-fixture)
+(test/use-fixtures :each my-fixture)
 
-(deftest says-hello
+(test/deftest says-hello
   (println "I'm running 1!")
-  (is (= "Hello, world!" (test-lein/hello))))
+  (test/is (= "Hello, world!" (test-lein/hello))))
 
-(deftest nothing
+(test/deftest nothing
   (println "I'm running 2!"))
