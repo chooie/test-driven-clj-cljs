@@ -7,4 +7,5 @@
   (load-file "dev/user.clj"))
 
 (defn refresh []
+  (tools-namespace-repl/clear)
   (tools-namespace-repl/refresh))
