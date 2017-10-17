@@ -30,4 +30,4 @@
 (test/use-fixtures :once fixture)
 
 (test/deftest core-smoke-test
-  (test/is (= true true)))
+  (test/is (= true false)))

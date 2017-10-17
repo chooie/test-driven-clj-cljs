@@ -6,11 +6,13 @@
   :dependencies [[com.stuartsierra/component "0.3.2"]
                  [com.taoensso/timbre "4.10.0"]
                  [org.clojure/clojure "1.8.0"]
-                 [pjstadig/humane-test-output "0.8.3"]
                  [ring "1.6.2"]]
   :profiles {:dev {:source-paths ["dev"]
                    :dependencies [[alembic "0.3.2"]
-                                  [org.clojure/tools.namespace "0.2.11"]]}
+                                  [org.clojure/tools.namespace "0.2.11"]
+                                  [pjstadig/humane-test-output "0.8.3"]]
+                   :injections [(require 'pjstadig.humane-test-output)
+                                (pjstadig.humane-test-output/activate!)]}
              :uberjar {:aot :all}}
   :plugins [[lein-eftest "0.3.1"]]
   :eftest {:multithread? false}
