@@ -2,7 +2,8 @@
   (:require
    [alembic.still :as alembic]
    [clojure.pprint :refer [pprint]]
-   [clojure.tools.namespace.repl :as tools-namespace-repl :refer [refresh]]
+   [clojure.test :as clojure-test]
+   [clojure.tools.namespace.repl :as tools-namespace-repl]
    [com.stuartsierra.component :as component]
    [test-lein.core :as test-lein]))
 
@@ -33,3 +34,13 @@
 (defn reset []
   (stop)
   (tools-namespace-repl/refresh :after 'user/go))
+
+(defn safe-refresh []
+  (stop)
+  (tools-namespace-repl/refresh))
+
+(defn t []
+  (let [result (safe-refresh)]
+    (if (= result :ok)
+      (clojure-test/run-all-tests #"test-lein.*")
+      (throw result))))

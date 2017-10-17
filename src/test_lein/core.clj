@@ -1,12 +1,13 @@
 (ns test-lein.core
   (:require
    [com.stuartsierra.component :as component]
+   [ring.adapter.jetty :as ring-jetty]
+   [test-lein.log :as log]
    [taoensso.timbre :as timbre]
-   [ring.adapter.jetty :as ring-jetty])
+   [clojure.test :as test])
   (:gen-class))
 
-(def example-config  {:level :warn })
-(timbre/merge-config! example-config)
+(log/set-logging-level :warn)
 
 (defn -main
   "I don't do a whole lot ... yet."
