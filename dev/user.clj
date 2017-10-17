@@ -6,7 +6,8 @@
    [clojure.tools.namespace.repl :as tools-namespace-repl]
    [com.stuartsierra.component :as component]
    [pjstadig.humane-test-output :as humane-test-output]
-   [test-lein.core :as test-lein]))
+   [test-lein.core :as test-lein]
+   [test-lein.log :refer [set-logging-level!]]))
 
 (defn reload-dependencies
   []

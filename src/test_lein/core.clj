@@ -5,8 +5,6 @@
    [test-lein.log :as log])
   (:gen-class))
 
-(log/set-logging-level :warn)
-
 (defn -main
   "I don't do a whole lot ... yet."
   [& args]
