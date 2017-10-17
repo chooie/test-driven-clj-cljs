@@ -5,6 +5,7 @@
    [clojure.test :as clojure-test]
    [clojure.tools.namespace.repl :as tools-namespace-repl]
    [com.stuartsierra.component :as component]
+   [pjstadig.humane-test-output :as humane-test-output]
    [test-lein.core :as test-lein]))
 
 (defn reload-dependencies
@@ -41,10 +42,11 @@
 
 (defn t []
   (let [refresh-result (safe-refresh)]
+    (humane-test-output/activate!)
     (if (= refresh-result :ok)
       (let [results (clojure-test/run-all-tests #"test-lein.*-test")
             number-of-fails (:fail results)]
         (if (> number-of-fails 0)
           (throw (Exception. (str "FAIL: " number-of-fails)))
-          "."))
+          :OK))
       (throw refresh-result))))

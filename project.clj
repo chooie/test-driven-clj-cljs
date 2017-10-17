@@ -6,6 +6,7 @@
   :dependencies [[com.stuartsierra/component "0.3.2"]
                  [com.taoensso/timbre "4.10.0"]
                  [org.clojure/clojure "1.8.0"]
+                 [pjstadig/humane-test-output "0.8.3"]
                  [ring "1.6.2"]]
   :profiles {:dev {:source-paths ["dev"]
                    :dependencies [[alembic "0.3.2"]
