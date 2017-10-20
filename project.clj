@@ -4,9 +4,10 @@
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}
   :dependencies [[clj-http "3.7.0"]
+                 [eftest "0.3.2"]
                  [com.stuartsierra/component "0.3.2"]
                  [com.taoensso/timbre "4.10.0"]
-                 [org.clojure/clojure "1.8.0"]
+                 [org.clojure/clojure "1.9.0-beta2"]
                  [ring "1.6.2"]]
   :profiles {:dev {:source-paths ["dev"]
                    :dependencies [[alembic "0.3.2"]
@@ -20,4 +21,4 @@
   :main ^:skip-aot test-lein.core
   :repl-options {:init-ns user}
   :target-path "target/%s"
-  :test-paths ["test" "src/"])
+  :test-paths ["src/"])
