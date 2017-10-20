@@ -7,4 +7,6 @@
                    :logging-level :info}
     "test-automation" {:port 8081
                        :logging-level :warn}
+    "production" {:port 80
+                  :logging-level :warn}
     :default (throw (Exception. (str "No profile '" profile "'")))))
