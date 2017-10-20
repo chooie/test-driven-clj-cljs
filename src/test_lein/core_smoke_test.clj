@@ -3,6 +3,7 @@
    [clj-http.client :as clj-http-client]
    [clojure.test :as test]
    [com.stuartsierra.component :as component]
+   [test-lein.config :as config]
    [test-lein.core :as test-lein]))
 
 (def system nil)
@@ -31,7 +32,10 @@
 (test/use-fixtures :once fixture)
 
 (test/deftest core-smoke-test
-  (let [server-response (clj-http-client/get "http://localhost:8081/")
+  (let [config (config/get-config-for "test-automation")
+        test-port (:port config)
+        server-response (clj-http-client/get
+                         (config/get-fully-qualified-url config))
         response-body (:body server-response)]
     (test/testing "Can get a hello world from the server"
       (test/is (= "Hello, World!" response-body)))))
