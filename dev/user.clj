@@ -19,7 +19,7 @@
   []
   (alter-var-root
    #'system
-   (constantly (test-lein/system {:port 3000}))))
+   (constantly (test-lein/system "development"))))
 
 (defn start []
   (alter-var-root #'system component/start))

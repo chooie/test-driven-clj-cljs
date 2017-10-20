@@ -10,7 +10,7 @@
   []
   (alter-var-root
    #'system
-   (constantly (test-lein/system {:port 8081}))))
+   (constantly (test-lein/system "test-automation"))))
 
 (defn start []
   (alter-var-root #'system component/start))

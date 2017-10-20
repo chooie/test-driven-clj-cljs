@@ -2,6 +2,7 @@
   (:require
    [com.stuartsierra.component :as component]
    [ring.adapter.jetty :as ring-jetty]
+   [test-lein.config :as config]
    [test-lein.log :as log])
   (:gen-class))
 
@@ -34,6 +35,7 @@
 (defn new-server [port]
   (map->Server {:port port}))
 
-(defn system [config-options]
-  (component/system-map
-   :server (new-server (:port config-options))))
+(defn system [profile]
+  (let [config (config/get-config-for profile)]
+    (component/system-map
+     :server (new-server (:port config)))))
