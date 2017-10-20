@@ -3,6 +3,8 @@
 (defn get-config-for
   [profile]
   (condp = profile
-    "development" {:port 8080}
-    "test-automation" {:port 8081}
+    "development" {:port 8080
+                   :logging-level :info}
+    "test-automation" {:port 8081
+                       :logging-level :warn}
     :default (throw (Exception. (str "No profile '" profile "'")))))

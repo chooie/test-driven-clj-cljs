@@ -9,6 +9,3 @@
 (defn info
   [message]
   (timbre/info message))
-
-;; Default logging level
-(set-logging-level! :warn)

@@ -37,5 +37,6 @@
 
 (defn system [profile]
   (let [config (config/get-config-for profile)]
+    (log/set-logging-level! (:logging-level config))
     (component/system-map
      :server (new-server (:port config)))))
