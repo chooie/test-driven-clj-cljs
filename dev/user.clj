@@ -5,6 +5,7 @@
    [clojure.test :as clojure-test]
    [clojure.tools.namespace.repl :as tools-namespace-repl]
    [com.stuartsierra.component :as component]
+   [eftest.runner :as eftest]
    [pjstadig.humane-test-output :as humane-test-output]
    [test-lein.core :as test-lein]
    [test-lein.log :refer [set-logging-level!]]))
@@ -44,7 +45,7 @@
 (defn t []
   (let [refresh-result (safe-refresh)]
     (if (= refresh-result :ok)
-      (let [results (clojure-test/run-all-tests #"test-lein.*-test")
+      (let [results (eftest/run-tests (eftest/find-tests "src"))
             number-of-fails (:fail results)]
         (if (> number-of-fails 0)
           (throw (Exception. (str "FAIL: " number-of-fails)))
