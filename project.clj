@@ -3,7 +3,8 @@
   :url "http://my-test-app.com"
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}
-  :dependencies [[com.stuartsierra/component "0.3.2"]
+  :dependencies [[clj-http "3.7.0"]
+                 [com.stuartsierra/component "0.3.2"]
                  [com.taoensso/timbre "4.10.0"]
                  [org.clojure/clojure "1.8.0"]
                  [ring "1.6.2"]]

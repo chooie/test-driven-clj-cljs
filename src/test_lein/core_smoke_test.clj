@@ -1,5 +1,6 @@
 (ns test-lein.core-smoke-test
   (:require
+   [clj-http.client :as clj-http-client]
    [clojure.test :as test]
    [com.stuartsierra.component :as component]
    [test-lein.core :as test-lein]))
@@ -30,4 +31,7 @@
 (test/use-fixtures :once fixture)
 
 (test/deftest core-smoke-test
-  (test/is (= true false)))
+  (let [server-response (clj-http-client/get "http://localhost:8081/")
+        response-body (:body server-response)]
+    (test/testing "Can get a hello world from the server"
+      (test/is (= "Hello, World!" response-body)))))
