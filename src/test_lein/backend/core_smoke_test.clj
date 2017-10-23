@@ -1,11 +1,12 @@
-(ns test-lein.core-smoke-test
+(ns test-lein.backend.core-smoke-test
   (:require
    [clj-http.client :as clj-http-client]
    [clojure.test :as test]
    [com.stuartsierra.component :as component]
-   [test-lein.config :as config]
-   [test-lein.core :as test-lein]))
+   [test-lein.backend.config :as config]
+   [test-lein.backend.core :as test-lein]))
 
+;; TODO: Should get this test code running in the browser
 (def system nil)
 
 (defn init

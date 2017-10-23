@@ -23,7 +23,7 @@
   :plugins [[jonase/eastwood "0.2.5"]
             [lein-eftest "0.3.1"]]
   :eftest {:multithread? false}
-  :main ^:skip-aot test-lein.core
+  :main ^:skip-aot test-lein.backend.core
   :repl-options {:init-ns user}
   :target-path "target/%s"
   :test-paths ["src/"])

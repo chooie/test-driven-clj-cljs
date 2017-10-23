@@ -1,4 +1,4 @@
-(ns test-lein.log
+(ns test-lein.backend.log
   (:require
    [taoensso.timbre :as timbre]))
 

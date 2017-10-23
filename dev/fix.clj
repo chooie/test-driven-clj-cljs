@@ -2,6 +2,9 @@
   (:require
    [clojure.tools.namespace.repl :as tools-namespace-repl]))
 
+;; NOTE: In case of emergency
+;; (load-file "dev/fix.clj")
+
 (defn reload []
   (load-file "src/test_lein/core.clj")
   (load-file "dev/user.clj"))

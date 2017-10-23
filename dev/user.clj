@@ -9,8 +9,8 @@
    [idiomatic :as idiomatic]
    [lint :as lint]
    [pjstadig.humane-test-output :as humane-test-output]
-   [test-lein.core :as test-lein]
-   [test-lein.log :refer [set-logging-level!]]))
+   [test-lein.backend.core :as test-lein]
+   [test-lein.backend.log :refer [set-logging-level!]]))
 
 (defn reload-dependencies
   []
