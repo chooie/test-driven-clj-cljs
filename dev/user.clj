@@ -5,6 +5,7 @@
    [clojure.test :as clojure-test]
    [clojure.tools.namespace.repl :as tools-namespace-repl]
    [com.stuartsierra.component :as component]
+   [eastwood.lint :as eastwood]
    [eftest.runner :as eftest]
    [pjstadig.humane-test-output :as humane-test-output]
    [test-lein.core :as test-lein]
@@ -45,12 +46,29 @@
   (stop)
   (tools-namespace-repl/refresh))
 
+(defn lint []
+  (let [lint-results (eastwood/lint {:source-paths ["src dev"]
+                                     :test-paths ["src"]})
+        warnings (:warnings lint-results)
+        errors (:err lint-results)]
+    (println "Linting the code...")
+    (if (or (> (count warnings) 0)
+            (not= errors nil))
+      (throw (Exception. "Lint error!"))
+      :OK)))
+
+(defn run-tests
+  []
+  (let [results (eftest/run-tests (eftest/find-tests "src"))
+        number-of-fails (:fail results)]
+    (if (> number-of-fails 0)
+      (throw (Exception. (str "FAIL: " number-of-fails)))
+      :OK)))
+
 (defn t []
   (let [refresh-result (safe-refresh)]
     (if (= refresh-result :ok)
-      (let [results (eftest/run-tests (eftest/find-tests "src"))
-            number-of-fails (:fail results)]
-        (if (> number-of-fails 0)
-          (throw (Exception. (str "FAIL: " number-of-fails)))
-          :OK))
+      (do
+        (lint)
+        (run-tests))
       (throw refresh-result))))

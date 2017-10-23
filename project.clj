@@ -11,12 +11,16 @@
                  [ring "1.6.2"]]
   :profiles {:dev {:source-paths ["dev"]
                    :dependencies [[alembic "0.3.2"]
+                                  [jonase/eastwood "0.2.5"
+                                   :exclusions
+                                   [org.clojure/clojure]]
                                   [org.clojure/tools.namespace "0.2.11"]
                                   [pjstadig/humane-test-output "0.8.3"]]
                    :injections [(require 'pjstadig.humane-test-output)
                                 (pjstadig.humane-test-output/activate!)]}
              :uberjar {:aot :all}}
-  :plugins [[lein-eftest "0.3.1"]]
+  :plugins [[jonase/eastwood "0.2.5"]
+            [lein-eftest "0.3.1"]]
   :eftest {:multithread? false}
   :main ^:skip-aot test-lein.core
   :repl-options {:init-ns user}
