@@ -10,6 +10,7 @@
    [idiomatic :as idiomatic]
    [lint :as lint]
    [pjstadig.humane-test-output :as humane-test-output]
+   [me.raynes.fs :as fs]
    [my-app.backend.core :as my-app]
    [my-app.backend.log :refer [set-logging-level!]]))
 
@@ -17,9 +18,15 @@
   []
   (alembic/load-project))
 
+(defn clean
+  []
+  (fs/delete-dir "out"))
+
 (defn build-cljs
   []
-  (cljs-build/build "src" {:output-to "out/main.js"}))
+  (clean)
+  (fs/copy-dir "resources/public" "out")
+  (cljs-build/build "src" {:output-to "out/js/main.js"}))
 
 (def system nil)
 
