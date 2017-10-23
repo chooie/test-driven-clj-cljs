@@ -5,8 +5,8 @@
    [clojure.test :as clojure-test]
    [clojure.tools.namespace.repl :as tools-namespace-repl]
    [com.stuartsierra.component :as component]
-   [eastwood.lint :as eastwood]
    [eftest.runner :as eftest]
+   [lint :as lint]
    [pjstadig.humane-test-output :as humane-test-output]
    [test-lein.core :as test-lein]
    [test-lein.log :refer [set-logging-level!]]))
@@ -46,44 +46,6 @@
   (stop)
   (tools-namespace-repl/refresh))
 
-(defn lint []
-  (let [lint-results (eastwood/lint {:source-paths ["src dev"]
-                                     :test-paths ["src"]
-                                     :add-linters [
-                                                   :bad-arglists
-                                                   :constant-test
-                                                   :def-in-def
-                                                   :deprecations
-                                                   :keyword-typos
-                                                   :local-shadows-var
-                                                   :misplaced-docstrings
-                                                   :no-ns-form-found
-                                                   :non-clojure-file
-                                                   :redefd-vars
-                                                   :suspicious-expression
-                                                   :suspicious-test
-                                                   :unused-fn-args
-                                                   :unused-locals
-                                                   :unused-meta-on-macro
-                                                   :unused-namespaces
-                                                   :unused-private-vars
-                                                   :unused-ret-vals
-                                                   :wrong-arity
-                                                   :wrong-ns-form
-                                                   :wrong-pre-post
-                                                   :wrong-tag
-                                                   ]})
-        warnings (:warnings lint-results)
-        errors (:err lint-results)]
-    (println "Linting the code...")
-    (if (or (> (count warnings) 0)
-            (not= errors nil))
-      (do
-        (pprint warnings)
-        (pprint errors)
-        (throw (Exception. "Lint error!")))
-      :OK)))
-
 (defn run-tests
   []
   (let [results (eftest/run-tests (eftest/find-tests "src"))
@@ -96,6 +58,6 @@
   (let [refresh-result (safe-refresh)]
     (if (= refresh-result :ok)
       (do
-        (lint)
+        (lint/lint)
         (run-tests))
       (throw refresh-result))))
