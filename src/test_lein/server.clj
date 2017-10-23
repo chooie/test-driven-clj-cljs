@@ -13,7 +13,7 @@
   component/Lifecycle
 
   (start [component]
-    (log/info "Starting Server...")
+    (log/info (str "Starting server on port " port "..."))
     (let [server (ring-jetty/run-jetty handler {:port port
                                                 :join? false})]
       (assoc component :server server)))

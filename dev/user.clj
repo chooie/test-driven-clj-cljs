@@ -16,6 +16,9 @@
 
 (def system nil)
 
+(defn show-system []
+  (clojure.pprint/pprint system))
+
 (defn init
   []
   (alter-var-root
