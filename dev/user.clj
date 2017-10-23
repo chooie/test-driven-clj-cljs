@@ -1,6 +1,7 @@
 (ns user
   (:require
    [alembic.still :as alembic]
+   [cljs.build.api :as cljs-build]
    [clojure.pprint :refer [pprint]]
    [clojure.test :as clojure-test]
    [clojure.tools.namespace.repl :as tools-namespace-repl]
@@ -15,6 +16,10 @@
 (defn reload-dependencies
   []
   (alembic/load-project))
+
+(defn build-cljs
+  []
+  (cljs-build/build "src" {:output-to "out/main.js"}))
 
 (def system nil)
 
