@@ -33,7 +33,6 @@
 
 (test/deftest core-smoke-test
   (let [config (config/get-config-for "test-automation")
-        test-port (:port config)
         server-response (clj-http-client/get
                          (config/get-fully-qualified-url config))
         response-body (:body server-response)]

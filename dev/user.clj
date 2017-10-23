@@ -48,13 +48,19 @@
 
 (defn lint []
   (let [lint-results (eastwood/lint {:source-paths ["src dev"]
-                                     :test-paths ["src"]})
+                                     :test-paths ["src"]
+                                     :add-linters [:unused-locals
+                                                   :unused-namespaces
+                                                   :unused-private-vars]})
         warnings (:warnings lint-results)
         errors (:err lint-results)]
     (println "Linting the code...")
     (if (or (> (count warnings) 0)
             (not= errors nil))
-      (throw (Exception. "Lint error!"))
+      (do
+        (pprint warnings)
+        (pprint errors)
+        (throw (Exception. "Lint error!")))
       :OK)))
 
 (defn run-tests
