@@ -12,7 +12,7 @@
    :local-shadows-var
    :misplaced-docstrings
    :no-ns-form-found
-   :non-clojure-file
+   ;; :non-clojure-file
    :redefd-vars
    :suspicious-expression
    :suspicious-test
