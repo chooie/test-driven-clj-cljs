@@ -4,7 +4,7 @@
    [ring.adapter.jetty :as ring-jetty]
    [test-lein.log :as log]))
 
-(defn handler [request]
+(defn handler [_request]
   {:status 200
    :headers {"Content-Type" "text/html"}
    :body "Hello, World!"})
