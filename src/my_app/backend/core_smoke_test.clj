@@ -1,10 +1,10 @@
-(ns test-lein.backend.core-smoke-test
+(ns my-app.backend.core-smoke-test
   (:require
    [clj-http.client :as clj-http-client]
    [clojure.test :as test]
    [com.stuartsierra.component :as component]
-   [test-lein.backend.config :as config]
-   [test-lein.backend.core :as test-lein]))
+   [my-app.backend.config :as config]
+   [my-app.backend.core :as my-app]))
 
 ;; TODO: Should get this test code running in the browser
 (def system nil)
@@ -13,7 +13,7 @@
   []
   (alter-var-root
    #'system
-   (constantly (test-lein/system "test-automation"))))
+   (constantly (my-app/system "test-automation"))))
 
 (defn start []
   (alter-var-root #'system component/start))

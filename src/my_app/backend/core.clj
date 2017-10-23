@@ -1,9 +1,9 @@
-(ns test-lein.backend.core
+(ns my-app.backend.core
   (:require
    [com.stuartsierra.component :as component]
-   [test-lein.backend.config :as config]
-   [test-lein.backend.log :as log]
-   [test-lein.backend.server :as server])
+   [my-app.backend.config :as config]
+   [my-app.backend.log :as log]
+   [my-app.backend.server :as server])
   (:gen-class))
 
 (defn system [profile]

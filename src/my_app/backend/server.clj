@@ -1,8 +1,8 @@
-(ns test-lein.backend.server
+(ns my-app.backend.server
   (:require
    [com.stuartsierra.component :as component]
    [ring.adapter.jetty :as ring-jetty]
-   [test-lein.backend.log :as log]))
+   [my-app.backend.log :as log]))
 
 (defn handler [_request]
   {:status 200

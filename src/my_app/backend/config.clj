@@ -1,4 +1,4 @@
-(ns test-lein.backend.config)
+(ns my-app.backend.config)
 
 (defn get-config-for
   [profile]

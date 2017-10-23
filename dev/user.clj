@@ -9,8 +9,8 @@
    [idiomatic :as idiomatic]
    [lint :as lint]
    [pjstadig.humane-test-output :as humane-test-output]
-   [test-lein.backend.core :as test-lein]
-   [test-lein.backend.log :refer [set-logging-level!]]))
+   [my-app.backend.core :as my-app]
+   [my-app.backend.log :refer [set-logging-level!]]))
 
 (defn reload-dependencies
   []
@@ -25,7 +25,7 @@
   []
   (alter-var-root
    #'system
-   (constantly (test-lein/system "development"))))
+   (constantly (my-app/system "development"))))
 
 (defn start []
   (alter-var-root #'system component/start))

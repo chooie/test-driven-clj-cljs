@@ -6,7 +6,7 @@
 ;; (load-file "dev/fix.clj")
 
 (defn reload []
-  (load-file "src/test_lein/core.clj")
+  (load-file "src/my_app/core.clj")
   (load-file "dev/user.clj"))
 
 (defn refresh []

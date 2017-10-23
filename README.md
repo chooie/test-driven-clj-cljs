@@ -1,4 +1,4 @@
-# test-lein
+# my-app
 
 An example of how to setup a leiningen project.
 
