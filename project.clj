@@ -14,6 +14,7 @@
                                   [jonase/eastwood "0.2.5"
                                    :exclusions
                                    [org.clojure/clojure]]
+                                  [jonase/kibit "0.1.5"]
                                   [org.clojure/tools.namespace "0.2.11"]
                                   [pjstadig/humane-test-output "0.8.3"]]
                    :injections [(require 'pjstadig.humane-test-output)

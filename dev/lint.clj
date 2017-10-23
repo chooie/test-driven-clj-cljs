@@ -34,7 +34,7 @@
         warnings (:warnings lint-results)
         errors (:err lint-results)]
     (println "Linting the code...")
-    (if (or (> (count warnings) 0)
+    (if (or (pos? (count warnings))
             (not= errors nil))
       (do
         (pprint warnings)

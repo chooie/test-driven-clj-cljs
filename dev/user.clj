@@ -6,6 +6,7 @@
    [clojure.tools.namespace.repl :as tools-namespace-repl]
    [com.stuartsierra.component :as component]
    [eftest.runner :as eftest]
+   [idiomatic :as idiomatic]
    [lint :as lint]
    [pjstadig.humane-test-output :as humane-test-output]
    [test-lein.core :as test-lein]
@@ -50,7 +51,7 @@
   []
   (let [results (eftest/run-tests (eftest/find-tests "src"))
         number-of-fails (:fail results)]
-    (if (> number-of-fails 0)
+    (if (pos? number-of-fails)
       (throw (Exception. (str "FAIL: " number-of-fails)))
       :OK)))
 
@@ -60,4 +61,10 @@
       (do
         (lint/lint)
         (run-tests))
+      (throw refresh-result))))
+
+(defn analyse []
+  (let [refresh-result (safe-refresh)]
+    (if (= refresh-result :ok)
+      (idiomatic/analyse)
       (throw refresh-result))))
