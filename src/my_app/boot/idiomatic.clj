@@ -1,12 +1,14 @@
-(ns idiomatic
-  (:require [clojure.java.io :as io]
-            [clojure.pprint :refer [pprint]]
-            [kibit.driver :as kibit-driver]))
+(ns my-app.boot.idiomatic
+  (:require
+   [boot.core :as boot]
+   [clojure.java.io :as io]
+   [kibit.driver :as kibit-driver]
+   ))
 
 (defn- get-idiomatic-errors
   []
   (kibit-driver/run
-    (for [folder ["src" "dev"]
+    (for [folder (boot/get-env :directories)
           :let [file-path (io/file folder)]
           :when (.exists file-path)
           ]

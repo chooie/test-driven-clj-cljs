@@ -1,7 +1,8 @@
-(ns lint
+(ns my-app.boot.lint
   (:require
    [clojure.pprint :refer [pprint]]
-   [eastwood.lint :as eastwood]))
+   [eastwood.lint :as eastwood]
+   ))
 
 (defonce lint-options
   [:bad-arglists
