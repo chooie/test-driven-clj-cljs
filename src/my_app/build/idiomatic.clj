@@ -1,4 +1,4 @@
-(ns my-app.boot.idiomatic
+(ns my-app.build.idiomatic
   (:require
    [boot.core :as boot]
    [clojure.java.io :as io]

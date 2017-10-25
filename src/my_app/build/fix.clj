@@ -1,4 +1,4 @@
-(ns my-app.boot.fix
+(ns my-app.build.fix
   (:require
    [boot.core :as boot]
    [clojure.tools.namespace.repl :as tools-namespace-repl]

@@ -19,4 +19,4 @@
                  ])
 
 (require
- '[my-app.boot.user :refer :all])
+ '[my-app.build.user :refer :all])

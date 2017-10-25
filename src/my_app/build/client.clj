@@ -1,4 +1,4 @@
-(ns my-app.boot.client
+(ns my-app.build.client
   (:require
    [cljs.build.api :as cljs-build]
    [me.raynes.fs :as fs]

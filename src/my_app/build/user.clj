@@ -1,14 +1,14 @@
-(ns my-app.boot.user
+(ns my-app.build.user
   (:require
    [boot.core :as boot]
    [boot.task.built-in :as boot-tasks]
    [clojure.pprint :refer [pprint]]
    [com.stuartsierra.component :as component]
    [my-app.backend.core :as my-app]
-   [my-app.boot.fix :as fix]
-   [my-app.boot.idiomatic :as idiomatic]
-   [my-app.boot.lint :as lint]
-   [my-app.boot.test :as tester]
+   [my-app.build.fix :as fix]
+   [my-app.build.idiomatic :as idiomatic]
+   [my-app.build.lint :as lint]
+   [my-app.build.test :as tester]
    ))
 
 (def system nil)

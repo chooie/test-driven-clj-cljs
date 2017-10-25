@@ -1,4 +1,4 @@
-(ns my-app.boot.lint
+(ns my-app.build.lint
   (:require
    [clojure.pprint :refer [pprint]]
    [eastwood.lint :as eastwood]
