@@ -1,6 +1,5 @@
 (ns my-app.build.test
   (:require
-   [clojure.test :as test]
    [eftest.report.pretty :as eftest-report]
    [eftest.runner :as eftest]
    ))

@@ -1,6 +1,5 @@
 (ns my-app.build.lint
   (:require
-   [clojure.pprint :refer [pprint]]
    [eastwood.lint :as eastwood]
    ))
 
@@ -28,17 +27,29 @@
    :wrong-pre-post
    :wrong-tag])
 
+(defn get-info-warnings
+  [warnings]
+  (map (fn [warning]
+         (select-keys warning [:msg :linter :file :column :line]))
+       warnings))
+
+(defn make-warning-message
+  [warning-info]
+  (str "Linting error '" (:linter warning-info) "' at "
+       (:file warning-info) " line " (:line warning-info) ", column "
+       (:column warning-info) ".\n"
+       (:msg warning-info) ".\n"))
+
 (defn lint []
-  (let [lint-results (eastwood/lint {:source-paths ["src/my-app/backend/"
-                                                    "src/my-app/frontend/"]
+  (let [lint-results (eastwood/lint {:source-paths ["src"]
                                      :add-linters lint-options})
-        warnings (:warnings lint-results)
-        errors (:err lint-results)]
+        info-warnings (get-info-warnings (:warnings lint-results))
+        warning-messages (map make-warning-message info-warnings)]
     (println "Linting the code...")
-    (if (or (pos? (count warnings))
-            (not= errors nil))
+    (if (or (pos? (count (:warnings lint-results)))
+            (not= (:errors lint-results) nil))
       (do
-        (pprint warnings)
-        (pprint errors)
+        (dorun
+          (map println warning-messages))
         (throw (Exception. "Lint error!")))
       :OK)))

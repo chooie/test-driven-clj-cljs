@@ -1,7 +1,5 @@
 (ns my-app.build.dev
   (:require
-   [boot.core :as boot]
-   [boot.task.built-in :as boot-tasks]
    [clojure.pprint :refer [pprint]]
    [com.stuartsierra.component :as component]
    [my-app.backend.core :as my-app]
@@ -47,35 +45,13 @@
   (stop)
   (fix/refresh))
 
-(defn reloadable-task [callback]
-  (boot/with-pass-thru _
-    (with-bindings {#'*ns* *ns*}
-      (safe-refresh)
-      (callback))))
+(defn analyse []
+  (idiomatic/analyse))
 
-(boot/deftask quick-check []
-  "Lint and run tests"
-  (reloadable-task
-   (fn []
-     (lint/lint)
-     (tester/run-tests))))
+(defn check []
+  (lint/lint)
+  (tester/run-tests))
 
-(boot/deftask analyse []
-  "Perform idiomatic code analysis"
-  (reloadable-task
-   (fn []
-     (idiomatic/analyse))))
-
-(boot/deftask check-all []
-  "Analyse, lint, and test"
-  (comp
-   (analyse)
-   (quick-check)))
-
-(boot/deftask watch-check []
-  "Repeatedly check code after every update"
-  (comp
-   (boot-tasks/speak)
-   (boot-tasks/watch
-    :verbose true)
-   (quick-check)))
+(defn t []
+  (safe-refresh)
+  (check))

@@ -1,5 +1,5 @@
 (set-env!
- :resource-paths #{"src" "resources"}
+ :resource-paths #{"boot_tasks" "resources" "src"}
  :dependencies '[
                  [clj-http "3.7.0"]
                  [com.stuartsierra/component "0.3.2"]
@@ -20,4 +20,9 @@
                  ])
 
 (require
- '[my-app.build.dev :as dev])
+ '[my-app.boot-tasks.core :as my-app]
+ '[my-app.build.dev :as dev]
+ )
+
+;; Note: I can't get the reloadable build working for any namespaces required
+;; here
