@@ -1,4 +1,4 @@
-(ns my-app.build.user
+(ns my-app.build.dev
   (:require
    [boot.core :as boot]
    [boot.task.built-in :as boot-tasks]

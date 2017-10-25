@@ -10,13 +10,14 @@
                  [org.clojure/clojurescript "1.9.946"]
                  [ring "1.6.2"]
 
-                 ;; Dev
+                 ;; Dev/Test
                  [jonase/eastwood "0.2.5"
-                  :exclusions
-                  [org.clojure/clojure]]
-                 [jonase/kibit "0.1.5"]
-                 [org.clojure/tools.namespace "0.2.11"]
+                  :exclusions [org.clojure/clojure]
+                  :scope "test"
+                  ]
+                 [jonase/kibit "0.1.5" :scope "test"]
+                 [org.clojure/tools.namespace "0.2.11" :scope "test"]
                  ])
 
 (require
- '[my-app.build.user :refer :all])
+ '[my-app.build.dev :as dev])
