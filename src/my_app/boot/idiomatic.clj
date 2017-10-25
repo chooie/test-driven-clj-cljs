@@ -16,6 +16,7 @@
     nil))
 
 (defn analyse []
+  (println "Analysing the code for idiomatic errors...")
   (let [errors (get-idiomatic-errors)]
     (if (pos? (count errors))
       (throw (Exception. "Idiomatic errors!"))

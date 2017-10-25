@@ -29,8 +29,8 @@
    :wrong-tag])
 
 (defn lint []
-  (let [lint-results (eastwood/lint {:source-paths ["src dev"]
-                                     :test-paths ["src"]
+  (let [lint-results (eastwood/lint {:source-paths ["src/my-app/backend/"
+                                                    "src/my-app/frontend/"]
                                      :add-linters lint-options})
         warnings (:warnings lint-results)
         errors (:err lint-results)]
