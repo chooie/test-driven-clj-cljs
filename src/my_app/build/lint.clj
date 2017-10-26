@@ -49,7 +49,6 @@
     (if (or (pos? (count (:warnings lint-results)))
             (not= (:errors lint-results) nil))
       (do
-        (dorun
-          (map println warning-messages))
+        (run! println warning-messages)
         (throw (Exception. "Lint error!")))
       :OK)))
