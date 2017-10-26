@@ -2,6 +2,7 @@
   (:require
    [boot.core :as boot]
    [boot.task.built-in :as boot-tasks]
+   [my-app.build.client :as client]
    [my-app.build.dev :as dev]
    ))
 
@@ -34,3 +35,8 @@
    (boot-tasks/watch
     :verbose true)
    (quick-check)))
+
+(boot/deftask build []
+  (reloadable-task
+   (fn []
+     (client/build-cljs))))
