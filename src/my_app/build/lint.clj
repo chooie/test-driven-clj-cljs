@@ -1,6 +1,7 @@
 (ns my-app.build.lint
   (:require
    [eastwood.lint :as eastwood]
+   [my-app.backend.error :as error]
    ))
 
 (defonce lint-options
@@ -50,5 +51,5 @@
             (not= (:errors lint-results) nil))
       (do
         (run! println warning-messages)
-        (throw (Exception. "Lint error!")))
+        (error/throw-with-trace "Lint error!"))
       :OK)))

@@ -3,6 +3,7 @@
    [boot.core :as boot]
    [clojure.java.io :as io]
    [kibit.driver :as kibit-driver]
+   [my-app.backend.error :as error]
    ))
 
 (defn- get-idiomatic-errors
@@ -19,5 +20,5 @@
   (println "Analysing the code for idiomatic errors...")
   (let [errors (get-idiomatic-errors)]
     (if (pos? (count errors))
-      (throw (Exception. "Idiomatic errors!"))
+      (error/throw-with-trace "Idiomatic errors!")
       :OK)))
