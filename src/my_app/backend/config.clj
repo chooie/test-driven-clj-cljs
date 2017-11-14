@@ -17,8 +17,7 @@
                   :host "localhost"
                   :port 80
                   :logging-level :info}
-    (do
-      (error/throw-with-trace (str "No profile '" profile "'")))))
+    (error/throw-with-trace (str "No profile '" profile "'"))))
 
 (defn get-fully-qualified-url
   [config]
