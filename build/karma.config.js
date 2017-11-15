@@ -9,9 +9,9 @@ module.exports = function(config) {
     },
     files: [
       rootPath + "goog/base.js",
-      rootPath + "js/main.js",
+      rootPath + "main.js",
       {
-        pattern: rootPath + "my_app/**/*.js",
+        pattern: rootPath + "main.out/**/*.js",
         included: false
       }
     ],
