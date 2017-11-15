@@ -13,7 +13,7 @@
   []
   (alter-var-root
    #'system
-   (constantly (my-app/system "test-automation"))))
+   (constantly (my-app/system :test-automation))))
 
 (defn start []
   (alter-var-root #'system component/start))
@@ -33,7 +33,7 @@
 (test/use-fixtures :once fixture)
 
 (test/deftest core-smoke-test
-  (let [config (config/get-config-for "test-automation")
+  (let [config (config/get-config-for :test-automation)
         server-response (clj-http-client/get
                          (config/get-fully-qualified-url config))
         response-body (:body server-response)]

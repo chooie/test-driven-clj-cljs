@@ -1,21 +1,23 @@
-(ns my-app.backend.config)
+(ns my-app.backend.config
+  (:require
+   [my-app.backend.error :as error]))
 
 (defn get-config-for
   [profile]
-  (condp = profile
-    "development" {:protocol "http"
+  (case profile
+    :development {:protocol "http"
                    :host "localhost"
                    :port 8080
                    :logging-level :info}
-    "test-automation" {:protocol "http"
+    :test-automation {:protocol "http"
                        :host "localhost"
                        :port 8081
                        :logging-level :warn}
-    "production" {:protocol "http"
+    :production {:protocol "http"
                   :host "localhost"
                   :port 80
                   :logging-level :info}
-    :default (throw (Exception. (str "No profile '" profile "'")))))
+    (error/throw-with-trace (str "No profile '" profile "'"))))
 
 (defn get-fully-qualified-url
   [config]

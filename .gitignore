@@ -13,3 +13,6 @@ pom.xml.asc
 
 # Build output
 out/
+
+# NPM Binaries
+node_modules/fsevents/lib/binding/Release/node-v51-darwin-x64/

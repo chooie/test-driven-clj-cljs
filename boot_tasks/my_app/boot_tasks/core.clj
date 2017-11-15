@@ -1,5 +1,7 @@
 (ns my-app.boot-tasks.core
   (:require
+   [adzerk.boot-cljs :as boot-cljs]
+   [adzerk.boot-cljs-repl :as boot-cljs-repl]
    [boot.core :as boot]
    [boot.task.built-in :as boot-tasks]
    [my-app.build.client :as client]
@@ -36,7 +38,11 @@
     :verbose true)
    (quick-check)))
 
-(boot/deftask build []
-  (reloadable-task
-   (fn []
-     (client/build-cljs))))
+(boot/deftask start-cljs-repl []
+  (comp
+   (boot-tasks/watch)
+   (boot-cljs-repl/cljs-repl)
+   (boot-cljs/cljs
+    :source-map true
+    :optimizations :none)
+   (boot-tasks/target :dir #{client/build-directory})))

@@ -18,7 +18,7 @@
   []
   (alter-var-root
    #'system
-   (constantly (my-app/system "development"))))
+   (constantly (my-app/system :development))))
 
 (defn start []
   (alter-var-root #'system component/start))

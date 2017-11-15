@@ -3,3 +3,7 @@
 (enable-console-print!)
 
 (println "Hello world!")
+
+(defn foo
+  []
+  (println "Foobar!"))
