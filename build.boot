@@ -12,6 +12,7 @@
 
                  ;; Dev/Test
                  [adzerk/boot-cljs-repl "0.3.3" :scope "test"]
+                 [adzerk/boot-cljs "2.1.4" :scope "test"]
                  [com.cemerick/piggieback "0.2.1"  :scope "test"]
                  [jonase/eastwood "0.2.5"
                   :exclusions [org.clojure/clojure]

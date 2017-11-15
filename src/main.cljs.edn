@@ -1,0 +1,3 @@
+{:require [my-app.frontend.core]
+ :init-fns [my-app.frontend.core/foo]
+ :compiler-options {}}
