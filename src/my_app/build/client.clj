@@ -4,12 +4,14 @@
    [me.raynes.fs :as fs]
    ))
 
+(def build-directory "out/")
+
 (defn clean
   []
-  (fs/delete-dir "out"))
+  (fs/delete-dir build-directory))
 
 (defn build-cljs
   []
   (clean)
-  (fs/copy-dir "resources/public" "out")
-  (cljs-build/build "src" {:output-to "out/js/main.js"}))
+  (fs/copy-dir "resources/public" build-directory)
+  (cljs-build/build "src" {:output-to (str build-directory "js/main.js")}))
