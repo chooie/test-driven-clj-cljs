@@ -41,6 +41,8 @@
 (boot/deftask start-cljs-repl []
   (comp
    (boot-tasks/watch)
+   (boot/with-pass-thru _
+     (client/clean))
    (boot-cljs-repl/cljs-repl)
    (boot-cljs/cljs
     :source-map true

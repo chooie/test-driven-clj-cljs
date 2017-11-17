@@ -1,19 +1,15 @@
-let rootPath = "out/"
 module.exports = function(config) {
+  let basePath = "../out/";
   config.set({
-    basePath: "..",
-    frameworks: ["cljs-test"],
-    client: {
-      args: ["my_app.frontend.test_runner.run-all-tests"],
-      captureConsole: true
-    },
+    basePath: __dirname,
     files: [
-      rootPath + "goog/base.js",
-      rootPath + "main.js",
+      basePath + "karma_cljs.out/goog/base.js",
       {
-        pattern: rootPath + "main.out/**/*.js",
-        included: false
-      }
+        pattern: basePath + "karma_cljs.out/**/*.js",
+        included: true,
+        served: true
+      },
+      basePath + "karma_cljs.js",
     ],
     port: 9876,
     colors: true,
@@ -22,7 +18,7 @@ module.exports = function(config) {
     // Possible logging options:
     // config.LOG_DISABLE || config.LOG_ERROR || config.LOG_WARN ||
     // config.LOG_INFO || config.LOG_DEBUG
-    logLevel: config.LOG_WARN,
+    logLevel: config.LOG_DEBUG,
     singleRun: false
   });
 };
