@@ -5,6 +5,7 @@ module.exports = function(config) {
     files: [
       basePath + "karma_cljs.out/goog/base.js",
       basePath + "karma_cljs.out/cljs_deps.js",
+      basePath + "karma_cljs.js",
       {
         pattern: basePath + "*.js",
         included: false,
