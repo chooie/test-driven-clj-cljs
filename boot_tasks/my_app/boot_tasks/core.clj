@@ -40,10 +40,18 @@
 
 (boot/deftask start-cljs-repl []
   (comp
+   ;; Uncomment this for debugging purposes
+   #_(boot-tasks/show :fileset true)
    (boot-tasks/watch)
-   (boot/with-pass-thru _
-     (client/clean))
    (boot-cljs-repl/cljs-repl)
+   (boot-cljs/cljs
+    :source-map true
+    :optimizations :none)
+   (boot-tasks/target :dir #{client/build-directory})))
+
+(boot/deftask build-dev []
+  (comp
+   (boot-tasks/show :fileset true)
    (boot-cljs/cljs
     :source-map true
     :optimizations :none)

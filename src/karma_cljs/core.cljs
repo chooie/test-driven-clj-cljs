@@ -1,7 +1,5 @@
-(ns karma-cljs.core
-  (:require
-   [cljs.test :as test :include-macros true]))
+(ns karma-cljs.core)
 
-(defn start-running-tests
-  []
-  (test/run-all-tests))
+(enable-console-print!)
+
+(println "Hello, world! From Karma")

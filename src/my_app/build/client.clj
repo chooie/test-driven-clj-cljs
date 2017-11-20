@@ -7,4 +7,5 @@
 
 (defn clean
   []
+  (println (str "Clearing the contents of the '" build-directory "' directory"))
   (fs/delete-dir build-directory))

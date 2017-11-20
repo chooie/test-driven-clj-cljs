@@ -1,5 +1,6 @@
 (set-env!
- :resource-paths #{"boot_tasks" "resources" "src"}
+ :resource-paths #{"resources"}
+ :source-paths  #{"boot_tasks" "src"}
  :dependencies '[
                  [clj-http "3.7.0"]
                  [com.stuartsierra/component "0.3.2"]
