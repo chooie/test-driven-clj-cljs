@@ -4,7 +4,6 @@
    [adzerk.boot-cljs-repl :as boot-cljs-repl]
    [boot.core :as boot]
    [boot.task.built-in :as boot-tasks]
-   [my-app.build.client :as client]
    [my-app.build.dev :as dev]
    ))
 
@@ -47,7 +46,7 @@
    (boot-cljs/cljs
     :source-map true
     :optimizations :none)
-   (boot-tasks/target :dir #{client/build-directory})))
+   (boot-tasks/target :dir #{"generated/automated-testing"})))
 
 (boot/deftask build-dev []
   (comp
@@ -55,4 +54,4 @@
    (boot-cljs/cljs
     :source-map true
     :optimizations :none)
-   (boot-tasks/target :dir #{client/build-directory})))
+   (boot-tasks/target :dir #{"generated/development"})))

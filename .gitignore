@@ -12,7 +12,7 @@ pom.xml.asc
 .hg/
 
 # Build output
-out/
+generated/
 
 # NPM Binaries
 node_modules/fsevents/lib/binding/Release/node-v51-darwin-x64/
