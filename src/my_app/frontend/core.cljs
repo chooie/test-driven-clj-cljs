@@ -2,7 +2,7 @@
 
 (enable-console-print!)
 
-(println "Hello world!")
+(println "Hello world!!!")
 
 (defn foo
   []

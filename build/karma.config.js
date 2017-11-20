@@ -1,15 +1,21 @@
 module.exports = function(config) {
-  let basePath = "../out/";
+  let basePath = "../generated/automated-testing/";
   config.set({
     basePath: __dirname,
     files: [
       basePath + "karma_cljs.out/goog/base.js",
+      basePath + "karma_cljs.out/cljs_deps.js",
       {
-        pattern: basePath + "karma_cljs.out/**/*.js",
-        included: true,
+        pattern: basePath + "*.js",
+        included: false,
         served: true
       },
-      basePath + "karma_cljs.js",
+      {
+        pattern: basePath + "karma_cljs.out/**/*.js",
+        included: false,
+        served: true
+      },
+      "../src/javascript/adapter.js",
     ],
     port: 9876,
     colors: true,
