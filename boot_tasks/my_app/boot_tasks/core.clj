@@ -7,11 +7,15 @@
    [my-app.build.dev :as dev]
    ))
 
-(defn reloadable-task [callback]
-  (boot/with-pass-thru _
-    (with-bindings {#'*ns* *ns*}
-      (dev/safe-refresh)
-      (callback))))
+(defn reloadable-task
+  ([]
+   ;; Callback does nothing
+   (reloadable-task #(do)))
+  ([callback]
+   (boot/with-pass-thru _
+     (with-bindings {#'*ns* *ns*}
+       (dev/safe-refresh)
+       (callback)))))
 
 (boot/deftask quick-check []
   "Lint and run tests"
@@ -42,6 +46,7 @@
    ;; Uncomment this for debugging purposes
    #_(boot-tasks/show :fileset true)
    (boot-tasks/watch)
+   (reloadable-task)
    (boot-cljs-repl/cljs-repl)
    (boot-cljs/cljs
     :source-map true
