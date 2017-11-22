@@ -15,7 +15,7 @@
   [karma & namespaces]
   `(if (nil? ~karma)
      (cljs.test/run-tests ~@namespaces)
-     (do (jx.reporter.karma/start ~karma (tests-count ~@namespaces))
+     (do (karma-cljs.core/start ~karma (tests-count ~@namespaces))
          (cljs.test/run-tests (cljs.test/empty-env ::karma) ~@namespaces))))
 
 (defmacro run-all-tests
@@ -24,9 +24,9 @@
   names matching the regular expression (with re-matches) will be
   tested."
   ([karma]
-   `(jx.reporter.karma/run-all-tests ~karma #".*"))
+   `(karma-cljs.macros/run-all-tests ~karma #".*"))
   ([karma re]
-   `(jx.reporter.karma/run-tests
+   `(karma-cljs.macros/run-tests
       ~karma
       ~@(into '()
               (comp (filter #(re-matches re (name %)))

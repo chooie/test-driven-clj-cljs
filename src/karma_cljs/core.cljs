@@ -1,6 +1,13 @@
 (ns karma-cljs.core
+  (:require
+   [cljs.pprint :as pprint]
+   [cljs.test :as test]
+   [clojure.data :as data]
+   [clojure.string :as string]
+   )
   (:require-macros
-   [karma-cljs.macros :as karma-cljs-macros]))
+   [karma-cljs.macros :as karma-cljs-macros]
+   ))
 
 (enable-console-print!)
 
@@ -30,14 +37,14 @@
 
 (defn- indent [n s]
   (let [indentation (reduce str "" (repeat n " "))]
-    (clojure.string/replace s #"\n" (str "\n" indentation))))
+    (string/replace s #"\n" (str "\n" indentation))))
 
 (defn- remove-last-new-line [s]
   (subs s 0 (dec (count s))))
 
 (defn- format-fn [indentation [c & q]]
   (let [e (->> q
-               (map #(with-out-str (fipp.clojure/pprint %)))
+               (map #(with-out-str (pprint/pprint %)))
                (apply str)
                (str "\n"))]
     (str "(" c (indent (+ indentation 2) (remove-last-new-line e)) ")")))
@@ -49,19 +56,19 @@
                         (if value
                           (indent (+ indentation 2)
                                   (-> value
-                                      (fipp.clojure/pprint)
+                                      (pprint/pprint)
                                       (with-out-str)
                                       (remove-last-new-line)))
                           "\n")))
-          [removed added] (clojure.data/diff a b)]
+          [removed added] (data/diff a b)]
       (str (format "-" removed)
            (format (str "\n" (apply str (repeat indentation " ")) "+") added)))))
 
 (defn- format-log [{:keys [expected actual message testing-contexts-str] :as result}]
   (let [indentation (count "expected: ")]
     (str
-      "FAIL in   " (cljs.test/testing-vars-str result) "\n"
-      (when-not (s/blank? testing-contexts-str)
+      "FAIL in   " (test/testing-vars-str result) "\n"
+      (when-not (string/blank? testing-contexts-str)
         (str "\"" testing-contexts-str "\"\n"))
       (if (and (seq? expected)
                (seq? actual))
@@ -79,22 +86,22 @@
 
 (def test-var-time-start (volatile! (now)))
 
-(defmethod cljs.test/report :karma [_])
+(defmethod test/report :karma [_])
 
 ;; By default, all report types for :cljs.test reporter are printed
-(derive ::karma :cljs.test/default)
+(derive ::karma :test/default)
 
 ;; Do not print "Ran <t> tests containing <a> assertions."
-(defmethod cljs.test/report [::karma :summary] [_])
+(defmethod test/report [::karma :summary] [_])
 
 ;; Do not print "Testing <ns>"
-(defmethod cljs.test/report [::karma :begin-test-ns] [m])
+(defmethod test/report [::karma :begin-test-ns] [m])
 
-(defmethod cljs.test/report [::karma :begin-test-var] [_]
+(defmethod test/report [::karma :begin-test-var] [_]
   (vreset! test-var-time-start (now))
   (vreset! test-var-result []))
 
-(defmethod cljs.test/report [::karma :end-test-var] [m]
+(defmethod test/report [::karma :end-test-var] [m]
   (let [var-meta (meta (:var m))
         result   {"suite"       [(:ns var-meta)]
                   "description" (:name var-meta)
@@ -104,15 +111,15 @@
                   "log"         (map format-log @test-var-result)}]
     (karma-result! result)))
 
-(defmethod cljs.test/report [::karma :fail] [m]
-  (cljs.test/inc-report-counter! :fail)
-  (vswap! test-var-result conj (assoc m :testing-contexts-str (cljs.test/testing-contexts-str))))
+(defmethod test/report [::karma :fail] [m]
+  (test/inc-report-counter! :fail)
+  (vswap! test-var-result conj (assoc m :testing-contexts-str (test/testing-contexts-str))))
 
-(defmethod cljs.test/report [::karma :error] [m]
-  (cljs.test/inc-report-counter! :error)
-  (vswap! test-var-result conj (assoc m :testing-contexts-str (cljs.test/testing-contexts-str))))
+(defmethod test/report [::karma :error] [m]
+  (test/inc-report-counter! :error)
+  (vswap! test-var-result conj (assoc m :testing-contexts-str (test/testing-contexts-str))))
 
-(defmethod cljs.test/report [::karma :end-run-tests] [_]
+(defmethod test/report [::karma :end-run-tests] [_]
   (karma-complete!))
 
 (defn start [tc total-count]
