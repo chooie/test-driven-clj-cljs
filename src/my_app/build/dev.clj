@@ -34,7 +34,7 @@
 
 (defn reset []
   (stop)
-  (fix/refresh 'my-app.boot.user/go))
+  (fix/refresh 'my-app.build.dev/go))
 
 (defn safe-refresh
   "It's important that we stop the component before refreshing all the

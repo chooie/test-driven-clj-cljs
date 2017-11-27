@@ -10,7 +10,7 @@
   []
   (kibit-driver/run
     (for [folder (boot/get-env :directories)
-          :let [file-path (io/file folder)]
+          :let [file-path (io/file (str folder "/my_app"))]
           :when (.exists file-path)
           ]
       file-path)
