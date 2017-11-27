@@ -51,8 +51,7 @@
    (boot-cljs-repl/cljs-repl)
    (boot-cljs/cljs
     :source-map true
-    :optimizations :none
-    :compiler-options {:output-dir "generated/"})
+    :optimizations :none)
    (boot-tasks/target :dir #{"generated/automated-testing"})))
 
 (boot/deftask build-dev []
@@ -60,8 +59,7 @@
    (boot-tasks/show :fileset true)
    (boot-cljs/cljs
     :source-map true
-    :optimizations :none
-    :compiler-options {:output-dir "generated/"})
+    :optimizations :none)
    (boot-tasks/target :dir #{"generated/development"})))
 
 (boot/deftask cider

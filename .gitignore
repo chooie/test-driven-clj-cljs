@@ -14,6 +14,9 @@ pom.xml.asc
 # Build output
 generated/
 
+## TODO: Figure out why stuff is still being build to the 'out' directory
+out/
+
 # NPM Binaries
 node_modules/fsevents/lib/binding/Release/node-v51-darwin-x64/
 

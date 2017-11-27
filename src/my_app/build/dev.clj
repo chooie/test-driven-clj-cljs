@@ -1,5 +1,6 @@
 (ns my-app.build.dev
   (:require
+   [adzerk.boot-cljs-repl :as boot-cljs-repl]
    [clojure.pprint :refer [pprint]]
    [com.stuartsierra.component :as component]
    [my-app.backend.core :as my-app]
@@ -55,3 +56,6 @@
 (defn t []
   (safe-refresh)
   (check))
+
+(defn start-cljs []
+  (boot-cljs-repl/start-repl))
