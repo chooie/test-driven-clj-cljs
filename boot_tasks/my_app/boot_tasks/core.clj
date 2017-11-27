@@ -11,6 +11,7 @@
   ([]
    ;; Callback does nothing
    (reloadable-task #(identity nil)))
+
   ([callback]
    (boot/with-pass-thru _
      (with-bindings {#'*ns* *ns*}
@@ -50,7 +51,8 @@
    (boot-cljs-repl/cljs-repl)
    (boot-cljs/cljs
     :source-map true
-    :optimizations :none)
+    :optimizations :none
+    :compiler-options {:output-dir "generated/"})
    (boot-tasks/target :dir #{"generated/automated-testing"})))
 
 (boot/deftask build-dev []
@@ -58,7 +60,8 @@
    (boot-tasks/show :fileset true)
    (boot-cljs/cljs
     :source-map true
-    :optimizations :none)
+    :optimizations :none
+    :compiler-options {:output-dir "generated/"})
    (boot-tasks/target :dir #{"generated/development"})))
 
 (boot/deftask cider
@@ -73,7 +76,6 @@
          concat '[cider.nrepl/cider-middleware
                   refactor-nrepl.middleware/wrap-refactor])
   identity)
-
 
 (boot/deftask start-cider-development-repl []
   (comp

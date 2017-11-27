@@ -26,10 +26,16 @@
                  [weasel "0.7.0" :scope "test"]
                  ])
 
-(require
- '[my-app.boot-tasks.core :as my-app]
- '[my-app.build.dev :as dev]
- )
+(defn clear-aliases []
+  (ns-unalias 'boot.user 'my-app)
+  (ns-unalias 'boot.user 'dev))
 
-;; Note: I can't get the reloadable build working for any namespaces required
-;; here
+(defn setup-working-namespaces []
+  (println "Setting up working namespaces...")
+  (clear-aliases)
+  (require
+  '[my-app.boot-tasks.core :as my-app]
+  '[my-app.build.dev :as dev])
+  )
+
+(setup-working-namespaces)
