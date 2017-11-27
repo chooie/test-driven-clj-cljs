@@ -10,7 +10,7 @@
 (defn reloadable-task
   ([]
    ;; Callback does nothing
-   (reloadable-task (identity nil)))
+   (reloadable-task #(identity nil)))
   ([callback]
    (boot/with-pass-thru _
      (with-bindings {#'*ns* *ns*}
