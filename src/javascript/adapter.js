@@ -1,5 +1,3 @@
 (function (karma) {
-  karma.start = function() {
-    karma_cljs.core.start_running_tests(karma);
-  }
+  karma.start = karma_cljs.core.create_start_function(karma);
 }(window.__karma__));

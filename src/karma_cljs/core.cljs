@@ -1,9 +1,10 @@
 (ns karma-cljs.core
   (:require
    [cljs.pprint :as pprint]
-   [cljs.test :as test]
+   [cljs.test :as cljs-test]
    [clojure.data :as data]
    [clojure.string :as string]
+   [karma-cljs.core-test :as my-test]
    )
   (:require-macros
    [karma-cljs.macros :as karma-cljs-macros]
@@ -11,36 +12,50 @@
 
 (enable-console-print!)
 
-(println "Hello, world! From Karma")
+(.log js/console "Hello, world! From Karma")
 
 (def karma (volatile! nil))
 
 (defn karma? [] (not (nil? @karma)))
 
-(defn- karma-info! [m]
+(defn- karma-info!
+  "For reporting other data. E.g. number of tests or debugging messages"
+  [m]
+  (.log js/console "Starting karma-info!")
   (when (karma?)
+    (.log js/console "Starting karma-info! on non-nil karma!")
     (.info @karma (clj->js m))))
 
-(defn- karma-result! [m]
+(defn- karma-result!
+  "For indicating that a single test has finished"
+  [m]
+  (.log js/console "Reporting karma-result!")
   (when (karma?)
+    (.log js/console "Reporting karma-result on non-nil karma!")
     (.result @karma (clj->js m))))
 
-(defn- coverage-result []
+(defn- coverage-result
+  []
   #js {"coverage" (aget js/window "__coverage__")})
 
-(defn- karma-complete! []
+(defn- karma-complete!
+  "The client completed execution of all tests"
+  []
+  (enable-console-print!)
+  (.log js/console "Completing!")
   (when (karma?)
+    (.log js/console "Completing with Karma!")
     (.complete @karma (coverage-result))))
 
-(defn- now []
+(defn- get-date-now []
   (.getTime (js/Date.)))
 
-(defn- indent [n s]
-  (let [indentation (reduce str "" (repeat n " "))]
-    (string/replace s #"\n" (str "\n" indentation))))
+(defn- indent [number-of-spaces the-string]
+  (let [indentation (reduce str "" (repeat number-of-spaces " "))]
+    (string/replace the-string #"\n" (str "\n" indentation))))
 
-(defn- remove-last-new-line [s]
-  (subs s 0 (dec (count s))))
+(defn- remove-last-new-line [the-string]
+  (subs the-string 0 (dec (count the-string))))
 
 (defn- format-fn [indentation [c & q]]
   (let [e (->> q
@@ -62,12 +77,14 @@
                           "\n")))
           [removed added] (data/diff a b)]
       (str (format "-" removed)
-           (format (str "\n" (apply str (repeat indentation " ")) "+") added)))))
+           (format (str "\n" (apply str (repeat indentation " ")) "+")
+                   added)))))
 
-(defn- format-log [{:keys [expected actual message testing-contexts-str] :as result}]
+(defn- format-log
+  [{:keys [expected actual message testing-contexts-str] :as result}]
   (let [indentation (count "expected: ")]
     (str
-      "FAIL in   " (test/testing-vars-str result) "\n"
+      "FAIL in   " (cljs-test/testing-vars-str result) "\n"
       (when-not (string/blank? testing-contexts-str)
         (str "\"" testing-contexts-str "\"\n"))
       (if (and (seq? expected)
@@ -84,48 +101,71 @@
 
 (def test-var-result (volatile! []))
 
-(def test-var-time-start (volatile! (now)))
+(def test-var-time-start (volatile! (get-date-now)))
 
-(defmethod test/report :karma [_])
+(defmethod cljs-test/report :karma
+  [_])
 
 ;; By default, all report types for :cljs.test reporter are printed
-(derive ::karma :test/default)
+(derive ::karma :cljs-test/default)
 
-;; Do not print "Ran <t> tests containing <a> assertions."
-(defmethod test/report [::karma :summary] [_])
+(defmethod cljs-test/report [::karma :summary]
+  [_]
+  ;; Do not print "Testing <ns>"
+  )
 
-;; Do not print "Testing <ns>"
-(defmethod test/report [::karma :begin-test-ns] [m])
+(defmethod cljs-test/report [::karma :begin-test-ns]
+  [m]
+  ;; Do not print "Testing <ns>"
+  )
 
-(defmethod test/report [::karma :begin-test-var] [_]
-  (vreset! test-var-time-start (now))
+(defmethod cljs-test/report [::karma :begin-test-var]
+  [_]
+  (vreset! test-var-time-start (get-date-now))
   (vreset! test-var-result []))
 
-(defmethod test/report [::karma :end-test-var] [m]
+(defmethod cljs-test/report [::karma :end-test-var]
+  [m]
   (let [var-meta (meta (:var m))
         result   {"suite"       [(:ns var-meta)]
                   "description" (:name var-meta)
                   "success"     (zero? (count @test-var-result))
                   "skipped"     nil
-                  "time"        (- (now) @test-var-time-start)
+                  "time"        (- (get-date-now) @test-var-time-start)
                   "log"         (map format-log @test-var-result)}]
+    (.log js/console result)
     (karma-result! result)))
 
-(defmethod test/report [::karma :fail] [m]
-  (test/inc-report-counter! :fail)
-  (vswap! test-var-result conj (assoc m :testing-contexts-str (test/testing-contexts-str))))
+(defmethod cljs-test/report [::karma :fail]
+  [m]
+  (cljs-test/inc-report-counter! :fail)
+  (vswap! test-var-result conj (assoc m
+                                      :testing-contexts-str
+                                      (cljs-test/testing-contexts-str))))
 
-(defmethod test/report [::karma :error] [m]
-  (test/inc-report-counter! :error)
-  (vswap! test-var-result conj (assoc m :testing-contexts-str (test/testing-contexts-str))))
+(defmethod cljs-test/report [::karma :error]
+  [m]
+  ;; TODO: Should this call karma.error?
+  (cljs-test/inc-report-counter! :error)
+  (vswap! test-var-result conj (assoc m
+                                      :testing-contexts-str
+                                      (cljs-test/testing-contexts-str))))
 
-(defmethod test/report [::karma :end-run-tests] [_]
+(defmethod cljs-test/report [::karma :end-run-tests]
+  [_]
+  (.log js/console "HEYYYYYYYY")
   (karma-complete!))
 
-(defn start [tc total-count]
+(defn start
+  [tc total-count]
   (vreset! karma tc)
   (karma-info! {:total total-count}))
 
 (defn ^:export start-running-tests
   [karma]
-  (karma-cljs-macros/run-all-tests karma))
+  (karma-cljs-macros/run-all-tests ::karma))
+
+(defn ^:export create-start-function
+  [karma]
+  (fn []
+    (start-running-tests karma)))
