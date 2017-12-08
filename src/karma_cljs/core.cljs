@@ -163,7 +163,8 @@
 
 (defn ^:export start-running-tests
   [karma]
-  (karma-cljs-macros/run-all-tests ::karma))
+  (enable-console-print!)
+  (karma-cljs-macros/run-all-tests karma #"(karma-cljs)\..*-test"))
 
 (defn ^:export create-start-function
   [karma]
