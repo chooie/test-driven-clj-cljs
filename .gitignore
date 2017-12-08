@@ -14,7 +14,7 @@ pom.xml.asc
 # Build output
 generated/
 
-## TODO: Figure out why stuff is still being build to the 'out' directory
+## TODO: Figure out why stuff is still being built to the 'out' directory
 out/
 
 # NPM Binaries
