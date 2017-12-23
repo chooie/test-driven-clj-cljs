@@ -149,7 +149,6 @@
 
 (defn ^:export start-running-tests
   [karma]
-  (.log js/console "heyooo")
   (karma-cljs-macros/run-all-tests
    karma
    #"(karma-cljs)\..*-test"))

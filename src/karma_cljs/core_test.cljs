@@ -3,5 +3,5 @@
    [cljs.test :as test :include-macros true]))
 
 (test/deftest core-test
-  (test/testing "Is true"
-    (test/is false)))
+  (test/testing "Number assertions"
+    (test/is (= true (> 1 2)) "1 is smaller than 2")))
