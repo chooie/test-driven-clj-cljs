@@ -16,7 +16,7 @@
   `(if (nil? ~karma)
      (cljs.test/run-tests ~@namespaces)
      (do (karma-cljs.core/start ~karma (tests-count ~@namespaces))
-         (cljs.test/run-tests (cljs.test/empty-env ::karma) ~@namespaces))))
+         (cljs.test/run-tests (cljs.test/empty-env :karma) ~@namespaces))))
 
 (defmacro run-all-tests
   "Runs all tests in all namespaces.

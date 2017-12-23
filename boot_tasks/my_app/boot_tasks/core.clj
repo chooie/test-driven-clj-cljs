@@ -52,15 +52,7 @@
    (boot-cljs/cljs
     :source-map true
     :optimizations :none)
-   (boot-tasks/target :dir #{"generated/automated-testing"})))
-
-(boot/deftask build-dev []
-  (comp
-   (boot-tasks/show :fileset true)
-   (boot-cljs/cljs
-    :source-map true
-    :optimizations :none)
-   (boot-tasks/target :dir #{"generated/development"})))
+   (boot-tasks/target :dir #{(str dev/generated-directory "development")})))
 
 (boot/deftask cider
   "CIDER profile"
