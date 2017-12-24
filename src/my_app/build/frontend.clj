@@ -2,6 +2,8 @@
   (:require
    [cljs.build.api :as cljs-build]
    [clojure.java.io :as io]
+   [clojure.java.shell :as clojure-java-shell]
+   #_[clojure.string :as string]
    ))
 
 (def generated-directory "generated/")
@@ -38,3 +40,19 @@
    "src/my_app/frontend/"
    {:output-dir automated-testing-directory
     :output-to (str automated-testing-directory "js/my_app.js")}))
+
+(defn run-frontend-tests
+  []
+  (println "Running frontend tests...")
+  (let [karma-binary-path "./node_modules/karma/bin/karma"
+        process-results (clojure-java-shell/sh
+                         karma-binary-path
+                         "run"
+                         "karma.config.js"
+                         "--no-colors")
+        output (get process-results :out)
+        exit-code (get process-results :exit)]
+    (when (> exit-code 0)
+      (println output)
+      (throw (Exception. "Frontend tests failed!")))
+    (println "Frontend Tests: OK")))
