@@ -30,16 +30,27 @@
 (defn build-cljs
   []
   (println "Generating frontend code...")
-  (delete-file-or-directory automated-testing-directory)
-  (cljs-build/build
-   "src/karma_cljs"
-   {:output-dir automated-testing-directory
-    :output-to (str automated-testing-directory "js/karma_cljs.js")})
+  (let [started-at (System/currentTimeMillis)]
+    (delete-file-or-directory automated-testing-directory)
+    (cljs-build/build
+     "src/karma_cljs"
+     {:output-dir automated-testing-directory
+      :output-to (str automated-testing-directory "js/karma_cljs.js")
+      :parallel-build true})
 
-  (cljs-build/build
-   "src/my_app/frontend/"
-   {:output-dir automated-testing-directory
-    :output-to (str automated-testing-directory "js/my_app.js")}))
+    (cljs-build/build
+     "src/my_app/frontend/"
+     {:output-dir automated-testing-directory
+      :output-to (str automated-testing-directory "js/my_app.js")
+      :parallel-build true})
+    (let [finished-at (System/currentTimeMillis)
+          elapsed (- finished-at started-at)
+          time-string (with-precision 2
+                        (str (/ (double elapsed) 1000) " seconds"))
+          expression-string (str
+                             "Compiled frontend code after: "
+                             time-string)]
+      (println expression-string))))
 
 (defn run-tests-with-karma
   []
