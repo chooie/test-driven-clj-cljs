@@ -41,7 +41,7 @@
    {:output-dir automated-testing-directory
     :output-to (str automated-testing-directory "js/my_app.js")}))
 
-(defn run-frontend-tests
+(defn run-tests-with-karma
   []
   (println "Running frontend tests...")
   (let [karma-binary-path "./node_modules/karma/bin/karma"
@@ -52,7 +52,7 @@
                          "--no-colors")
         output (get process-results :out)
         exit-code (get process-results :exit)]
+    (println output)
     (when (> exit-code 0)
-      (println output)
       (throw (Exception. "Frontend tests failed!")))
     (println "Frontend Tests: OK")))

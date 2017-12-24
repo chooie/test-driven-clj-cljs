@@ -52,14 +52,13 @@
 
 (defn check []
   (lint/lint)
-  (tester/run-tests))
+  (tester/run-tests)
+  (frontend/run-tests-with-karma))
 
 (defn t []
   (safe-refresh)
   (frontend/build-cljs)
-  (check)
-  ;; TODO: run frontend unit tests here
-  )
+  (check))
 
 (defn start-cljs []
   (boot-cljs-repl/start-repl))
