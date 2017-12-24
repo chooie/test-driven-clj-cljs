@@ -3,6 +3,7 @@
    [cljs.build.api :as cljs-build]
    [clojure.java.io :as io]
    [clojure.java.shell :as clojure-java-shell]
+   [my-app.build.time-reporting :as time-reporting]
    ))
 
 (def generated-directory "generated/")
@@ -34,35 +35,10 @@
     :output-to (str automated-testing-directory karma-output-file)
     :parallel-build true}))
 
-(defn- get-time-in-ms-now
-  []
-  (System/currentTimeMillis))
-
-(defn- get-time-in-seconds
-  [elapsed]
-  (with-precision 2
-    (/ (double elapsed) 1000)))
-
-(defn- get-elapsed-time-in-seconds
-  [starting-time ending-time]
-  (get-time-in-seconds (- ending-time starting-time)))
-
-(defn- measure-and-report-elapsed-time
-  [started-at]
-  (let [finished-at (get-time-in-ms-now)
-        elapsed-seconds (get-elapsed-time-in-seconds
-                         started-at
-                         finished-at)
-        expression-string (str
-                           "Compiled frontend code after: "
-                           elapsed-seconds
-                           " seconds")]
-    (println expression-string)))
-
 (defn build-cljs
   []
   (println "Generating frontend code...")
-  (let [started-at (get-time-in-ms-now)
+  (let [started-at (time-reporting/get-time-in-ms-now)
         karma-directory "src/karma_cljs"
         karma-output-file "js/karma_cljs.js"
         app-directory "src/my_app/frontend/"
@@ -70,7 +46,9 @@
     (delete-file-or-directory automated-testing-directory)
     (compile-cljs karma-directory karma-output-file)
     (compile-cljs app-directory app-output-directory)
-    (measure-and-report-elapsed-time started-at)))
+    (time-reporting/measure-and-report-elapsed-time
+     "Compiled frontend code after: "
+     started-at)))
 
 (defn run-tests-with-karma
   []
