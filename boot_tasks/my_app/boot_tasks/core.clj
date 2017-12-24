@@ -5,6 +5,7 @@
    [boot.core :as boot]
    [boot.task.built-in :as boot-tasks]
    [my-app.build.dev :as dev]
+   [my-app.build.frontend :as frontend]
    ))
 
 (defn reloadable-task
@@ -52,7 +53,7 @@
    (boot-cljs/cljs
     :source-map true
     :optimizations :none)
-   (boot-tasks/target :dir #{(str dev/generated-directory "development")})))
+   (boot-tasks/target :dir #{(str frontend/generated-directory "development")})))
 
 (boot/deftask cider
   "CIDER profile"

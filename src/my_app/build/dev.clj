@@ -1,51 +1,15 @@
 (ns my-app.build.dev
   (:require
    [adzerk.boot-cljs-repl :as boot-cljs-repl]
-   [cljs.build.api :as cljs-build]
-   [clojure.java.io :as io]
    [clojure.pprint :as clj-pprint :refer [pprint]]
    [com.stuartsierra.component :as component]
    [my-app.backend.core :as my-app]
    [my-app.build.fix :as fix]
+   [my-app.build.frontend :as frontend]
    [my-app.build.idiomatic :as idiomatic]
    [my-app.build.lint :as lint]
    [my-app.build.test :as tester]
    ))
-
-(def generated-directory "generated/")
-(def automated-testing-directory (str generated-directory "automated-testing/"))
-
-(declare delete-recursively)
-(defn- delete-all-files-in-directory
-  [file]
-  (doseq [current-file (.listFiles file)]
-      (delete-recursively current-file)))
-
-(defn- delete-recursively
-  [file]
-  (when (.isDirectory file)
-    (delete-all-files-in-directory file))
-  (io/delete-file file))
-
-(defn delete-file-or-directory
-  [path]
-  (let [file (io/file path)]
-    (when (.exists file)
-      (delete-recursively file))))
-
-(defn build-cljs
-  []
-  (println "Generating frontend code...")
-  (delete-file-or-directory automated-testing-directory)
-  (cljs-build/build
-   "src/karma_cljs"
-   {:output-dir automated-testing-directory
-    :output-to (str automated-testing-directory "js/karma_cljs.js")})
-
-  (cljs-build/build
-   "src/my_app/frontend/"
-   {:output-dir automated-testing-directory
-    :output-to (str automated-testing-directory "js/my_app.js")}))
 
 (def system nil)
 
@@ -92,7 +56,7 @@
 
 (defn t []
   (safe-refresh)
-  (build-cljs)
+  (frontend/build-cljs)
   (check)
   ;; TODO: run frontend unit tests here
   )
