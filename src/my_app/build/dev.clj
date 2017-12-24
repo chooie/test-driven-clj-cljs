@@ -35,11 +35,17 @@
 
 (defn build-cljs
   []
+  (println "Generating frontend code...")
   (delete-file-or-directory automated-testing-directory)
-  (cljs-build/build "src/karma_cljs"
-                    {:output-dir automated-testing-directory
-                     :output-to (str automated-testing-directory
-                                     "js/main.js")}))
+  (cljs-build/build
+   "src/karma_cljs"
+   {:output-dir automated-testing-directory
+    :output-to (str automated-testing-directory "js/karma_cljs.js")})
+
+  (cljs-build/build
+   "src/my_app/frontend/"
+   {:output-dir automated-testing-directory
+    :output-to (str automated-testing-directory "js/my_app.js")}))
 
 (def system nil)
 
@@ -86,7 +92,10 @@
 
 (defn t []
   (safe-refresh)
-  (check))
+  (build-cljs)
+  (check)
+  ;; TODO: run frontend unit tests here
+  )
 
 (defn start-cljs []
   (boot-cljs-repl/start-repl))

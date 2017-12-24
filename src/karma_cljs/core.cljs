@@ -4,7 +4,9 @@
    [cljs.test :as cljs-test]
    [clojure.data :as data]
    [clojure.string :as string]
-   [karma-cljs.core-test :as my-test]
+   ;; NOTE: right now we're including this namespace so that the tests are
+   ;; picked up
+   [my-app.frontend.all-tests]
    )
   (:require-macros
    [karma-cljs.macros :as karma-cljs-macros]
@@ -151,4 +153,4 @@
   [karma]
   (karma-cljs-macros/run-all-tests
    karma
-   #"(karma-cljs)\..*-test"))
+   #"(my-app.frontend)\..*-test"))

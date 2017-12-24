@@ -1,8 +1,7 @@
-(ns my-app.frontend.core)
-
-(enable-console-print!)
-
-(println "Hello world!!!")
+(ns my-app.frontend.core
+  (:require
+   [my-app.frontend.all-tests]
+   [my-app.frontend.core-test]))
 
 (defn foo
   []

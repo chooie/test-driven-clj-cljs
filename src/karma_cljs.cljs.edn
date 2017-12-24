@@ -1,2 +1,0 @@
-{:require [karma-cljs.core]
- :compiler-options {}}

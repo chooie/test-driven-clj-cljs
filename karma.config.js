@@ -1,6 +1,7 @@
 module.exports = function(config) {
   let basePath = "generated/automated-testing/";
-  let projectPath = basePath + "karma_cljs/";
+  let karmaPath = basePath + "karma_cljs/";
+  let myAppPath = basePath + "my_app/";
   config.set({
 
     // Base path that will be used to resolve all patterns (eg. files, exclude)
@@ -25,7 +26,12 @@ module.exports = function(config) {
         served: true
       },
       {
-        pattern: basePath + "js/main.js",
+        pattern: basePath + "js/karma_cljs.js",
+        included: true,
+        served: true
+      },
+      {
+        pattern: basePath + "js/my_app.js",
         included: true,
         served: true
       },
@@ -35,13 +41,21 @@ module.exports = function(config) {
         served: true
       },
       {
-        pattern: projectPath + "**/*.js",
+        pattern: karmaPath + "**/*.js",
         included: true,
         served: true
       },
       {
+        pattern: myAppPath + "**/*.js",
+      },
+      {
         pattern: "src/load_karma_cljs.js",
         included: true,
+        served: true
+      },
+      {
+        pattern: "src/load_my_app.js",
+        include: true,
         served: true
       },
       {
