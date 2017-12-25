@@ -1,31 +1,13 @@
 (ns my-app.build.frontend
   (:require
    [cljs.build.api :as cljs-build]
-   [clojure.java.io :as io]
    [clojure.java.shell :as clojure-java-shell]
    [my-app.build.time-reporting :as time-reporting]
+   [my-app.build.util :as util]
    ))
 
 (def generated-directory "generated/")
 (def automated-testing-directory (str generated-directory "automated-testing/"))
-
-(declare delete-recursively)
-(defn- delete-all-files-in-directory
-  [file]
-  (doseq [current-file (.listFiles file)]
-    (delete-recursively current-file)))
-
-(defn- delete-recursively
-  [file]
-  (when (.isDirectory file)
-    (delete-all-files-in-directory file))
-  (io/delete-file file))
-
-(defn delete-file-or-directory
-  [path]
-  (let [file (io/file path)]
-    (when (.exists file)
-      (delete-recursively file))))
 
 (defn- compile-cljs
   [karma-directory karma-output-file]
@@ -42,10 +24,10 @@
         karma-directory "src/karma_cljs"
         karma-output-file "js/karma_cljs.js"
         app-directory "src/my_app/frontend/"
-        app-output-directory "js/my_app.js"]
-    (delete-file-or-directory automated-testing-directory)
+        app-output-file "js/my_app.js"]
+    (util/delete-file-or-directory automated-testing-directory)
     (compile-cljs karma-directory karma-output-file)
-    (compile-cljs app-directory app-output-directory)
+    (compile-cljs app-directory app-output-file)
     (time-reporting/measure-and-report-elapsed-time
      "Compiled frontend code after: "
      started-at)))
