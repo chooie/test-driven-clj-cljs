@@ -35,7 +35,8 @@
 (defn run-tests-with-karma
   []
   (println "Running frontend tests...")
-  (let [karma-binary-path "./node_modules/karma/bin/karma"
+  (let [started-at (time-reporting/get-time-in-ms-now)
+        karma-binary-path "./node_modules/karma/bin/karma"
         process-results (clojure-java-shell/sh
                          karma-binary-path
                          "run"
@@ -46,4 +47,8 @@
     (println output)
     (when (> exit-code 0)
       (throw (Exception. "Frontend tests failed!")))
-    (println "Frontend Tests: OK")))
+    (time-reporting/measure-and-report-elapsed-time
+     "Ran frontend tests after: "
+     started-at)
+    (println "Frontend Tests: OK")
+    ))
