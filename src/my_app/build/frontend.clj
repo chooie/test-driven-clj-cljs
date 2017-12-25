@@ -25,7 +25,9 @@
         karma-output-file "js/karma_cljs.js"
         app-directory "src/my_app/frontend/"
         app-output-file "js/my_app.js"]
-    (util/delete-file-or-directory automated-testing-directory)
+    (util/delete-file-or-directory
+     (str automated-testing-directory "karma_cljs"))
+    (util/delete-file-or-directory (str automated-testing-directory "my_app"))
     (compile-cljs karma-directory karma-output-file)
     (compile-cljs app-directory app-output-file)
     (time-reporting/measure-and-report-elapsed-time
