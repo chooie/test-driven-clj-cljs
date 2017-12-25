@@ -9,6 +9,7 @@
    [my-app.build.frontend :as frontend]
    [my-app.build.idiomatic :as idiomatic]
    [my-app.build.lint :as lint]
+   [my-app.build.time-reporting :as time-reporting]
    ))
 
 (def system nil)
@@ -57,9 +58,13 @@
   (println "CHECK OK!"))
 
 (defn t []
-  (safe-refresh)
-  (frontend/build-cljs)
-  (check))
+  (let [started-at (time-reporting/get-time-in-ms-now)]
+    (safe-refresh)
+    (frontend/build-cljs)
+    (check)
+    (time-reporting/measure-and-report-elapsed-time
+     "Build and check finished after: "
+     started-at)))
 
 (defn start-cljs []
   (boot-cljs-repl/start-repl))
