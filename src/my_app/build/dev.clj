@@ -4,11 +4,11 @@
    [clojure.pprint :as clj-pprint :refer [pprint]]
    [com.stuartsierra.component :as component]
    [my-app.backend.core :as my-app]
+   [my-app.build.backend-test :as backend-tester]
    [my-app.build.fix :as fix]
    [my-app.build.frontend :as frontend]
    [my-app.build.idiomatic :as idiomatic]
    [my-app.build.lint :as lint]
-   [my-app.build.test :as tester]
    ))
 
 (def system nil)
@@ -52,8 +52,9 @@
 
 (defn check []
   (lint/lint)
-  (tester/run-tests)
-  (frontend/run-tests-with-karma))
+  (backend-tester/run-tests)
+  (frontend/run-tests-with-karma)
+  (println "CHECK OK!"))
 
 (defn t []
   (safe-refresh)

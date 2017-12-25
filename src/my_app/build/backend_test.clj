@@ -1,4 +1,4 @@
-(ns my-app.build.test
+(ns my-app.build.backend-test
   (:require
    [eftest.report.pretty :as eftest-report]
    [eftest.runner :as eftest]
