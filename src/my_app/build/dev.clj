@@ -45,8 +45,12 @@
   background and we'll have lost the reference. This will then cause
   a resource in use error when we want to start the component up again"
   []
-  (stop)
-  (fix/refresh))
+  (let [started-at (time-reporting/get-time-in-ms-now)]
+    (stop)
+    (fix/refresh)
+    (time-reporting/measure-and-report-elapsed-time
+     "Reloaded namespaces after: "
+     started-at)))
 
 (defn analyse []
   (idiomatic/analyse))
