@@ -2,6 +2,7 @@
   (:require
    [eastwood.lint :as eastwood]
    [my-app.backend.error :as error]
+   [my-app.build.time-reporting :as time-reporting]
    ))
 
 (defonce lint-options
@@ -41,15 +42,28 @@
        (:column warning-info) ".\n"
        (:msg warning-info) ".\n"))
 
+(defn- warnings?
+  [lint-results]
+  (pos? (count (:warnings lint-results))))
+
+(defn- errors?
+  [lint-results]
+  (not= (get lint-results :errors) nil))
+
 (defn lint []
-  (let [lint-results (eastwood/lint {:source-paths ["src"]
+  (println "Linting the code...")
+  (let [started-at (time-reporting/get-time-in-ms-now)
+        lint-results (eastwood/lint {:source-paths ["src"]
                                      :add-linters lint-options})
         info-warnings (get-info-warnings (:warnings lint-results))
         warning-messages (map make-warning-message info-warnings)]
-    (println "Linting the code...")
-    (if (or (pos? (count (:warnings lint-results)))
-            (not= (:errors lint-results) nil))
+    (if (or (warnings? lint-results)
+            (errors? lint-results))
       (do
         (run! println warning-messages)
         (error/throw-with-trace "Lint error!"))
-      :OK)))
+      (do
+        (time-reporting/measure-and-report-elapsed-time
+         "Linted the code after: "
+         started-at)
+        :OK))))
