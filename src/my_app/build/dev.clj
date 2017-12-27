@@ -58,13 +58,13 @@
 (defn check []
   (lint/lint)
   (backend-tester/run-tests)
+  (frontend/build-cljs)
   (frontend/run-tests-with-karma)
   (println "CHECK OK!"))
 
 (defn t []
   (let [started-at (time-reporting/get-time-in-ms-now)]
     (safe-refresh)
-    (frontend/build-cljs)
     (check)
     (time-reporting/measure-and-report-elapsed-time
      "Build and check finished after: "
