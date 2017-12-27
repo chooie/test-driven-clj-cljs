@@ -11,11 +11,11 @@ pom.xml.asc
 .hgignore
 .hg/
 
+# Mac OS X
+.DS_STORE
+
 # Build output
 generated/
-
-## TODO: Figure out why stuff is still being built to the 'out' directory
-out/
 
 # NPM Binaries
 node_modules/fsevents/lib/binding/Release/node-v51-darwin-x64/

@@ -24,7 +24,6 @@
                    [karma-reporter "3.0.0-alpha1" :scope "test"]
                    [org.clojure/tools.namespace "0.2.11" :scope "test"]
                    [org.clojure/tools.nrepl "0.2.12" :scope "test"]
-                   [org.seleniumhq.selenium/selenium-server "3.8.1"]
                    [org.seleniumhq.selenium/selenium-java "3.8.1" :scope "test"]
                    [weasel "0.7.0" :scope "test"]
                    ]))
@@ -41,5 +40,23 @@
    '[my-app.boot-tasks.core :as my-app]
    '[my-app.build.dev :as dev])
   (println "Ready!"))
+
+(defn show-classpath []
+  (let [class-path (get-env :boot-class-path)
+        class-path-vector (clojure.string/split class-path #":")]
+    (clojure.pprint/pprint class-path-vector)))
+
+(deftask check-conflicts
+  "Verify there are no dependency conflicts."
+  []
+  (with-pass-thru fs
+    (require '[boot.pedantic :as pedant])
+    (require '[boot.pod :as pod])
+    (let [dep-conflicts (resolve 'pedant/dep-conflicts)]
+      (if-let [conflicts (not-empty (dep-conflicts pod/env))]
+        (throw (ex-info (str "Unresolved dependency conflicts. "
+                             "Use :exclusions to resolve them!")
+                        conflicts))
+        (println "\nVerified there are no dependency conflicts.")))))
 
 (setup-working-namespaces)
