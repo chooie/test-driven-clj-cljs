@@ -24,6 +24,8 @@
                    [karma-reporter "3.0.0-alpha1" :scope "test"]
                    [org.clojure/tools.namespace "0.2.11" :scope "test"]
                    [org.clojure/tools.nrepl "0.2.12" :scope "test"]
+                   [org.seleniumhq.selenium/selenium-server "3.8.1"]
+                   [org.seleniumhq.selenium/selenium-java "3.8.1" :scope "test"]
                    [weasel "0.7.0" :scope "test"]
                    ]))
 
@@ -38,6 +40,6 @@
   (require
    '[my-app.boot-tasks.core :as my-app]
    '[my-app.build.dev :as dev])
-  )
+  (println "Ready!"))
 
 (setup-working-namespaces)
