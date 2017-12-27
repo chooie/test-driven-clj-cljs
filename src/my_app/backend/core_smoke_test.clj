@@ -1,6 +1,7 @@
 (ns my-app.backend.core-smoke-test
   (:require
    [clj-http.client :as clj-http-client]
+   [clojure.string :as string]
    [clojure.test :as test]
    [com.stuartsierra.component :as component]
    [my-app.backend.config :as config]
@@ -37,5 +38,5 @@
         server-response (clj-http-client/get
                          (config/get-fully-qualified-url config))
         response-body (:body server-response)]
-    (test/testing "Can get a hello world from the server"
-      (test/is (= "Hello, World!" response-body)))))
+    (test/testing "Can get html from the server"
+      (test/is (string/includes? response-body "This is my app")))))

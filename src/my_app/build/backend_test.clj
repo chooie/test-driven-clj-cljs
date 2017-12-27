@@ -13,4 +13,6 @@
         number-of-fails (:fail results)]
     (if (pos? number-of-fails)
       (error/throw-with-trace (str "FAIL: " number-of-fails))
-      :OK)))
+      (do
+        (println "Backend Tests: OK")
+        :OK))))

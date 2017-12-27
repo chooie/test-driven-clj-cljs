@@ -7,7 +7,7 @@
 (defn handler [_request]
   {:status 200
    :headers {"Content-Type" "text/html"}
-   :body "Hello, World!"})
+   :body (slurp "resources/index.html")})
 
 (defrecord Server [port]
   component/Lifecycle
