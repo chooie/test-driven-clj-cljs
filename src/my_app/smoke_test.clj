@@ -1,21 +1,30 @@
 (ns my-app.smoke-test
-  #_(:require
-   [clojure.test :as _test]
-   )
-  #_(:import
-   [org.openqa.selenium.By]
-   [org.openqa.selenium.firefox.FirefoxDriver]
+  (:require
+   [clj-webdriver.taxi :as driver]
+   [my-app.backend.config :as config]
+   [my-app.backend.test-automation-system :as test-automation-system]
    ))
 
-#_(System/setProperty "webdriver.chrome.driver" "binaries/chromedriver")
-#_(System/setProperty "webdriver.gecko.driver" "binaries/geckodriver")
 
-#_(test/deftest smoke-test
-  (let [_driver (org.openqa.selenium.firefox.FirefoxDriver.)]
-    (println "poop")
-    (test/is (= false))
-    #_(.get driver "https://google.com")
-    #_(let [element (.findElement driver (.name org.openqa.selenium.By "q"))]
-      #_(.sendKeys element "ChromeDriver")
-      #_(.submit element)
-      (println "poop"))))
+
+(System/setProperty "webdriver.gecko.driver" "binaries/geckodriver")
+
+(defn check-browser-loads-page []
+  (driver/set-driver! {:browser :firefox})
+  (try
+    (test-automation-system/init)
+    (test-automation-system/start)
+    (driver/to
+     (config/get-fully-qualified-url
+      (config/get-config-for
+       :test-automation)))
+    (let [expected-text "This is my app"
+          actual-text (driver/text "#app-declaration")]
+      (assert
+       (= expected-text actual-text)
+       (str "The correct text is displayed on the page\n"
+            "Expected: " expected-text "\n"
+            "Actual: " actual-text)))
+    (finally
+      (test-automation-system/stop)
+      (driver/quit))))

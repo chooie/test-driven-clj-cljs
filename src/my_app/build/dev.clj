@@ -10,6 +10,7 @@
    [my-app.build.idiomatic :as idiomatic]
    [my-app.build.lint :as lint]
    [my-app.build.time-reporting :as time-reporting]
+   [my-app.smoke-test :as smoke]
    ))
 
 (def system nil)
@@ -55,11 +56,19 @@
 (defn analyse []
   (idiomatic/analyse))
 
+(defn run-smoke-tests []
+  (let [started-at (time-reporting/get-time-in-ms-now)]
+    (smoke/check-browser-loads-page)
+    (time-reporting/measure-and-report-elapsed-time
+     "Ran smoke tests after: "
+     started-at)))
+
 (defn check []
   (lint/lint)
   (backend-tester/run-tests)
   (frontend/build-cljs)
   (frontend/run-tests-with-karma)
+  (run-smoke-tests)
   (println "CHECK OK!"))
 
 (defn t []

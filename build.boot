@@ -15,6 +15,7 @@
                    ;; Dev/Test
                    [adzerk/boot-cljs-repl "0.3.3" :scope "test"]
                    [adzerk/boot-cljs "2.1.4" :scope "test"]
+                   [clj-webdriver "0.7.2"]
                    [com.cemerick/piggieback "0.2.1"  :scope "test"]
                    [jonase/eastwood "0.2.5"
                     :exclusions [org.clojure/clojure]
@@ -24,7 +25,10 @@
                    [karma-reporter "3.0.0-alpha1" :scope "test"]
                    [org.clojure/tools.namespace "0.2.11" :scope "test"]
                    [org.clojure/tools.nrepl "0.2.12" :scope "test"]
-                   [org.seleniumhq.selenium/selenium-java "3.8.1" :scope "test"]
+                   [org.seleniumhq.selenium/selenium-htmlunit-driver
+                    "2.52.0"
+                    :scope "test"
+                    ]
                    [weasel "0.7.0" :scope "test"]
                    ]))
 
