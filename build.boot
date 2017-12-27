@@ -53,7 +53,7 @@
     (require '[boot.pedantic :as pedant])
     (require '[boot.pod :as pod])
     (let [dep-conflicts (resolve 'pedant/dep-conflicts)]
-      (if-let [conflicts (not-empty (dep-conflicts pod/env))]
+      (if-let [conflicts (not-empty (dep-conflicts (resolve 'pod/env)))]
         (throw (ex-info (str "Unresolved dependency conflicts. "
                              "Use :exclusions to resolve them!")
                         conflicts))
