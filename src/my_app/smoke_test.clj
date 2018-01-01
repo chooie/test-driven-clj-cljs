@@ -5,26 +5,39 @@
    [my-app.backend.test-automation-system :as test-automation-system]
    ))
 
+(defn- useFirefoxDriver
+  []
+  (System/setProperty "webdriver.gecko.driver" "binaries/geckodriver")
+  (driver/set-driver! {:browser :firefox}))
 
+(defn- start-system
+  []
+  (test-automation-system/init)
+  (test-automation-system/start))
 
-(System/setProperty "webdriver.gecko.driver" "binaries/geckodriver")
-
-(defn check-browser-loads-page []
-  (driver/set-driver! {:browser :firefox})
-  (try
-    (test-automation-system/init)
-    (test-automation-system/start)
-    (driver/to
+(defn- navigate-to-homepage
+  []
+  (driver/to
      (config/get-fully-qualified-url
       (config/get-config-for
-       :test-automation)))
-    (let [expected-text "This is my app"
-          actual-text (driver/text "#app-declaration")]
-      (assert
+       :test-automation))))
+
+(defn- assert-text-matches
+  [expected-text actual-text]
+  (assert
        (= expected-text actual-text)
        (str "The correct text is displayed on the page\n"
             "Expected: " expected-text "\n"
             "Actual: " actual-text)))
+
+(defn check-browser-loads-page []
+  (useFirefoxDriver)
+  (try
+    (start-system)
+    (navigate-to-homepage)
+    (let [expected-text "This is my app"
+          actual-text (driver/text "#app-declaration")]
+      (assert-text-matches expected-text actual-text))
     (finally
       (test-automation-system/stop)
       (driver/quit))))
