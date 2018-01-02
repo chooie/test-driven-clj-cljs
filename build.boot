@@ -7,17 +7,17 @@
                    [com.stuartsierra/component "0.3.2"]
                    [com.taoensso/timbre "4.10.0"]
                    [eftest "0.3.2"]
-                   [me.raynes/fs "1.4.6"]
                    [org.clojure/clojure "1.9.0-beta2"]
                    [org.clojure/clojurescript "1.9.946"]
-                   [ring "1.6.2"]
+                   [ring "1.6.3"]
 
                    ;; Dev/Test
                    [adzerk/boot-cljs-repl "0.3.3" :scope "test"]
                    [adzerk/boot-cljs "2.1.4" :scope "test"]
                    [clj-webdriver "0.7.2"]
                    [com.cemerick/piggieback "0.2.1"  :scope "test"]
-                   [jonase/eastwood "0.2.5"
+                   [jonase/eastwood
+                    "0.2.5"
                     :exclusions [org.clojure/clojure]
                     :scope "test"
                     ]
@@ -25,6 +25,10 @@
                    [karma-reporter "3.0.0-alpha1" :scope "test"]
                    [org.clojure/tools.namespace "0.2.11" :scope "test"]
                    [org.clojure/tools.nrepl "0.2.12" :scope "test"]
+                   [org.seleniumhq.selenium/selenium-java
+                    "3.8.1"
+                    :scope "test"
+                    ]
                    [org.seleniumhq.selenium/selenium-htmlunit-driver
                     "2.52.0"
                     :scope "test"

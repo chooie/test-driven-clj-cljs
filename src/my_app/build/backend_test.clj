@@ -7,6 +7,7 @@
 
 (defn run-tests
   []
+  (println "Running backend tests...")
   (let [results (eftest/run-tests
                  (eftest/find-tests "src")
                  {:report eftest-report/report})
