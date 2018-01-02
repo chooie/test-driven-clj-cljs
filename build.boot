@@ -7,6 +7,7 @@
                    [com.stuartsierra/component "0.3.2"]
                    [com.taoensso/timbre "4.10.0"]
                    [eftest "0.3.2"]
+                   [http-kit "2.2.0"]
                    [org.clojure/clojure "1.9.0-beta2"]
                    [org.clojure/clojurescript "1.9.946"]
                    [ring "1.6.3"]
@@ -22,7 +23,6 @@
                     ]
                    [clj-webdriver
                     "0.7.2"
-                    :exclusions [ring/ring-jetty-adapter]
                     :scope "test"
                     ]
                    [com.cemerick/piggieback

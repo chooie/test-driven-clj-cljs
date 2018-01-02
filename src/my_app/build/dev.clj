@@ -10,7 +10,7 @@
    [my-app.build.idiomatic :as idiomatic]
    [my-app.build.lint :as lint]
    [my-app.build.time-reporting :as time-reporting]
-   #_[my-app.smoke-test :as smoke]
+   [my-app.smoke-test :as smoke]
    ))
 
 (def system nil)
@@ -63,7 +63,7 @@
 (defn run-smoke-tests []
   (let [started-at (time-reporting/get-time-in-ms-now)]
     (println "Running smoke tests...")
-    #_(smoke/check-browser-loads-page)
+    (smoke/check-browser-loads-page)
     (time-reporting/measure-and-report-elapsed-time
      "Ran smoke tests after: "
      started-at)))
