@@ -42,7 +42,7 @@
 (defn server-is-down?
   [exit-code output]
   (and
-   (> exit-code 0)
+   (pos? exit-code)
    (string/includes? output "There is no server listening")))
 
 (defn- throw-if-karma-server-is-down
@@ -56,7 +56,7 @@
 
 (defn- throw-if-tests-failed
   [exit-code]
-  (when (> exit-code 0)
+  (when (pos? exit-code)
     (throw (Exception. "Frontend tests failed!"))))
 
 (defn run-tests-with-karma

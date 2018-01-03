@@ -17,6 +17,9 @@ pom.xml.asc
 # Build output
 generated/
 
+# Release artifact
+release/
+
 # NPM Binaries
 node_modules/fsevents/lib/binding/Release/node-v51-darwin-x64/
 

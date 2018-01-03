@@ -21,13 +21,13 @@
 
 (boot/deftask quick-check []
   "Lint and run tests"
-  (reloadable-task dev/check))
+  (boot/with-pass-thru _
+    (dev/check)))
 
 (boot/deftask analyse []
   "Perform idiomatic code analysis"
-  (reloadable-task
-   (fn []
-     (dev/analyse))))
+  (boot/with-pass-thru _
+    (dev/analyse)))
 
 (boot/deftask check-all []
   "Analyse, lint, and test"
@@ -38,6 +38,7 @@
 (boot/deftask watch-check []
   "Repeatedly check code after every update"
   (comp
+   (reloadable-task)
    (boot-tasks/speak)
    (boot-tasks/watch
     :verbose true)
@@ -45,8 +46,6 @@
 
 (boot/deftask start-cljs-repl []
   (comp
-   ;; Uncomment this for debugging purposes
-   #_(boot-tasks/show :fileset true)
    (boot-tasks/watch)
    (reloadable-task)
    (boot-cljs-repl/cljs-repl)
@@ -72,3 +71,17 @@
   (comp
    (cider)
    (start-cljs-repl)))
+
+(boot/deftask build
+  "Builds an uberjar of this project that can be run with java -jar"
+  []
+  (comp
+   (check-all)
+   (boot-tasks/aot
+    :namespace #{'my-app.backend.core})
+   (boot-tasks/uber)
+   (boot-tasks/jar
+    :file "my-app.jar"
+    :main 'my-app.backend.core)
+   (boot-tasks/target
+    :dir #{"release"})))

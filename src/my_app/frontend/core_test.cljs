@@ -4,4 +4,4 @@
 
 (test/deftest core-test
   (test/testing "Number assertions"
-    (test/is (= false (> 1 2)) "1 is smaller than 2")))
+    (test/is (false? (> 1 2)) "1 is smaller than 2")))
