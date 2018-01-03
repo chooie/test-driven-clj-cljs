@@ -6,10 +6,16 @@
 
 (defn handler [request]
   (let [uri (get request :uri)]
-    (if (= uri "/")
-      {:status 200
-       :headers {"Content-Type" "text/html"}
-       :body (slurp "resources/index.html")}
+    (case uri
+      "/" {:status 200
+           :headers {"Content-Type" "text/html"}
+           :body (slurp "resources/index.html")}
+      "/goog.js" {:status 200
+                  :headers {"Content-Type" "text/html"}
+                  :body (slurp "generated/automated-testing/goog/base.js")}
+      "/my_app.js" {:status 200
+                    :headers {"Content-Type" "text/html"}
+                    :body (slurp "generated/automated-testing/js/my_app.js")}
       {:status 404
        :headers {"Content-Type" "text/html"}
        :body (slurp "resources/404.html")})))

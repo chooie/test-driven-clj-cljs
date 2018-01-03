@@ -38,4 +38,14 @@
           text-to-find "404"]
       (assert-route-provides-document-with-text
        non-existant-route
-       text-to-find))))
+       text-to-find)))
+
+  (test/testing "Gets static resource"
+    (let [resource-route "my_app.js"
+          config (config/get-config-for :test-automation)
+          response (clj-http-client/get
+                    (str
+                     (config/get-fully-qualified-url config)
+                     resource-route)
+                    {:throw-exceptions false})]
+      (println response))))
