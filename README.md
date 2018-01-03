@@ -1,13 +1,24 @@
 # my-app
 
-An example of how to setup a Clojure/ClojureScript project.
+An example of how to setup a Clojure/ClojureScript project with a heavy toolset
+for Test-Driven Development.
 
 # External Dependencies
-- Java 1.8+
-- Boot (Build tool)
+- Java 1.8.0_73
+- Node v??
+- Boot 2.7.1 (Build tool)
+
+# Working on the application
+- Start the development REPL
+-- `boot my-app/start-cider-development-repl`
+-- Leave it running
+- Connect to the running REPL
+- Run the dev test checks
+-- `(dev/t)`
 
 # Tasks
-- `boot --help`
+- See all available command line tasks for the application
+-- `boot --help`
 
 ## License
 

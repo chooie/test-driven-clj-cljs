@@ -1,5 +1,7 @@
 # Notes
 ## TODOs
-- Figure out why karma isn't finding tests
-- Serve index page from server
-- Hardcode cider version in emacs (external to project)
+- Create an uberjar task
+- Release the app to production
+-- AWS?
+-- Digital Ocean?
+-- Heroku?
