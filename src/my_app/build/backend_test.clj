@@ -11,9 +11,14 @@
   (let [results (eftest/run-tests
                  (eftest/find-tests "src")
                  {:report eftest-report/report})
-        number-of-fails (:fail results)]
-    (if (pos? number-of-fails)
-      (error/throw-with-trace (str "FAIL: " number-of-fails))
+        number-of-fails (get results :fail)
+        number-of-errors (get results :error)]
+    (if (or (pos? number-of-fails)
+            (pos? number-of-errors))
+      (error/throw-with-trace
+       (str "FAIL:\n"
+            "Failures: " number-of-fails "\n"
+            "Errors: " number-of-errors))
       (do
         (println "Backend Tests: OK")
         :OK))))

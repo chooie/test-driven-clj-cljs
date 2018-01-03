@@ -4,10 +4,15 @@
    [my-app.backend.log :as log])
   (:use [org.httpkit.server :only [run-server]]))
 
-(defn handler [_request]
-  {:status 200
-   :headers {"Content-Type" "text/html"}
-   :body (slurp "resources/index.html")})
+(defn handler [request]
+  (let [uri (get request :uri)]
+    (if (= uri "/")
+      {:status 200
+       :headers {"Content-Type" "text/html"}
+       :body (slurp "resources/index.html")}
+      {:status 404
+       :headers {"Content-Type" "text/html"}
+       :body (slurp "resources/404.html")})))
 
 (defrecord Server [port]
   component/Lifecycle

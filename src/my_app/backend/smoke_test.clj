@@ -22,7 +22,8 @@
         server-response (clj-http-client/get
                          (str
                           (config/get-fully-qualified-url config)
-                          route))
+                          route)
+                         {:throw-exceptions false})
         response-body (:body server-response)]
     (test/is (string/includes? response-body text-to-find))))
 
