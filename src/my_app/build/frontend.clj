@@ -2,12 +2,19 @@
   (:require
    [cljs.build.api :as cljs-build]
    [clojure.java.shell :as clojure-java-shell]
+   [clojure.string :as string]
    [my-app.build.time-reporting :as time-reporting]
    [my-app.build.util :as util]
    ))
 
 (def generated-directory "generated/")
 (def automated-testing-directory (str generated-directory "automated-testing/"))
+
+(defn- clean-up
+  []
+  (util/delete-file-or-directory
+   (str automated-testing-directory "karma_cljs"))
+  (util/delete-file-or-directory (str automated-testing-directory "my_app")))
 
 (defn- compile-cljs
   [karma-directory karma-output-file]
@@ -25,14 +32,32 @@
         karma-output-file "js/karma_cljs.js"
         app-directory "src/my_app/frontend/"
         app-output-file "js/my_app.js"]
-    (util/delete-file-or-directory
-     (str automated-testing-directory "karma_cljs"))
-    (util/delete-file-or-directory (str automated-testing-directory "my_app"))
+    (clean-up)
     (compile-cljs karma-directory karma-output-file)
     (compile-cljs app-directory app-output-file)
     (time-reporting/measure-and-report-elapsed-time
      "Compiled frontend code after: "
      started-at)))
+
+(defn server-is-down?
+  [exit-code output]
+  (and
+   (> exit-code 0)
+   (string/includes? output "There is no server listening")))
+
+(defn- throw-if-karma-server-is-down
+  [exit-code output]
+  (when (server-is-down? exit-code output)
+    (throw
+     (Exception.
+      (str
+       "Failed to run tests!\n"
+       "Did you start the server? (./start_karma.sh)")))))
+
+(defn- throw-if-tests-failed
+  [exit-code]
+  (when (> exit-code 0)
+    (throw (Exception. "Frontend tests failed!"))))
 
 (defn run-tests-with-karma
   []
@@ -47,8 +72,8 @@
         output (get process-results :out)
         exit-code (get process-results :exit)]
     (println output)
-    (when (> exit-code 0)
-      (throw (Exception. "Frontend tests failed!")))
+    (throw-if-karma-server-is-down exit-code output)
+    (throw-if-tests-failed exit-code)
     (time-reporting/measure-and-report-elapsed-time
      "Ran frontend tests after: "
      started-at)
