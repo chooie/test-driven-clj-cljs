@@ -19,8 +19,7 @@
 
   (start [component]
     (log/info (str "Starting server on port " port "..."))
-    (let [server (run-server handler {:port port
-                                      :join? false})]
+    (let [server (run-server handler {:port port})]
       (assoc component :server server)))
 
   (stop [component]
