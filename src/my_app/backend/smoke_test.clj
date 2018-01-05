@@ -48,4 +48,5 @@
                      (config/get-fully-qualified-url config)
                      resource-route)
                     {:throw-exceptions false})]
-      (println response))))
+      (println response)
+      (test/is (= true false)))))

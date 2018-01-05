@@ -6,6 +6,7 @@
                    [clj-http "3.7.0"]
                    [com.stuartsierra/component "0.3.2"]
                    [com.taoensso/timbre "4.10.0"]
+                   [compojure "1.6.0"]
                    [eftest "0.3.2"]
                    [http-kit "2.2.0"]
                    [org.clojure/clojure "1.9.0-beta2"]
