@@ -72,11 +72,18 @@
    (cider)
    (start-cljs-repl)))
 
+(boot/deftask build-production-cljs []
+  (comp
+   (boot-cljs/cljs
+    :optimizations :advanced)
+   (boot-tasks/target :dir #{(str frontend/generated-directory "production")})))
+
 (boot/deftask build
   "Builds an uberjar of this project that can be run with java -jar"
   []
   (comp
    (check-all)
+   (build-production-cljs)
    (boot-tasks/aot
     :namespace #{'my-app.backend.core})
    (boot-tasks/uber)
