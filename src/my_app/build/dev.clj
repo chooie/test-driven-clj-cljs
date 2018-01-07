@@ -18,31 +18,43 @@
 (defn show-system []
   (clj-pprint/pprint system))
 
-(defn init
+(defn- init
   []
   (alter-var-root
    #'system
    (constantly (my-app/system :development))))
 
-(defn start []
+(defn- start []
+  (println "Attempting to start the system...")
+  (init)
   (alter-var-root #'system component/start))
 
 (defn stop []
   (alter-var-root
    #'system
    (fn [system]
-     (when system (component/stop system)))))
+     (println "Attempting to stop the system...")
+     (if system
+       (try (component/stop system)
+            nil
+            (catch Throwable t
+              (prn t)
+              system))
+       (println "System already stopped!")))))
 
 (defn go []
   (if system
     (println "The system is already running!")
     (do
-      (init)
-      (start))))
+      (start)
+      (show-system))))
 
 (defn reset []
   (stop)
-  (fix/refresh 'my-app.build.dev/go))
+  (let [ret (fix/refresh 'my-app.build.dev/go)]
+    (if (instance? Throwable ret)
+      (throw ret)  ;; Let the REPL's exception handling take over
+      ret)))
 
 (defn safe-refresh
   "It's important that we stop the component before refreshing all the

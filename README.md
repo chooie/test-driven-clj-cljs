@@ -20,6 +20,11 @@ for Test-Driven Development.
 - See all available command line tasks for the application
 -- `boot --help`
 
+# Gotchas
+- When connecting to the repl from cider: before starting the system, evaluate
+an expression (e.g. `1`). This is necessary as it seems that cider will
+re-evaluate all clojure files, overwriting any global declarations.
+
 ## License
 
 Copyright © 2017 Charles Hebert

@@ -1,7 +1,11 @@
 # Notes
 ## TODOs
-- Create an uberjar task
+
+* Serve static files
 - Release the app to production
 -- AWS?
 -- Digital Ocean?
 -- Heroku?
+
+## TODO on current task
+-

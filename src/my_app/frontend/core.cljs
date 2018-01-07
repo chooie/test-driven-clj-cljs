@@ -5,4 +5,4 @@
 
 (defn foo
   []
-  (println "Foobar!"))
+  (.log js/console "Loaded frontend!"))

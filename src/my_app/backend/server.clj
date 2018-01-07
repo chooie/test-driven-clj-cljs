@@ -8,6 +8,7 @@
 
 (compojure/defroutes handler
   (compojure/GET "/" [_] (slurp "resources/index.html"))
+  (compojure-route/files "" {:root "generated/development"})
   (compojure-route/not-found (slurp "resources/404.html")))
 
 (defrecord Server [port]
@@ -22,8 +23,11 @@
     (log/info "Stopping server")
     (let [server (:server component)]
       (log/info server)
-      (server)
-      (assoc component :server nil))))
+      (if server
+        (do
+          (server)
+          (assoc component :server nil))
+        (log/info "Server already stopped! Doing nothing.")))))
 
 (defn new-server [port]
   (map->Server {:port port}))
