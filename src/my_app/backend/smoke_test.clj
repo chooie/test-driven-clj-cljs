@@ -9,7 +9,7 @@
 
 (defn fixture
   [f]
-  (test-automation-system/init)
+  (test-automation-system/init :test-automation)
   (test-automation-system/start)
   (f)
   (test-automation-system/stop))

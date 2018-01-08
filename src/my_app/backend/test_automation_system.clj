@@ -7,10 +7,10 @@
 (def system nil)
 
 (defn init
-  []
+  [profile]
   (alter-var-root
    #'system
-   (constantly (my-app/system :test-automation))))
+   (constantly (my-app/system profile))))
 
 (defn start []
   (alter-var-root #'system component/start))

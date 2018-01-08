@@ -11,16 +11,16 @@
   (driver/set-driver! {:browser :firefox}))
 
 (defn- start-system
-  []
-  (test-automation-system/init)
+  [profile]
+  (test-automation-system/init profile)
   (test-automation-system/start))
 
 (defn- navigate-to-homepage
-  []
+  [profile]
   (driver/to
-     (config/get-fully-qualified-url
-      (config/get-config-for
-       :test-automation))))
+   (config/get-fully-qualified-url
+    (config/get-config-for
+     profile))))
 
 (defn- assert-text-matches
   [expected-text actual-text]
@@ -30,12 +30,24 @@
             "Expected: " expected-text "\n"
             "Actual: " actual-text)))
 
-(defn check-browser-loads-page []
+(defn check-browser-loads-test-page []
   (useFirefoxDriver)
   (try
-    (start-system)
-    (navigate-to-homepage)
+    (start-system :test-automation)
+    (navigate-to-homepage :test-automation)
     (let [expected-text "This is my app"
+          actual-text (driver/text "#app-declaration")]
+      (assert-text-matches expected-text actual-text))
+    (finally
+      (test-automation-system/stop)
+      (driver/quit))))
+
+(defn check-browser-loads-dev-page []
+  (useFirefoxDriver)
+  (try
+    (start-system :development)
+    (navigate-to-homepage :development)
+    (let [expected-text "This is my dev app"
           actual-text (driver/text "#app-declaration")]
       (assert-text-matches expected-text actual-text))
     (finally

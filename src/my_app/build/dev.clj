@@ -78,7 +78,8 @@
 (defn run-smoke-tests []
   (let [started-at (time-reporting/get-time-in-ms-now)]
     (println "Running smoke tests...")
-    (smoke/check-browser-loads-page)
+    (smoke/check-browser-loads-test-page)
+    (smoke/check-browser-loads-dev-page)
     (time-reporting/measure-and-report-elapsed-time
      "Ran smoke tests after: "
      started-at)))

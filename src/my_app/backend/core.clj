@@ -14,7 +14,7 @@
       (println (str "Logging level set to '" logging-level "'")))
     (log/info "Building system...")
     (component/system-map
-     :server (server/new-server (:port config)))))
+     :server (server/new-server (:port config) profile))))
 
 (defn -main
   [& _args]
