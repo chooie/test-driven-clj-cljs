@@ -1,17 +1,15 @@
 (ns my-app.build.dev
-  (:require
-   [adzerk.boot-cljs-repl :as boot-cljs-repl]
-   [clojure.pprint :as clj-pprint :refer [pprint]]
-   [com.stuartsierra.component :as component]
-   [my-app.backend.core :as my-app]
-   [my-app.build.backend-test :as backend-tester]
-   [my-app.build.fix :as fix]
-   [my-app.build.frontend :as frontend]
-   [my-app.build.idiomatic :as idiomatic]
-   [my-app.build.lint :as lint]
-   [my-app.build.time-reporting :as time-reporting]
-   [my-app.smoke-test :as smoke]
-   ))
+  (:require [adzerk.boot-cljs-repl :as boot-cljs-repl]
+            [clojure.pprint :as clj-pprint :refer [pprint]]
+            [com.stuartsierra.component :as component]
+            [my-app.backend.core :as my-app]
+            [my-app.build.backend-tester :as backend-tester]
+            [my-app.build.fix :as fix]
+            [my-app.build.frontend :as frontend]
+            [my-app.build.idiomatic :as idiomatic]
+            [my-app.build.lint :as lint]
+            [my-app.build.time-reporting :as time-reporting]
+            [my-app.smoke-test :as smoke]))
 
 (def system nil)
 
@@ -34,6 +32,7 @@
    #'system
    (fn [system]
      (println "Attempting to stop the system...")
+     (show-system)
      (if system
        (try (component/stop system)
             nil
