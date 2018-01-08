@@ -40,13 +40,13 @@
        non-existant-route
        text-to-find)))
 
-  #_(test/testing "Gets static resource"
-      (let [resource-route "automated-testing/js/my_app.js"
-            config (config/get-config-for :test-automation)
-            response (clj-http-client/get
-                      (str
-                       (config/get-fully-qualified-url config)
-                       resource-route)
-                      {:throw-exceptions false})]
-        (test/is (= 200
-                    (get response :status))))))
+  (test/testing "Gets static resource"
+    (let [resource-route "js/my_app.js"
+          config (config/get-config-for :test-automation)
+          response (clj-http-client/get
+                    (str
+                     (config/get-fully-qualified-url config)
+                     resource-route)
+                    {:throw-exceptions false})]
+      (test/is (= 200
+                  (get response :status))))))
