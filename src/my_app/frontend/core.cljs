@@ -3,6 +3,9 @@
    [my-app.frontend.all-tests]
    [my-app.frontend.core-test]))
 
+(.log js/console "Loaded frontend!")
+
 (defn foo
+  ^:export
   []
-  (.log js/console "Loaded frontend!"))
+  (.log js/console "Ran foo!"))

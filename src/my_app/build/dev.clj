@@ -1,15 +1,19 @@
 (ns my-app.build.dev
-  (:require [adzerk.boot-cljs-repl :as boot-cljs-repl]
-            [clojure.pprint :as clj-pprint :refer [pprint]]
-            [com.stuartsierra.component :as component]
-            [my-app.backend.core :as my-app]
-            [my-app.build.backend-tester :as backend-tester]
-            [my-app.build.fix :as fix]
-            [my-app.build.frontend :as frontend]
-            [my-app.build.idiomatic :as idiomatic]
-            [my-app.build.lint :as lint]
-            [my-app.build.time-reporting :as time-reporting]
-            [my-app.smoke-test :as smoke]))
+  (:require
+   [adzerk.boot-cljs-repl :as boot-cljs-repl]
+   [clojure.pprint :as clj-pprint :refer [pprint]]
+   [clojure.tools.namespace.repl :as tools-namespace-repl]
+   [com.stuartsierra.component :as component]
+   [my-app.backend.core :as my-app]
+   [my-app.build.backend-tester :as backend-tester]
+   [my-app.build.fix :as fix]
+   [my-app.build.frontend :as frontend]
+   [my-app.build.idiomatic :as idiomatic]
+   [my-app.build.lint :as lint]
+   [my-app.build.time-reporting :as time-reporting]
+   [my-app.smoke-test :as smoke]))
+
+(tools-namespace-repl/disable-reload!)
 
 (def system nil)
 
