@@ -25,36 +25,34 @@
 (defn- assert-text-matches
   [expected-text actual-text]
   (assert
-       (= expected-text actual-text)
-       (str "The correct text is displayed on the page\n"
-            "Expected: " expected-text "\n"
-            "Actual: " actual-text)))
+   (= expected-text actual-text)
+   (str "The correct text is displayed on the page\n"
+        "Expected: " expected-text "\n"
+        "Actual: " actual-text)))
 
 (defn check-browser-loads-test-page []
   (try
-    (useFirefoxDriver)
     (start-system :test-automation)
     (navigate-to-homepage :test-automation)
     (let [expected-text "This is my app"
           actual-text (driver/text "#app-declaration")]
       (assert-text-matches expected-text actual-text))
     (finally
-      (test-automation-system/stop)
-      (driver/quit))))
+      (test-automation-system/stop))))
 
 (defn check-browser-loads-dev-page []
   (try
-    (useFirefoxDriver)
     (start-system :development)
     (navigate-to-homepage :development)
     (let [expected-text "This is my dev app"
           actual-text (driver/text "#app-declaration")]
       (assert-text-matches expected-text actual-text))
     (finally
-      (test-automation-system/stop)
-      (driver/quit))))
+      (test-automation-system/stop))))
 
 (defn run-tests []
   (try
+    (useFirefoxDriver)
     (check-browser-loads-test-page)
-    (check-browser-loads-dev-page)))
+    (check-browser-loads-dev-page)
+    (driver/quit)))
