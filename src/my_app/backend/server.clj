@@ -10,7 +10,7 @@
 (compojure/defroutes handler
   (compojure/GET "/" [_] (my-app-pages/index))
   (compojure-route/files "" {:root "generated/automated-testing/"})
-  (compojure-route/not-found (slurp "resources/404.html")))
+  (compojure-route/not-found (my-app-pages/not-found)))
 
 (defrecord Server [port]
   component/Lifecycle

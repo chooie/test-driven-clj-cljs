@@ -12,3 +12,11 @@
     [:script {:src "goog/deps.js"}]
     [:script {:src "js/my_app.js"}]
     ]))
+
+(defn not-found []
+  (hiccup-page/html5
+   [:head
+    [:title "404 - Not Found"]]
+   [:body
+    [:h1 "404"]
+    [:p "Sorry, we couldn't find the page you're looking for :("]]))
