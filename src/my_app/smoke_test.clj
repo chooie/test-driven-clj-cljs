@@ -31,8 +31,8 @@
             "Actual: " actual-text)))
 
 (defn check-browser-loads-test-page []
-  (useFirefoxDriver)
   (try
+    (useFirefoxDriver)
     (start-system :test-automation)
     (navigate-to-homepage :test-automation)
     (let [expected-text "This is my app"
@@ -43,8 +43,8 @@
       (driver/quit))))
 
 (defn check-browser-loads-dev-page []
-  (useFirefoxDriver)
   (try
+    (useFirefoxDriver)
     (start-system :development)
     (navigate-to-homepage :development)
     (let [expected-text "This is my dev app"
@@ -53,3 +53,8 @@
     (finally
       (test-automation-system/stop)
       (driver/quit))))
+
+(defn run-tests []
+  (try
+    (check-browser-loads-test-page)
+    (check-browser-loads-dev-page)))
