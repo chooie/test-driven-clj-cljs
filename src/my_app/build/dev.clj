@@ -86,8 +86,8 @@
 
 (defn check []
   (lint/lint)
-  (backend-tester/run-tests)
   (frontend/build-cljs)
+  (backend-tester/run-tests)
   (frontend/run-tests-with-karma)
   (run-smoke-tests)
   (println "CHECK OK!"))
