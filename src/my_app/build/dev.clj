@@ -11,11 +11,12 @@
    [my-app.build.idiomatic :as idiomatic]
    [my-app.build.lint :as lint]
    [my-app.build.time-reporting :as time-reporting]
-   [my-app.smoke-test :as smoke]))
+   [my-app.smoke-test :as smoke]
+   ))
 
 (tools-namespace-repl/disable-reload!)
 
-(def system nil)
+(defonce system nil)
 
 (defn show-system []
   (clj-pprint/pprint system))

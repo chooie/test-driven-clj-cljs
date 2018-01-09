@@ -7,11 +7,17 @@
    [my-app.backend.pages :as my-app-pages])
   (:use [org.httpkit.server :only [run-server]]))
 
+(defn- get-root-by-profile
+  [profile]
+  (if (= profile :test-automation)
+    "generated/automated-testing/"
+    "generated/development/"))
+
 (defn create-handler
   [profile]
   (compojure/routes
    (compojure/GET "/" [_] (my-app-pages/index profile))
-   (compojure-route/files "" {:root "generated/automated-testing/"})
+   (compojure-route/files "" {:root (get-root-by-profile profile)})
    (compojure-route/not-found (my-app-pages/not-found))))
 
 (defrecord Server [port profile]
