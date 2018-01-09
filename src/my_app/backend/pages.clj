@@ -14,10 +14,7 @@
      ]
     [:body
      [:h1#app-declaration "This is my dev app"]
-     [:script {:src "goog/base.js"}]
-     [:script {:src "goog/deps.js"}]
-     [:script {:src "js/my_app.js"}]
-     [:script "goog.require('my_app.frontend.core')"]
+     [:script {:src "main.js"}]
      ]))
 
 (defn index
