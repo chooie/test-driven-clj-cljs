@@ -14,6 +14,8 @@
    [my-app.smoke-test :as smoke]
    ))
 
+;; NOTE: When making changes to this namespace, you will need to manually
+;; reload it. You can do this by running (setup-working-namespaces)
 (tools-namespace-repl/disable-reload!)
 
 (defonce system nil)
@@ -55,7 +57,7 @@
 
 (defn reset []
   (stop)
-  (let [ret (fix/refresh 'my-app.build.dev/go)]
+  (let [ret (fix/refresh {:function-to-run-after-refresh 'my-app.build.dev/go})]
     (if (instance? Throwable ret)
       (throw ret)  ;; Let the REPL's exception handling take over
       ret)))
@@ -68,7 +70,7 @@
   []
   (let [started-at (time-reporting/get-time-in-ms-now)]
     (stop)
-    (fix/refresh)
+    (fix/refresh {})
     (time-reporting/measure-and-report-elapsed-time
      "Reloaded namespaces after: "
      started-at)))
