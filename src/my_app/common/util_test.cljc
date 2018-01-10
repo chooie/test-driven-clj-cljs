@@ -1,4 +1,4 @@
-(ns my-app.common.-util-test
+(ns my-app.common.util-test
   (:require
    [clojure.test :as test]
    [my-app.common.util :as util]))
