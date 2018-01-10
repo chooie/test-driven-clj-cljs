@@ -93,4 +93,9 @@
                         conflicts))
         (println "\nVerified there are no dependency conflicts.")))))
 
+(deftask build
+  "This task is run by the boot buildpack for heroku"
+  []
+  (comp my-app/build-for-production))
+
 (setup-working-namespaces)
