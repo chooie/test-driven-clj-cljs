@@ -9,9 +9,10 @@
 
 (defn- get-root-by-profile
   [profile]
-  (if (= profile :test-automation)
-    "generated/automated-testing/"
-    "generated/development/"))
+  (condp = profile
+    :test-automation "generated/automated-testing/"
+    :development "generated/development/"
+    :production "generated/production"))
 
 (defn create-handler
   [profile]

@@ -78,7 +78,7 @@
     :optimizations :advanced)
    (boot-tasks/target :dir #{(str frontend/generated-directory "production")})))
 
-(boot/deftask build
+(boot/deftask build-for-production
   "Builds an uberjar of this project that can be run with java -jar"
   []
   (comp

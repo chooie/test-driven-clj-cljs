@@ -1,3 +1,4 @@
 {:require [my-app.frontend.core]
  :init-fns [my-app.frontend.core/foo]
- :compiler-options {}}
+ :compiler-options {:asset-path "main.out"
+                    :parallel-build true}}
