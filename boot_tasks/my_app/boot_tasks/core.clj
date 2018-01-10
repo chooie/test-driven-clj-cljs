@@ -19,24 +19,28 @@
        (dev/safe-refresh)
        (callback)))))
 
-(boot/deftask quick-check []
+(boot/deftask quick-check
   "Lint and run tests"
+  []
   (boot/with-pass-thru _
     (dev/check)))
 
-(boot/deftask analyse []
+(boot/deftask analyse
   "Perform idiomatic code analysis"
+  []
   (boot/with-pass-thru _
     (dev/analyse)))
 
-(boot/deftask check-all []
-  "Analyse, lint, and test"
+(boot/deftask check-all
+  "Analyse (disabled - run analyse manually), lint, and test"
+  []
   (comp
-   (analyse)
+   #_(analyse)
    (quick-check)))
 
-(boot/deftask watch-check []
+(boot/deftask watch-check
   "Repeatedly check code after every update"
+  []
   (comp
    (reloadable-task)
    (boot-tasks/speak)

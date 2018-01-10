@@ -5,6 +5,6 @@
 
 (test/deftest string-checking
   (test/testing "returns true when substring is present in string"
-    (test/is (util/string-contains-substring? "foobar" "foo")))
+    (test/is (= true (util/string-contains-substring? "foobar" "foo"))))
   (test/testing "returns false when substring is not present in string"
     (test/is (= false (util/string-contains-substring? "foobar" "baz")))))
