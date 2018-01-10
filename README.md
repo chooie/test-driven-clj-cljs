@@ -9,21 +9,21 @@ for Test-Driven Development.
 - Boot 2.7.1 (Build tool)
 
 # Working on the application
+The idea behind this setup is that you should rarely ever have to restart the
+REPL during development.
+
+## Steps
 - Start the development REPL
 -- `boot my-app/start-cider-development-repl`
 -- Leave it running
 - Connect to the running REPL
 - Run the dev test checks
 -- `(dev/t)`
+- After every change, run the dev test checks
 
 # Tasks
 - See all available command line tasks for the application
 -- `boot --help`
-
-# Gotchas
-- When connecting to the repl from cider: before starting the system, evaluate
-an expression (e.g. `1`). This is necessary as it seems that cider will
-re-evaluate all clojure files, overwriting any global declarations.
 
 ## License
 
