@@ -1,6 +1,6 @@
 {
   "engines": {
-    "node": "7.10.0"
+    "node": "9.4.0"
   },
   "devDependencies": {
     "karma": "1.7.1"

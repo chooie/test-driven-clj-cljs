@@ -9,3 +9,5 @@ if (actualNodeVersion !== requiredNodeVersion) {
   throw "Must have node version '" + requiredNodeVersion + "'. " +
     "You're using '" + actualNodeVersion + "'.";
 }
+
+console.log("Node Version Check: OK (" + rawNodeVersion + ")");
