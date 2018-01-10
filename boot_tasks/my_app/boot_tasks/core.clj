@@ -96,3 +96,8 @@
     :main 'my-app.backend.core)
    (boot-tasks/target
     :dir #{"release"})))
+
+(boot/deftask build
+  "This task is run by the boot buildpack for heroku"
+  []
+  (comp build-for-production))
