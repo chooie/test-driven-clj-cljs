@@ -86,7 +86,6 @@
   "Builds an uberjar of this project that can be run with java -jar"
   []
   (comp
-   (check-all)
    (build-production-cljs)
    (boot-tasks/aot
     :namespace #{'my-app.backend.core})
@@ -96,8 +95,3 @@
     :main 'my-app.backend.core)
    (boot-tasks/target
     :dir #{"release"})))
-
-(boot/deftask build
-  "This task is run by the boot buildpack for heroku"
-  []
-  (comp build-for-production))
