@@ -19,11 +19,11 @@
 
 (defn get-java-version-from-current-runtime
   []
-  (System/getProperty "java.version"))
+  (System/getProperty "java.runtime.version"))
 
 (defn check-java-version
   []
-  (let [expected-java-version "1.8.0_45"
+  (let [expected-java-version "1.8.0_45-b14"
         actual-java-version (get-java-version-from-current-runtime)]
     (when (not= expected-java-version actual-java-version)
       (throw (Exception.
