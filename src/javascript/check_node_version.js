@@ -6,8 +6,11 @@ let actualNodeVersion = rawNodeVersion.substring(1);
 let requiredNodeVersion = packageJson.engines.node;
 
 if (actualNodeVersion !== requiredNodeVersion) {
-  throw "Must have node version '" + requiredNodeVersion + "'. " +
-    "You're using '" + actualNodeVersion + "'.";
+  console.log(
+    "Must have nodejs version '" + requiredNodeVersion + "'. " +
+      "You're using '" + actualNodeVersion + "'."
+  );
+  process.exit(1);
 }
 
 console.log("Node Version Check: OK (" + rawNodeVersion + ")");

@@ -10,7 +10,7 @@
                    [eftest "0.3.2"]
                    [hiccup "1.0.5"]
                    [http-kit "2.2.0"]
-                   [org.clojure/clojure "1.9.0-beta2"]
+                   [org.clojure/clojure "1.9.0"]
                    [org.clojure/clojurescript "1.9.946"]
                    [ring "1.6.3"]
 
