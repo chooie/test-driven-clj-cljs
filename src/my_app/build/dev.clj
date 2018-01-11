@@ -6,6 +6,7 @@
    [com.stuartsierra.component :as component]
    [my-app.backend.core :as my-app]
    [my-app.build.backend-tester :as backend-tester]
+   [my-app.build.external-dependencies :as my-app-external-dependencies]
    [my-app.build.fix :as fix]
    [my-app.build.frontend :as frontend]
    [my-app.build.idiomatic :as idiomatic]
@@ -87,6 +88,7 @@
      started-at)))
 
 (defn check []
+  (my-app-external-dependencies/check)
   (lint/lint)
   (frontend/build-cljs)
   (backend-tester/run-tests)
