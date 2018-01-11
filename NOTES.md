@@ -1,7 +1,11 @@
 # Notes
 ## TODOs
-- External Dependency checks
+- SPA supporting frontend routing
+  - Home page component
+  - About component
+- Loading a url renders the correct page on the frontend
 
 ## TODO on current task
-- Check node version is correct
-- Check java version is correct
+- Choose a frontend library
+  - Reagent
+  - Reframe
