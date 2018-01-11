@@ -4,15 +4,10 @@
    [clojure.pprint :as clj-pprint :refer [pprint]]
    [clojure.tools.namespace.repl :as tools-namespace-repl]
    [com.stuartsierra.component :as component]
-   [my-app.backend.core :as my-app]
-   [my-app.build.backend-tester :as backend-tester]
-   [my-app.build.external-dependencies :as my-app-external-dependencies]
+   [my-app.backend.core :as my-app-system]
+   [my-app.build.check :as check]
    [my-app.build.fix :as fix]
-   [my-app.build.frontend :as frontend]
-   [my-app.build.idiomatic :as idiomatic]
-   [my-app.build.lint :as lint]
    [my-app.build.time-reporting :as time-reporting]
-   [my-app.smoke-test :as smoke]
    ))
 
 ;; NOTE: When making changes to this namespace, you will need to manually
@@ -28,7 +23,7 @@
   []
   (alter-var-root
    #'system
-   (constantly (my-app/system :development))))
+   (constantly (my-app-system/system :development))))
 
 (defn- start []
   (println "Attempting to start the system...")
@@ -76,30 +71,10 @@
      "Reloaded namespaces after: "
      started-at)))
 
-(defn analyse []
-  (idiomatic/analyse))
-
-(defn run-smoke-tests []
-  (let [started-at (time-reporting/get-time-in-ms-now)]
-    (println "Running smoke tests...")
-    (smoke/run-tests)
-    (time-reporting/measure-and-report-elapsed-time
-     "Ran smoke tests after: "
-     started-at)))
-
-(defn check []
-  (my-app-external-dependencies/check)
-  (lint/lint)
-  (frontend/build-cljs)
-  (backend-tester/run-tests)
-  (frontend/run-tests-with-karma)
-  (run-smoke-tests)
-  (println "CHECK OK!"))
-
 (defn t []
   (let [started-at (time-reporting/get-time-in-ms-now)]
     (safe-refresh)
-    (check)
+    (check/check)
     (time-reporting/measure-and-report-elapsed-time
      "Build and check finished after: "
      started-at)))

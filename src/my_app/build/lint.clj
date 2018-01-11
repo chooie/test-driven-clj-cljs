@@ -50,7 +50,7 @@
   [lint-results]
   (not= (get lint-results :errors) nil))
 
-(defn lint []
+(defn lint-backend []
   (println "Linting the code...")
   (let [started-at (time-reporting/get-time-in-ms-now)
         lint-results (eastwood/lint {:source-paths ["src"]

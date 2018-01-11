@@ -4,6 +4,7 @@
    [adzerk.boot-cljs-repl :as boot-cljs-repl]
    [boot.core :as boot]
    [boot.task.built-in :as boot-tasks]
+   [my-app.build.check :as check]
    [my-app.build.dev :as dev]
    [my-app.build.frontend :as frontend]
    ))
@@ -23,13 +24,13 @@
   "Lint and run tests"
   []
   (boot/with-pass-thru _
-    (dev/check)))
+    (check/check)))
 
 (boot/deftask analyse
   "Perform idiomatic code analysis"
   []
   (boot/with-pass-thru _
-    (dev/analyse)))
+    (check/analyse)))
 
 (boot/deftask check-all
   "Analyse (disabled - run analyse manually), lint, and test"
@@ -86,6 +87,8 @@
   "Builds an uberjar of this project that can be run with java -jar"
   []
   (comp
+   (boot/with-pass-thru _
+     (check/backend-checks))
    (build-production-cljs)
    (boot-tasks/aot
     :namespace #{'my-app.backend.core})
