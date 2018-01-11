@@ -1,6 +1,7 @@
 (ns my-app.build.external-dependencies
   (:require
    [clojure.java.shell :as clojure-java-shell]
+   [my-app.common.util :as util]
    ))
 
 (defn check-node-process-version
@@ -21,11 +22,15 @@
   []
   (System/getProperty "java.runtime.version"))
 
+(defn version-strings-match?
+  [expected-version-substring actual-version]
+  (util/string-contains-substring? actual-version expected-version-substring))
+
 (defn check-java-version
   []
-  (let [expected-java-version "1.8.0_144-b01"
+  (let [expected-java-version "1.8.0_144"
         actual-java-version (get-java-version-from-current-runtime)]
-    (when (not= expected-java-version actual-java-version)
+    (when (not (version-strings-match? expected-java-version actual-java-version))
       (throw (Exception.
               (str "Expected java-version: '"
                    expected-java-version
