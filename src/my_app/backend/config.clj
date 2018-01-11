@@ -2,6 +2,11 @@
   (:require
    [my-app.backend.error :as error]))
 
+(defn get-port-environment-variable
+  []
+  (let [port-string (System/getenv "PORT")]
+    (Integer. port-string)))
+
 (defn get-config-for
   [profile]
   (case profile
@@ -15,7 +20,7 @@
                       :logging-level :warn}
     :production {:protocol "http"
                  :host "localhost"
-                 :port 80
+                 :port (or (get-port-environment-variable) 80)
                  :logging-level :info}
     (error/throw-with-trace (str "No profile '" profile "'"))))
 
