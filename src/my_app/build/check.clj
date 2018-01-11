@@ -22,13 +22,14 @@
 
 (defn backend-checks
   []
-  (my-app-external-dependencies/check)
+  (my-app-external-dependencies/check-java-version)
   (lint/lint-backend)
   (backend-tester/run-tests))
 
 (defn check []
   (frontend/build-cljs)
   (backend-checks)
+  (my-app-external-dependencies/check-node-process-version)
   (frontend/run-tests-with-karma)
   (run-smoke-tests)
   (println "CHECK OK!"))

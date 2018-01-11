@@ -35,8 +35,3 @@
     (println (str "Java Version Check: OK ("
                   actual-java-version
                   ")"))))
-
-(defn check
-  []
-  (check-node-process-version)
-  (check-java-version))
