@@ -9,6 +9,9 @@
    [my-app.build.frontend :as frontend]
    ))
 
+;; NOTE: This is kept out of the 'src' directory because this namespace seems
+;; to break the Eastwood linter
+
 (defn reloadable-task
   ([]
    ;; Callback does nothing
