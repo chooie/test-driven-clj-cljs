@@ -52,7 +52,7 @@
     :verbose true)
    (quick-check)))
 
-(boot/deftask start-cljs-repl []
+(boot/deftask start-development-repl []
   (comp
    (boot-tasks/watch)
    (reloadable-task)
@@ -78,7 +78,7 @@
 (boot/deftask start-cider-development-repl []
   (comp
    (cider)
-   (start-cljs-repl)))
+   (start-development-repl)))
 
 (boot/deftask build-production-cljs []
   (comp
