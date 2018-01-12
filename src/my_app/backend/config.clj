@@ -4,7 +4,7 @@
 
 (defn get-port-environment-variable
   []
-  (let [port-string (System/getenv "PORT")]
+  (when-let [port-string (System/getenv "PORT")]
     (Integer. port-string)))
 
 (defn get-config-for

@@ -28,7 +28,7 @@ REPL during development.
     - `boot my-app/start-cider-development-repl`
 - Leave the REPL process running
 - Start the karma server
-    - `./start_karma.sh`
+    - `./bash_scripts/start_karma.sh`
 - Manually capture the browsers you want to run your frontend tests in by
 visiting:
     - `localhost:9876`
@@ -36,6 +36,9 @@ visiting:
 - Run the dev test checks
     - `(dev/t)`
 - Stay in the habit of running these checks after every change you make
+
+# Running the production jar locally
+- `./bash_scripts/build_and_run.sh`
 
 # Tasks
 - See all available command line tasks for the application

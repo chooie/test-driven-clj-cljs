@@ -52,7 +52,7 @@
      (Exception.
       (str
        "Failed to run tests!\n"
-       "Did you start the server? (./start_karma.sh)")))))
+       "Did you start the server? (./bash_scripts/start_karma.sh)")))))
 
 (defn- throw-if-tests-failed
   [exit-code]
@@ -67,7 +67,7 @@
         process-results (clojure-java-shell/sh
                          karma-binary-path
                          "run"
-                         "karma.config.js"
+                         "tool_configurations/karma.config.js"
                          "--no-colors")
         output (get process-results :out)
         exit-code (get process-results :exit)]
