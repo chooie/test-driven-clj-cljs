@@ -5,8 +5,8 @@
    [my-app.build.frontend :as frontend]
    [my-app.build.idiomatic :as idiomatic]
    [my-app.build.lint :as lint]
-   [my-app.smoke-test :as smoke]
    [my-app.build.time-reporting :as time-reporting]
+   [my-app.smoke-test :as smoke]
    ))
 
 (defn analyse []
