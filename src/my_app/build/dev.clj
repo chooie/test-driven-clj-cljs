@@ -71,13 +71,16 @@
      "Reloaded namespaces after: "
      started-at)))
 
-(defn t []
-  (let [started-at (time-reporting/get-time-in-ms-now)]
-    (safe-refresh)
-    (check/check)
-    (time-reporting/measure-and-report-elapsed-time
-     "Build and check finished after: "
-     started-at)))
+(defn t
+  ([]
+   (t false))
+  ([do-not-run-smoke-tests?]
+   (let [started-at (time-reporting/get-time-in-ms-now)]
+     (safe-refresh)
+     (check/check do-not-run-smoke-tests?)
+     (time-reporting/measure-and-report-elapsed-time
+      "Build and check finished after: "
+      started-at))))
 
 (defn start-cljs []
   (boot-cljs-repl/start-repl))

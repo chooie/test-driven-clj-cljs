@@ -27,9 +27,13 @@
   (lint/lint-backend)
   (backend-tester/run-tests))
 
-(defn check []
-  (backend-checks)
-  (my-app-external-dependencies/check-node-process-version)
-  (frontend/run-tests-with-karma)
-  (run-smoke-tests)
-  (println "CHECK OK!"))
+(defn check
+  ([]
+   (check false))
+  ([do-not-run-smoke-tests?]
+   (backend-checks)
+   (my-app-external-dependencies/check-node-process-version)
+   (frontend/run-tests-with-karma)
+   (when (false? do-not-run-smoke-tests?)
+     (run-smoke-tests))
+   (println "CHECK OK!")))
