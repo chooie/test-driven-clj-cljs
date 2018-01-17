@@ -1,11 +1,12 @@
 (ns my-app.build.check
   (:require
-   [my-app.build.backend-tester :as backend-tester]
-   [my-app.build.external-dependencies :as my-app-external-dependencies]
-   [my-app.build.frontend :as frontend]
-   [my-app.build.idiomatic :as idiomatic]
-   [my-app.build.lint :as lint]
-   [my-app.build.time-reporting :as time-reporting]
+   [my-app.build
+    [backend-tester :as backend-tester]
+    [external-dependencies :as my-app-external-dependencies]
+    [frontend :as frontend]
+    [idiomatic :as idiomatic]
+    [lint :as lint]
+    [time-reporting :as time-reporting]]
    [my-app.smoke-test :as smoke]
    ))
 
