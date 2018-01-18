@@ -74,6 +74,7 @@
      started-at)))
 
 (defn t
+  "Use this to check your work as you make changes"
   ([]
    (t false))
   ([do-not-run-smoke-tests?]
