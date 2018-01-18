@@ -11,7 +11,9 @@
    ))
 
 ;; NOTE: When making changes to this namespace, you will need to manually
-;; reload it. You can do this by running (setup-working-namespaces)
+;; reload it. You can do this by evaluating the buffer or evaluating the
+;; particular function that was changed
+
 (tools-namespace-repl/disable-reload!)
 
 (defonce system nil)
