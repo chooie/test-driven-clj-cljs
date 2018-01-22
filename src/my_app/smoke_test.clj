@@ -7,8 +7,8 @@
 
 (defn- useFirefoxDriver
   []
-  (System/setProperty "webdriver.gecko.driver" "binaries/geckodriver")
-  (driver/set-driver! {:browser :firefox}))
+  (System/setProperty "webdriver.chrome.driver" "binaries/chromedriver-2.35")
+  (driver/set-driver! {:browser :chrome}))
 
 (defn- start-system
   [profile]
