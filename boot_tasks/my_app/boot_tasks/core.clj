@@ -4,6 +4,7 @@
    [adzerk.boot-cljs-repl :as boot-cljs-repl]
    [boot.core :as boot]
    [boot.task.built-in :as boot-tasks]
+   [clj-time.core :as clj-time]
    [my-app.build.check :as check]
    [my-app.build.dev :as dev]
    [my-app.build.frontend :as frontend]
@@ -88,11 +89,20 @@
 
 (boot/deftask build-for-production
   "Builds an uberjar of this project that can be run with java -jar"
-  []
+  [s stability VAL str "How stable the repo is"]
   (comp
    (boot/with-pass-thru _
      (check/lint-and-full-backend-check))
    (build-production-cljs)
+   (boot-tasks/pom
+    :project 'my-app
+    :version (str
+              "not-a-real-git-hash-yet | "
+              (clj-time/now)
+              " | "
+              stability)
+    :description "Application template with a heavy focus on TDD"
+    :license {"The MIT License (MIT)" "See LICENSE.txt"})
    (boot-tasks/aot
     :namespace #{'my-app.backend.core})
    (boot-tasks/uber)

@@ -4,6 +4,7 @@
    :source-paths  #{"boot_tasks" "src"}
    :dependencies '[
                    [clj-http "3.7.0"]
+                   [clj-time "0.14.2"]
                    [com.stuartsierra/component "0.3.2"]
                    [com.taoensso/timbre "4.10.0"]
                    [compojure "1.6.0"]
@@ -34,6 +35,8 @@
                     ]
                    [weasel "0.7.0" :scope "test"]
                    ]))
+
+(def stability-of-repo "UNSTABLE")
 
 (defn clear-aliases []
   (ns-unalias 'boot.user 'dev)
@@ -74,4 +77,5 @@
   "This task is run by the boot buildpack for heroku"
   []
   (comp
-   (my-app/build-for-production)))
+   (my-app/build-for-production
+    :stability stability-of-repo)))
