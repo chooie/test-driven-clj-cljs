@@ -23,7 +23,6 @@
 (defn full-backend-check []
   (frontend/build-cljs)
   (my-app-external-dependencies/check-java-version)
-  (my-app-external-dependencies/check-node-process-version)
   (backend-tester/run-tests))
 
 (defn lint-and-full-backend-check []
@@ -31,6 +30,8 @@
   (full-backend-check))
 
 (defn frontend-check []
+  ;; Don't include this in backend check as we're not running this in prod
+  (my-app-external-dependencies/check-node-process-version)
   (frontend/run-tests-with-karma))
 
 (defn run-all-unit-tests []
