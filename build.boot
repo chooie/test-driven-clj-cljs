@@ -36,8 +36,9 @@
                    ]))
 
 (defn clear-aliases []
+  (ns-unalias 'boot.user 'dev)
   (ns-unalias 'boot.user 'my-app)
-  (ns-unalias 'boot.user 'dev))
+  (ns-unalias 'boot.user 'tester))
 
 (defn setup-working-namespaces []
   (println "Setting up working namespaces...")
@@ -45,7 +46,8 @@
   (clear-aliases)
   (require
    '[my-app.boot-tasks.core :as my-app]
-   '[my-app.build.dev :as dev])
+   '[my-app.build.dev :as dev]
+   '[my-app.build.test-running :as tester])
   (println "Ready!"))
 
 (defn show-classpath []
