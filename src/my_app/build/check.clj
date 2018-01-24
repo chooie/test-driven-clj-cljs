@@ -7,8 +7,7 @@
     [idiomatic :as idiomatic]
     [lint :as lint]
     [time-reporting :as time-reporting]]
-   [my-app.smoke-test :as smoke]
-   ))
+   [my-app.smoke-test :as smoke]))
 
 (defn analyse []
   (idiomatic/analyse))
@@ -21,20 +20,23 @@
      "Ran smoke tests after: "
      started-at)))
 
-(defn backend-checks
-  []
+(defn full-backend-check []
   (frontend/build-cljs)
   (my-app-external-dependencies/check-java-version)
-  (lint/lint-backend)
+  (my-app-external-dependencies/check-node-process-version)
   (backend-tester/run-tests))
 
-(defn check
-  ([]
-   (check false))
-  ([do-not-run-smoke-tests?]
-   (backend-checks)
-   (my-app-external-dependencies/check-node-process-version)
-   (frontend/run-tests-with-karma)
-   (when (false? do-not-run-smoke-tests?)
-     (run-smoke-tests))
-   (println "CHECK OK!")))
+(defn lint-and-full-backend-check []
+  (lint/lint-backend)
+  (full-backend-check))
+
+(defn frontend-check []
+  (frontend/run-tests-with-karma))
+
+(defn run-all-unit-tests []
+  (full-backend-check)
+  (frontend-check))
+
+(defn lint-and-run-all-unit-tests []
+  (lint/lint-backend)
+  (run-all-unit-tests))

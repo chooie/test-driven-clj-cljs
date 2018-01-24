@@ -5,9 +5,10 @@
    [clojure.tools.namespace.repl :as tools-namespace-repl]
    [com.stuartsierra.component :as component]
    [my-app.backend.core :as my-app-system]
-   [my-app.build.check :as check]
-   [my-app.build.fix :as fix]
-   [my-app.build.time-reporting :as time-reporting]
+   [my-app.build
+    [check :as check]
+    [fix :as fix]
+    [time-reporting :as time-reporting]]
    ))
 
 ;; NOTE: When making changes to this namespace, you will need to manually
@@ -73,17 +74,35 @@
      "Reloaded namespaces after: "
      started-at)))
 
-(defn t
+(defn test-all
   "Use this to check your work as you make changes"
-  ([]
-   (t false))
-  ([do-not-run-smoke-tests?]
-   (let [started-at (time-reporting/get-time-in-ms-now)]
-     (safe-refresh)
-     (check/check do-not-run-smoke-tests?)
-     (time-reporting/measure-and-report-elapsed-time
-      "Build and check finished after: "
-      started-at))))
+  []
+  (let [started-at (time-reporting/get-time-in-ms-now)]
+    (safe-refresh)
+    (check/lint-and-run-all-unit-tests)
+    (check/run-smoke-tests)
+    (time-reporting/measure-and-report-elapsed-time
+     "Build and check finished after: "
+     started-at)
+    (println "CHECK OK!")))
+
+(defn test-without-linting
+  []
+  (let [started-at (time-reporting/get-time-in-ms-now)]
+    (safe-refresh)
+    (check/run-all-unit-tests)
+    (check/run-smoke-tests)
+    (time-reporting/measure-and-report-elapsed-time
+     "Test without linting finished after: "
+     started-at)))
+
+(defn test-without-linting-and-smoke-tests
+  []
+  (let [started-at (time-reporting/get-time-in-ms-now)]
+    (check/run-all-unit-tests)
+    (time-reporting/measure-and-report-elapsed-time
+     "Test without linting finished after: "
+     started-at)))
 
 (defn start-cljs []
   (boot-cljs-repl/start-repl))

@@ -27,7 +27,7 @@
   "Lint and run tests"
   []
   (boot/with-pass-thru _
-    (check/check)))
+    (check/run-all-unit-tests)))
 
 (boot/deftask analyse
   "Perform idiomatic code analysis"
@@ -91,7 +91,7 @@
   []
   (comp
    (boot/with-pass-thru _
-     (check/backend-checks))
+     (check/lint-and-full-backend-check))
    (build-production-cljs)
    (boot-tasks/aot
     :namespace #{'my-app.backend.core})
