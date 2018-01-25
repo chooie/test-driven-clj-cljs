@@ -6,7 +6,6 @@
    [com.stuartsierra.component :as component]
    [my-app.backend.core :as my-app-system]
    [my-app.build
-    [check :as check]
     [fix :as fix]
     [time-reporting :as time-reporting]]
    ))
