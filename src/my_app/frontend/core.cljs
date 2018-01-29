@@ -1,10 +1,11 @@
 (ns my-app.frontend.core
   (:require
-   [my-app.frontend.all-tests]))
+   [my-app.frontend.all-tests]
+   [reagent.core :as reagent]))
 
-(.log js/console "Loaded frontend!")
+(defn main []
+  [:h1 "Hello, world!"])
 
-(defn foo
-  ^:export
+(defn main-entry-point ^:export
   []
-  (.log js/console "Ran foo!"))
+  (reagent/render [main] (js/document.getElementById "main-app")))

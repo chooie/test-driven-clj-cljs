@@ -13,6 +13,7 @@
                    [http-kit "2.2.0"]
                    [org.clojure/clojure "1.9.0"]
                    [org.clojure/clojurescript "1.9.946"]
+                   [reagent "0.8.0-alpha2"]
                    [ring "1.6.3"]
 
                    ;; Dev/Test

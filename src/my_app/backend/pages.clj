@@ -14,6 +14,7 @@
      ]
     [:body
      [:h1#app-declaration "This is my dev app"]
+     [:div#main-app]
      [:script {:src "main.js"}]
      ]))
 
