@@ -29,7 +29,10 @@
   [profile]
   (hiccup-page/html5
    [:head
-    [:title "My App"]]
+    [:title "My App"]
+    [:link {:rel "shortcut icon"
+            :type "image/png"
+            :href "/clojure_logo.svg.png"}]]
    (get-body-for-profile profile)))
 
 (defn not-found []
