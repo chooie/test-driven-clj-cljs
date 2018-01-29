@@ -11,13 +11,16 @@ application.
     - For now, you can manually check the version required in the
     `my-app.build.external-dependencies` namespace
     - Provides the runtime for our application
+    - Download [here](http://www.oracle.com/technetwork/java/javase/downloads/java-archive-javase8-2177648.html)
 - NodeJs
     - Required version can be found in `package.json`
     - Used for scripting and installing useful utilities (with NPM - the package
     manager)
+    - Download [here](https://nodejs.org/en/download/releases/)
 - Boot
     - Required version can be found in `boot.properties`
     - Clojure build tool
+    - Download [here](https://github.com/boot-clj/boot#install)
 
 # Working on the application
 The idea behind this setup is that you should rarely ever have to restart the
@@ -33,8 +36,10 @@ REPL during development.
 visiting:
     - `localhost:9876`
 - Connect to the running REPL
-- Run the dev test checks
-    - `(dev/t)`
+- Run the test checks
+    - `(tester/all)`
+    - `(tester/without-linting)`
+    - `(tester/without-linting-and-smoke-tests)`
 - Stay in the habit of running these checks after every change you make
 
 # Running the production jar locally
