@@ -3,25 +3,24 @@
    [cljs.build.api :as cljs-build]
    [clojure.java.shell :as clojure-java-shell]
    [clojure.string :as string]
+   [my-app.build.config :as config]
    [my-app.build.time-reporting :as time-reporting]
    [my-app.build.util :as util]
    ))
 
-(def generated-directory "generated/")
-(def automated-testing-directory (str generated-directory "automated-testing/"))
-
 (defn- clean-up
   []
   (util/delete-file-or-directory
-   (str automated-testing-directory "karma_cljs"))
-  (util/delete-file-or-directory (str automated-testing-directory "my_app")))
+   (str config/automated-testing-directory "karma_cljs"))
+  (util/delete-file-or-directory
+   (str config/automated-testing-directory "my_app")))
 
 (defn- compile-cljs
   [karma-directory karma-output-file]
   (cljs-build/build
    karma-directory
-   {:output-dir automated-testing-directory
-    :output-to (str automated-testing-directory karma-output-file)
+   {:output-dir config/automated-testing-directory
+    :output-to (str config/automated-testing-directory karma-output-file)
     :parallel-build true}))
 
 (defn build-cljs

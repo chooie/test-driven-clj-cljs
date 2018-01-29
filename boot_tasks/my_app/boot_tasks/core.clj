@@ -7,7 +7,7 @@
    [clj-time.core :as clj-time]
    [my-app.build.check :as check]
    [my-app.build.dev :as dev]
-   [my-app.build.frontend :as frontend]
+   [my-app.build.config :as config]
    ))
 
 ;; NOTE: This is kept out of the 'src' directory because this namespace seems
@@ -61,7 +61,7 @@
    (boot-cljs/cljs
     :source-map true
     :optimizations :none)
-   (boot-tasks/target :dir #{(str frontend/generated-directory "development")})))
+   (boot-tasks/target :dir #{(str config/generated-directory "development")})))
 
 (boot/deftask cider
   "CIDER profile"
@@ -85,7 +85,7 @@
   (comp
    (boot-cljs/cljs
     :optimizations :advanced)
-   (boot-tasks/target :dir #{(str frontend/generated-directory "production")})))
+   (boot-tasks/target :dir #{(str config/generated-directory "production")})))
 
 (boot/deftask build-for-production
   "Builds an uberjar of this project that can be run with java -jar"
