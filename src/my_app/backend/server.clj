@@ -12,13 +12,14 @@
   (condp = profile
     :test-automation "generated/automated-testing/"
     :development "generated/development/"
-    :production "generated/production"))
+    :production "generated/production/"))
 
 (defn create-handler
   [profile]
   (compojure/routes
    (compojure/GET "/" [_] (my-app-pages/index profile))
    (compojure-route/files "" {:root (get-root-by-profile profile)})
+   (compojure-route/files "" {:root "resources/static/"})
    (compojure-route/not-found (my-app-pages/not-found))))
 
 (defrecord Server [port profile]
