@@ -2,6 +2,11 @@
   (:require
    [hiccup.page :as hiccup-page]))
 
+(def favicon-link
+  [:link {:rel "shortcut icon"
+          :type "image/png"
+          :href "/clojure_logo.svg.png"}])
+
 (defn get-body-for-profile
   "
   We need different bodies for dev and test due to the differences in how the
@@ -30,15 +35,14 @@
   (hiccup-page/html5
    [:head
     [:title "My App"]
-    [:link {:rel "shortcut icon"
-            :type "image/png"
-            :href "/clojure_logo.svg.png"}]]
+    favicon-link]
    (get-body-for-profile profile)))
 
 (defn not-found []
   (hiccup-page/html5
    [:head
-    [:title "404 - Not Found"]]
+    [:title "404 - Not Found"]
+    favicon-link]
    [:body
     [:h1 "404"]
     [:p "Sorry, we couldn't find the page you're looking for :("]]))
