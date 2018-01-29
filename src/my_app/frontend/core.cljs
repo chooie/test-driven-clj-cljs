@@ -4,7 +4,8 @@
    [reagent.core :as reagent]))
 
 (defn main []
-  [:h1 "Hello, world!"])
+  [:div#rendered-app
+   [:h1 "Hello, world!"]])
 
 (defn main-entry-point ^:export
   []

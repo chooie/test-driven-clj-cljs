@@ -3,17 +3,24 @@
    [hiccup.page :as hiccup-page]))
 
 (defn get-body-for-profile
+  "
+  We need different bodies for dev and test due to the differences in how the
+  js is output
+  "
   [profile]
   (if (= profile :test-automation)
     [:body
-     [:h1#app-declaration "This is my app"]
+     "<!--This is my test app smoke marker-->"
+     [:div#main-app]
      [:script {:src "goog/base.js"}]
      [:script {:src "goog/deps.js"}]
      [:script {:src "js/my_app.js"}]
-     [:script "goog.require('my_app.frontend.core')"]
-     ]
+     [:script
+      "goog.require('my_app.frontend.core');"]
+     [:script
+      "my_app.frontend.core.main_entry_point();"]]
     [:body
-     [:h1#app-declaration "This is my dev app"]
+     "<!--This is my dev app smoke marker-->"
      [:div#main-app]
      [:script {:src "main.js"}]
      ]))

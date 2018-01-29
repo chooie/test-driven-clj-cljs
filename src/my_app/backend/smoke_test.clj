@@ -30,7 +30,7 @@
 (test/deftest core-smoke-test
   (test/testing "Gets homepage at base route"
     (let [base-route ""
-          text-to-find "This is my app"]
+          text-to-find "This is my test app smoke marker"]
       (assert-route-provides-document-with-text base-route text-to-find)))
 
   (test/testing "Gets 404 page at non-existant route"
