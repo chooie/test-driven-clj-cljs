@@ -12,7 +12,7 @@
 
 (defn build
   [profile]
-  (println "Building css for '" profile "' profile...")
+  (println (str "Building css for '" profile "' profile..."))
   (let [styles (css/generate-styles)]
     (condp = profile
       :test-automation (build-css-file-to-directory

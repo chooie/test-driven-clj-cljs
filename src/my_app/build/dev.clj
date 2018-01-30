@@ -6,6 +6,7 @@
    [com.stuartsierra.component :as component]
    [my-app.backend.core :as my-app-system]
    [my-app.build
+    [css :as css]
     [fix :as fix]
     [time-reporting :as time-reporting]]
    ))
@@ -30,6 +31,7 @@
 (defn- start []
   (println "Attempting to start the system...")
   (init)
+  (css/build :development)
   (alter-var-root #'system component/start))
 
 (defn stop []

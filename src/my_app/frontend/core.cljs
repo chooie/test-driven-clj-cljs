@@ -10,8 +10,6 @@
   [:div#rendered-app
    [:h1 "Hello, world!"]])
 
-(enable-console-print!)
-
 (def app-routes
   ["/" {"" :index
         "section-a" {"" :section-a
@@ -19,6 +17,13 @@
         "section-b" :section-b
         "missing-route" :missing-route
         true :four-o-four}])
+
+(defn navbar []
+  [:ul
+   [:li [:a {:href (bidi/path-for app-routes :section-a) } "Section A"]]
+   [:li [:a {:href (bidi/path-for app-routes :section-b) } "Section B"]]
+   [:li [:a {:href (bidi/path-for app-routes :missing-route) } "Missing-route"]]
+   [:li [:a {:href "/borken/link" } "Borken link"]]])
 
 (defmulti page-contents identity)
 
@@ -28,11 +33,7 @@
      [:div#rendered-app
       [:h1 "Hello, world!"]]
      [:h1 "Routing example: Index"]
-     [:ul
-      [:li [:a {:href (bidi/path-for app-routes :section-a) } "Section A"]]
-      [:li [:a {:href (bidi/path-for app-routes :section-b) } "Section B"]]
-      [:li [:a {:href (bidi/path-for app-routes :missing-route) } "Missing-route"]]
-      [:li [:a {:href "/borken/link" } "Borken link"]]]]))
+     navbar]))
 
 (defmethod page-contents :section-a []
   (fn []

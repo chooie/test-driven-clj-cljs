@@ -80,9 +80,7 @@
 (boot/deftask start-cider-development-repl []
   (comp
    (cider)
-   (start-development-repl)
-   (boot/with-pass-thru _
-     (css/build :development))))
+   (start-development-repl)))
 
 (boot/deftask build-production-cljs []
   (comp
