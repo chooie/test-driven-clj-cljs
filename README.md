@@ -3,6 +3,8 @@
 An example of how to setup a Clojure/ClojureScript project with a heavy toolset
 for Test-Driven Development.
 
+IMPORTANT: See 'Gotchas' section if you're having issues
+
 # External Dependencies
 NOTE: You will need to manually install these dependencies before working on the
 application.
@@ -49,6 +51,21 @@ visiting:
 - See all available command line tasks for the application
     - `boot --help`
     - NOTE: This is really slow if not done from the REPL
+
+# Gotchas
+When using Cider with refactor-nrepl, your namespaces will be evaluated
+automatically, outside of your control. Therefore, it is important to disable
+some features or it will **break the reloaded workflow**.
+
+Here are the Emacs Cider variables to set:
+
+- `(setq cljr-eagerly-build-asts-on-startup nil)`
+- `(setq cljr-auto-clean-ns nil)`
+- `(setq cljr-warn-on-eval t)`
+
+When doing any refactoring with clj-refactor, and it asks your permission to
+evaluate, make sure to stop your running application. Otherwise, it will
+redefine the value and you will lose the reference, requiring a REPL restart.
 
 ## License
 
