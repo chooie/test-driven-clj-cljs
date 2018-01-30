@@ -3,8 +3,7 @@
    [com.stuartsierra.component :as component]
    [my-app.backend.config :as config]
    [my-app.backend.log :as log]
-   [my-app.backend.server :as server])
-  (:gen-class))
+   [my-app.backend.server :as server]))
 
 (defn system [profile]
   (let [config (config/get-config-for profile)
