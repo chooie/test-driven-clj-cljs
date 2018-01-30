@@ -2,6 +2,7 @@
   (:require
    [my-app.build
     [backend-tester :as backend-tester]
+    [css :as css]
     [external-dependencies :as my-app-external-dependencies]
     [frontend :as frontend]
     [idiomatic :as idiomatic]
@@ -21,6 +22,7 @@
      started-at)))
 
 (defn full-backend-check []
+  (css/build)
   (frontend/build-cljs)
   (my-app-external-dependencies/check-java-version)
   (backend-tester/run-tests))

@@ -20,3 +20,8 @@
   (let [file (io/file path)]
     (when (.exists file)
       (delete-recursively file))))
+
+(defn create-directory [path]
+  (when (false? (.mkdir (java.io.File. path)))
+    (throw (Error.
+            (str "The directory at '" path "' was not created!")))))
