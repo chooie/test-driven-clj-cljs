@@ -22,7 +22,7 @@
      started-at)))
 
 (defn full-backend-check []
-  (css/build)
+  (css/build :test-automation)
   (frontend/build-cljs)
   (my-app-external-dependencies/check-java-version)
   (backend-tester/run-tests))

@@ -6,6 +6,7 @@
    [boot.task.built-in :as boot-tasks]
    [clj-time.core :as clj-time]
    [my-app.build.check :as check]
+   [my-app.build.css :as css]
    [my-app.build.dev :as dev]
    [my-app.build.config :as config]
    ))
@@ -79,13 +80,15 @@
 (boot/deftask start-cider-development-repl []
   (comp
    (cider)
-   (start-development-repl)))
+   (start-development-repl)
+   (boot/with-pass-thru _
+     (css/build :development))))
 
 (boot/deftask build-production-cljs []
   (comp
    (boot-cljs/cljs
     :optimizations :advanced)
-   (boot-tasks/target :dir #{(str config/generated-directory "production")})))
+   (boot-tasks/target :dir #{config/production-directory})))
 
 (boot/deftask build-for-production
   "Builds an uberjar of this project that can be run with java -jar"
@@ -94,6 +97,8 @@
    (boot/with-pass-thru _
      (check/lint-and-full-backend-check))
    (build-production-cljs)
+   (boot/with-pass-thru _
+     (css/build :production))
    (boot-tasks/pom
     :project 'my-app
     :version (str

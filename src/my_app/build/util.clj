@@ -22,6 +22,6 @@
       (delete-recursively file))))
 
 (defn create-directory [path]
-  (when (false? (.mkdir (java.io.File. path)))
+  (when (false? (.mkdirs (java.io.File. path)))
     (throw (Error.
             (str "The directory at '" path "' was not created!")))))

@@ -6,6 +6,10 @@
 
 (def dev-directory (str generated-directory "development/"))
 
+(def production-directory (str generated-directory "production/"))
+
 (def automated-testing-css-directory (str automated-testing-directory "css/"))
 
 (def dev-css-directory (str dev-directory "css/"))
+
+(def production-css-directory (str production-directory "css/"))

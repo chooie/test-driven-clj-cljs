@@ -10,10 +10,15 @@
   (util/create-directory directory-path)
   (spit (str directory-path "main.css") content))
 
-(defn build []
-  (println "Building css...")
+(defn build
+  [profile]
+  (println "Building css for '" profile "' profile...")
   (let [styles (css/generate-styles)]
-    (build-css-file-to-directory
-     config/automated-testing-css-directory styles)
-    (build-css-file-to-directory
-     config/dev-css-directory styles)))
+    (condp = profile
+      :test-automation (build-css-file-to-directory
+                        config/automated-testing-css-directory styles)
+      :development (build-css-file-to-directory
+                    config/dev-css-directory styles)
+      :production (build-css-file-to-directory
+                   config/production-css-directory styles)
+      (throw (Error. (str "Unrecognized profile, '" profile "'"))))))
