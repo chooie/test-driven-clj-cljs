@@ -3,6 +3,7 @@
    :resource-paths #{"resources"}
    :source-paths  #{"boot_tasks" "src"}
    :dependencies '[
+                   [bidi "2.1.3"]
                    [clj-http "3.7.0"]
                    [clj-time "0.14.2"]
                    [com.stuartsierra/component "0.3.2"]
@@ -15,7 +16,9 @@
                    [org.clojure/clojure "1.9.0"]
                    [org.clojure/clojurescript "1.9.946"]
                    [reagent "0.8.0-alpha2"]
+                   [reagent-utils "0.2.1"]
                    [ring "1.6.3"]
+                   [venantius/accountant "0.2.3"]
 
                    ;; Dev/Test
                    [adzerk/boot-cljs "2.1.4" :scope "test"]

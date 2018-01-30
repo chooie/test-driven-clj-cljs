@@ -33,12 +33,12 @@
           text-to-find "This is my test app smoke marker"]
       (assert-route-provides-document-with-text base-route text-to-find)))
 
-  (test/testing "Gets 404 page at non-existant route"
-    (let [non-existant-route "foobar"
-          text-to-find "404"]
-      (assert-route-provides-document-with-text
-       non-existant-route
-       text-to-find)))
+  #_(test/testing "Gets 404 page at non-existant route"
+      (let [non-existant-route "foobar"
+            text-to-find "404"]
+        (assert-route-provides-document-with-text
+         non-existant-route
+         text-to-find)))
 
   (test/testing "Gets static resource js"
     (let [resource-route "js/my_app.js"
