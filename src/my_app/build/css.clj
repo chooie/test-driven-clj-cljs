@@ -2,7 +2,7 @@
   (:require
    [my-app.build.config :as config]
    [my-app.build.util :as util]
-   [my-app.css.core :as css]))
+   [my-app.common.css.core :as css]))
 
 (defn- build-css-file-to-directory
   [directory-path content]

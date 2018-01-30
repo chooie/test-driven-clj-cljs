@@ -7,6 +7,10 @@
           :type "image/png"
           :href "/clojure_logo.svg.png"}])
 
+(def css-link
+  [:link {:rel "stylesheet"
+          :href "/css/main.css"}])
+
 (defn get-body-for-profile
   "
   We need different bodies for dev and test due to the differences in how the
@@ -35,14 +39,16 @@
   (hiccup-page/html5
    [:head
     [:title "My App"]
-    favicon-link]
+    favicon-link
+    css-link]
    (get-body-for-profile profile)))
 
 (defn not-found []
   (hiccup-page/html5
    [:head
     [:title "404 - Not Found"]
-    favicon-link]
+    favicon-link
+    css-link]
    [:body
     [:h1 "404"]
     [:p "Sorry, we couldn't find the page you're looking for :("]]))

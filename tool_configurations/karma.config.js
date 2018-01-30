@@ -63,6 +63,7 @@ module.exports = function(config) {
         included: true,
         served: true
       },
+      basePath + "css/main.css"
     ],
 
     // list of files to exclude

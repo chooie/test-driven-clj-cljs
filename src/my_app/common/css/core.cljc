@@ -1,7 +1,7 @@
-(ns my-app.css.core
+(ns my-app.common.css.core
   (:require [garden.core :as garden]))
 
 (defn generate-styles []
   (garden/css
-   [:body
-    {:backround-color "blue"}]))
+   [:html
+    {:background-color "lightblue"}]))
