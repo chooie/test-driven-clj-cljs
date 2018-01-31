@@ -7,6 +7,10 @@
           :type "image/png"
           :href "/clojure_logo.svg.png"}])
 
+(def reset-css-link
+  [:link {:rel "stylesheet"
+          :href "/reset.css"}])
+
 (def css-link
   [:link {:rel "stylesheet"
           :href "/css/main.css"}])
@@ -41,5 +45,6 @@
     [:base {:href "/"}]
     [:title "My App"]
     favicon-link
+    reset-css-link
     css-link]
    (get-body-for-profile profile)))
