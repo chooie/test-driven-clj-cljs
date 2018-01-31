@@ -17,5 +17,6 @@
   (let [config (cljs-reader/read-string js/_my_app_config)
         logging-level (get config :logging-level)]
     (log/set-logging-level! logging-level)
+    (js/console.log (str "Logging level set to '" logging-level "'..."))
     (route-handler/setup)
     (render-component-in-element-with-id main/page "main-app")))
