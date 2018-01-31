@@ -1,9 +1,7 @@
 (ns my-app.build.lint
-  (:require
-   [eastwood.lint :as eastwood]
-   [my-app.backend.error :as error]
-   [my-app.build.time-reporting :as time-reporting]
-   ))
+  (:require [eastwood.lint :as eastwood]
+            [my-app.build.time-reporting :as time-reporting]
+            [my-app.common.error :as error]))
 
 (defonce lint-options
   [:bad-arglists
@@ -61,7 +59,7 @@
             (errors? lint-results))
       (do
         (run! println warning-messages)
-        (error/throw-with-trace "Lint error!"))
+        (error/throw "Lint error!"))
       (do
         (time-reporting/measure-and-report-elapsed-time
          "Linted the code after: "

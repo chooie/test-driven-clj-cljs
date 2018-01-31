@@ -1,6 +1,5 @@
 (ns my-app.backend.config
-  (:require
-   [my-app.backend.error :as error]))
+  (:require [my-app.common.error :as error]))
 
 (defn get-port-environment-variable
   []
@@ -22,7 +21,7 @@
                  :host "localhost"
                  :port (or (get-port-environment-variable) 80)
                  :logging-level :info}
-    (error/throw-with-trace (str "No profile '" profile "'"))))
+    (error/throw (str "No profile '" profile "'"))))
 
 (defn get-fully-qualified-url
   [config]

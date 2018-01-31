@@ -1,9 +1,7 @@
 (ns my-app.build.backend-tester
-  (:require
-   [eftest.report.pretty :as eftest-report]
-   [eftest.runner :as eftest]
-   [my-app.backend.error :as error]
-   ))
+  (:require [eftest.report.pretty :as eftest-report]
+            [eftest.runner :as eftest]
+            [my-app.common.error :as error]))
 
 (defn run-tests
   []
@@ -15,7 +13,7 @@
         number-of-errors (get results :error)]
     (if (or (pos? number-of-fails)
             (pos? number-of-errors))
-      (error/throw-with-trace
+      (error/throw
        (str "FAIL:\n"
             "Failures: " number-of-fails "\n"
             "Errors: " number-of-errors))

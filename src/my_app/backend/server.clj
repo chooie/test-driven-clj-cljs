@@ -1,11 +1,10 @@
 (ns my-app.backend.server
-  (:require
-   [com.stuartsierra.component :as component]
-   [compojure.core :as compojure]
-   [compojure.route :as compojure-route]
-   [my-app.backend.log :as log]
-   [my-app.backend.pages :as my-app-pages])
-  (:use [org.httpkit.server :only [run-server]]))
+  (:require [com.stuartsierra.component :as component]
+            [compojure.core :as compojure]
+            [compojure.route :as compojure-route]
+            [my-app.backend.pages :as my-app-pages]
+            [my-app.common.log :as log]
+            [org.httpkit.server :refer :all]))
 
 (defn- get-root-by-profile
   [profile]

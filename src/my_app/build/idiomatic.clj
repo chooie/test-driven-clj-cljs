@@ -1,15 +1,12 @@
 (ns my-app.build.idiomatic
-  (:require
-   [boot.core :as boot]
-   [clojure.java.io :as io]
-   [kibit.driver :as kibit-driver]
-   [kibit.rules.arithmetic :as kibit-arith]
-   [kibit.rules.control-structures :as kibit-control]
-   [kibit.rules.collections :as kibit-coll]
-   ;; [kibit.rules.equality :as kibit-equality]
-   [kibit.rules.misc :as kibit-misc]
-   [my-app.backend.error :as error]
-   ))
+  (:require [boot.core :as boot]
+            [clojure.java.io :as io]
+            [kibit.driver :as kibit-driver]
+            [kibit.rules.arithmetic :as kibit-arith]
+            [kibit.rules.collections :as kibit-coll]
+            [kibit.rules.control-structures :as kibit-control]
+            [kibit.rules.misc :as kibit-misc]
+            [my-app.common.error :as error]))
 
 (defn- get-idiomatic-errors
   []
@@ -41,5 +38,5 @@
   (println "Analysing the code for idiomatic errors...")
   (let [errors (get-idiomatic-errors)]
     (if (pos? (count errors))
-      (error/throw-with-trace "Idiomatic errors!")
+      (error/throw "Idiomatic errors!")
       :OK)))
