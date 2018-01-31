@@ -39,8 +39,7 @@
   [profile]
   (hiccup-page/html5
    [:head
-    [:base {:href (config/get-fully-qualified-url
-                   (config/get-config-for profile))}]
+    [:base {:href "/"}]
     [:title "My App"]
     favicon-link
     css-link]
