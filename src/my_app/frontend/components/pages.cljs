@@ -1,6 +1,7 @@
 (ns my-app.frontend.components.pages
   (:require
    [bidi.bidi :as bidi]
+   [my-app.common.log :as log]
    [my-app.frontend.components.navbar :as navbar]
    [my-app.frontend.routes :as routes]
    [reagent.session :as session]))

@@ -1,5 +1,6 @@
 (ns my-app.backend.config
-  (:require [my-app.common.error :as error]))
+  (:require
+   [my-app.common.error :as error]))
 
 (defn get-port-environment-variable
   []

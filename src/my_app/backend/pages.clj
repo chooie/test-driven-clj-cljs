@@ -1,6 +1,7 @@
 (ns my-app.backend.pages
   (:require
-   [hiccup.page :as hiccup-page]))
+   [hiccup.page :as hiccup-page]
+   [my-app.backend.config :as config]))
 
 (def favicon-link
   [:link {:rel "shortcut icon"
@@ -22,7 +23,7 @@
   "
   [profile]
   (if (= profile :test-automation)
-    [:body
+    [:div
      "<!--This is my test app smoke marker-->"
      [:div#main-app]
      [:script {:src "goog/base.js"}]
@@ -32,7 +33,7 @@
       "goog.require('my_app.frontend.core');"]
      [:script
       "my_app.frontend.core.main_entry_point();"]]
-    [:body
+    [:div
      "<!--This is my dev app smoke marker-->"
      [:div#main-app]
      [:script {:src "main.js"}]
@@ -46,5 +47,9 @@
     [:title "My App"]
     favicon-link
     reset-css-link
-    css-link]
-   (get-body-for-profile profile)))
+    css-link
+    [:script
+     (str "var _my_app_config = '" (config/get-config-for profile)) "';"]]
+   [:body
+    (get-body-for-profile profile)
+    ]))
