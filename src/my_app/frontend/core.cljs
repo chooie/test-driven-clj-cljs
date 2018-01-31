@@ -30,8 +30,6 @@
 (defmethod page-contents :index []
   (fn []
     [:span
-     [:div#rendered-app
-      [:h1 "Hello, world!"]]
      [:h1 "Routing example: Index"]
      [navbar]]))
 
@@ -81,6 +79,8 @@ but I never created it."]]))
     (let [page (:current-page (session/get :route))]
       [:div
        [:p [:a {:href (bidi/path-for app-routes :index) } "Go home"]]
+       [:div#rendered-app
+        [:h1 "Hello, world!"]]
        [:hr]
        ^{:key page} [page-contents page]
        [:hr]

@@ -20,8 +20,7 @@
    (compojure/GET "/" [_] (my-app-pages/index profile))
    (compojure-route/files "" {:root (get-root-by-profile profile)})
    (compojure-route/files "" {:root "resources/static/"})
-   ;; Let our single-page-app handle the 404 response
-   (compojure-route/not-found (my-app-pages/index profile))))
+   (compojure/GET "/*" [_] (my-app-pages/index profile))))
 
 (defrecord Server [port profile]
   component/Lifecycle

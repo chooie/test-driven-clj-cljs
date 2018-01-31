@@ -2,20 +2,12 @@
   (:require
    [adzerk.boot-cljs-repl :as boot-cljs-repl]
    [clojure.pprint :as clj-pprint :refer [pprint]]
-   [clojure.tools.namespace.repl :as tools-namespace-repl]
    [com.stuartsierra.component :as component]
    [my-app.backend.core :as my-app-system]
    [my-app.build
     [css :as css]
     [fix :as fix]
-    [time-reporting :as time-reporting]]
-   ))
-
-;; NOTE: When making changes to this namespace, you will need to manually
-;; reload it. You can do this by evaluating the buffer or evaluating the
-;; particular function that was changed
-
-(tools-namespace-repl/disable-reload!)
+    [time-reporting :as time-reporting]]))
 
 (defonce system nil)
 

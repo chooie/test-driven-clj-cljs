@@ -1,6 +1,7 @@
 (ns my-app.backend.pages
   (:require
-   [hiccup.page :as hiccup-page]))
+   [hiccup.page :as hiccup-page]
+   [my-app.backend.config :as config]))
 
 (def favicon-link
   [:link {:rel "shortcut icon"
@@ -23,7 +24,7 @@
      [:div#main-app]
      [:script {:src "goog/base.js"}]
      [:script {:src "goog/deps.js"}]
-     [:script {:src "js/my_app.js"}]
+     [:script {:src "/js/my_app.js"}]
      [:script
       "goog.require('my_app.frontend.core');"]
      [:script
@@ -38,17 +39,9 @@
   [profile]
   (hiccup-page/html5
    [:head
+    [:base {:href (config/get-fully-qualified-url
+                   (config/get-config-for profile))}]
     [:title "My App"]
     favicon-link
     css-link]
    (get-body-for-profile profile)))
-
-(defn not-found []
-  (hiccup-page/html5
-   [:head
-    [:title "404 - Not Found"]
-    favicon-link
-    css-link]
-   [:body
-    [:h1 "404"]
-    [:p "Sorry, we couldn't find the page you're looking for :("]]))
