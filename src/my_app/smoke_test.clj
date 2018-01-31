@@ -63,4 +63,5 @@
     (useFirefoxDriver)
     (check-browser-loads-test-page)
     (check-browser-loads-dev-page)
-    (driver/quit)))
+    (finally
+      (driver/quit))))
