@@ -33,7 +33,7 @@
      [:div#rendered-app
       [:h1 "Hello, world!"]]
      [:h1 "Routing example: Index"]
-     navbar]))
+     [navbar]]))
 
 (defmethod page-contents :section-a []
   (fn []
