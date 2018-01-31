@@ -34,5 +34,5 @@
     (dev/safe-refresh)
     (check/run-all-unit-tests)
     (time-reporting/measure-and-report-elapsed-time
-     "Test without linting finished after: "
+     "Test without linting and smoke tests finished after: "
      started-at)))

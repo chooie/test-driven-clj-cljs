@@ -15,5 +15,5 @@
     [:a {:href (bidi/path-for routes/app :missing-route)}
      "Missing-route"]]
    [:li
-    [:a {:href "/borken/link" }
+    [:a {:href "/broken/link"}
      "Broken link"]]])
