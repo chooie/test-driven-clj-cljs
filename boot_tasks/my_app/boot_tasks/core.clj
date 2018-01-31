@@ -7,57 +7,15 @@
    [clj-time.core :as clj-time]
    [my-app.build.check :as check]
    [my-app.build.css :as css]
-   [my-app.build.dev :as dev]
    [my-app.build.config :as config]
    ))
 
 ;; NOTE: This is kept out of the 'src' directory because this namespace seems
 ;; to break the Eastwood linter
 
-(defn reloadable-task
-  ([]
-   ;; Callback does nothing
-   (reloadable-task #(identity nil)))
-
-  ([callback]
-   (boot/with-pass-thru _
-     (with-bindings {#'*ns* *ns*}
-       (dev/safe-refresh)
-       (callback)))))
-
-(boot/deftask quick-check
-  "Lint and run tests"
-  []
-  (boot/with-pass-thru _
-    (check/run-all-unit-tests)))
-
-(boot/deftask analyse
-  "Perform idiomatic code analysis"
-  []
-  (boot/with-pass-thru _
-    (check/analyse)))
-
-(boot/deftask check-all
-  "Analyse (disabled - run analyse manually), lint, and test"
-  []
-  (comp
-   #_(analyse)
-   (quick-check)))
-
-(boot/deftask watch-check
-  "Repeatedly check code after every update"
-  []
-  (comp
-   (reloadable-task)
-   (boot-tasks/speak)
-   (boot-tasks/watch
-    :verbose true)
-   (quick-check)))
-
 (boot/deftask start-development-repl []
   (comp
    (boot-tasks/watch)
-   (reloadable-task)
    (boot-cljs-repl/cljs-repl)
    (boot-cljs/cljs
     :source-map true
