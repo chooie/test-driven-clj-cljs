@@ -107,10 +107,10 @@
     :description "Application template with a heavy focus on TDD"
     :license {"The MIT License (MIT)" "See LICENSE.txt"})
    (boot-tasks/aot
-    :namespace #{'my-app.backend.core})
+    :namespace #{'my-app.backend.entry-point})
    (boot-tasks/uber)
    (boot-tasks/jar
     :file "my-app.jar"
-    :main 'my-app.backend.core)
+    :main 'my-app.backend.entry-point)
    (boot-tasks/target
     :dir #{"release"})))

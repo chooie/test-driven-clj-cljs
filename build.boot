@@ -1,7 +1,7 @@
 (defn setup-boot-environment []
   (set-env!
-   :resource-paths #{"resources"}
-   :source-paths  #{"boot_tasks" "src"}
+   :resource-paths #{"resources" "src"}
+   :source-paths  #{"boot_tasks"}
    :dependencies '[
                    [bidi "2.1.3"]
                    [clj-http "3.7.0"]
