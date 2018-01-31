@@ -1,7 +1,6 @@
 (ns my-app.backend.pages
   (:require
-   [hiccup.page :as hiccup-page]
-   [my-app.backend.config :as config]))
+   [hiccup.page :as hiccup-page]))
 
 (def favicon-link
   [:link {:rel "shortcut icon"
