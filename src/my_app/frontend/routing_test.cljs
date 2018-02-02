@@ -1,7 +1,7 @@
-(ns my-app.frontend.route-handler-test
+(ns my-app.frontend.routing-test
   (:require
    [cljs.test :as test :include-macros true]
-   [my-app.frontend.route-handler :as route-handler]))
+   [my-app.frontend.routing :as route-handler]))
 
 (def example-routes
   ["/"

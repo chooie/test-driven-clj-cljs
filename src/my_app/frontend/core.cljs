@@ -4,7 +4,7 @@
    [my-app.common.log :as log]
    [my-app.frontend.all-tests]
    [my-app.frontend.components.main :as main]
-   [my-app.frontend.route-handler :as route-handler]
+   [my-app.frontend.routing :as route-handler]
    [my-app.frontend.routes :as routes]
    [reagent.core :as reagent]))
 

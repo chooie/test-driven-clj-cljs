@@ -1,4 +1,4 @@
-(ns my-app.frontend.route-handler
+(ns my-app.frontend.routing
   (:require
    [accountant.core :as accountant]
    [bidi.bidi :as bidi]
