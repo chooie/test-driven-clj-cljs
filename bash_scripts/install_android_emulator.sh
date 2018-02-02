@@ -10,7 +10,8 @@ ANDROID_PACKAGE='system-images;android-25;google_apis;x86'
 ~/Library/Android/sdk/tools/bin/avdmanager \
   create avd \
   --name 'TEST_BROWSER_IN_EMULATOR_AVD' \
-  --package $ANDROID_PACKAGE
+  --package $ANDROID_PACKAGE \
+  --force
 
 # SAY YES TO CREATING A CUSTOM HARDWARE PROFILE
 # NOTE: You will need to set some hardware options (e.g. keyboard support) for
