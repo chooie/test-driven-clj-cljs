@@ -34,9 +34,9 @@
   [route]
   (accountant/navigate! route))
 
-(defn dispatch-to-current-window-route []
+(defn dispatch-to-current-browser-window-path []
   (accountant/dispatch-current!))
 
 (defn setup [routes]
   (setup-navigation-with-routes routes)
-  (dispatch-to-current-window-route))
+  (dispatch-to-current-browser-window-path))
