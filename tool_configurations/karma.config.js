@@ -21,11 +21,6 @@ module.exports = function(config) {
         served: true
       },
       {
-        pattern: basePath + "goog/deps.js",
-        included: true,
-        served: true
-      },
-      {
         pattern: basePath + "js/karma_cljs.js",
         included: true,
         served: true

@@ -17,3 +17,12 @@
   (test/testing "Styles"
     (test/is (= css/light-green
                 (get-computed-style (.-body js/document) "background-color")))))
+
+(test/deftest a-test
+  (test/testing "FIXME, I fail."
+    (test/async done
+                (js/setTimeout
+                 (fn []
+                   (test/is (= 1 1))
+                   (done))
+                 0))))
