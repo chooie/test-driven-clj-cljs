@@ -9,12 +9,12 @@
    [:h1 "Hello, world!"]])
 
 (defn page []
-  (let [page-id (get (routing/get-route-state) :current-page)]
+  (let [page-route (routing/get-current-page-route)]
     [:div
      [:p [:a
           {:href (routing/get-url-for-route routes/app :index)}
           "Go home"]]
      [main]
      [:hr]
-     ^{:key page-id} [pages/page-contents page-id]
+     ^{:key page-route} [pages/page-contents page-route]
      ]))

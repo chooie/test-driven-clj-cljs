@@ -14,6 +14,9 @@
 (defn get-route-state []
   (session/get :route))
 
+(defn get-current-page-route []
+  (get (get-route-state) :current-page))
+
 (defn nav-handler
   [routes path-to-match]
   (let [match (bidi/match-route routes path-to-match)
