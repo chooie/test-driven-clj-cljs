@@ -22,9 +22,6 @@
      started-at)))
 
 (defn full-backend-check []
-  (when (frontend/frontend-contents-changed?)
-    (css/build :test-automation)
-    (frontend/build-cljs))
   (my-app-external-dependencies/check-java-version)
   (backend-tester/run-tests))
 
@@ -35,12 +32,16 @@
 (defn frontend-check []
   ;; Don't include this in backend check as we're not running this in prod
   (my-app-external-dependencies/check-node-process-version)
-  (when (frontend/frontend-contents-changed?)
+  (when (or
+         (frontend/frontend-tests-failed-last?)
+         (frontend/frontend-contents-changed?))
+    (css/build :test-automation)
+    (frontend/build-cljs)
     (frontend/run-tests-with-karma)))
 
 (defn run-all-unit-tests []
-  (full-backend-check)
-  (frontend-check))
+  (frontend-check)
+  (full-backend-check))
 
 (defn lint-and-run-all-unit-tests []
   (lint/lint-backend)

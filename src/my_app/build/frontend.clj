@@ -58,26 +58,33 @@
   (when (pos? exit-code)
     (throw (Exception. "Frontend tests failed!"))))
 
+(defonce frontend-test-results (atom false))
+(defn frontend-tests-failed-last? []
+  @frontend-test-results)
 (defn run-tests-with-karma
   []
   (println "Running frontend tests...")
-  (let [started-at (time-reporting/get-time-in-ms-now)
-        karma-binary-path "./node_modules/karma/bin/karma"
-        process-results (clojure-java-shell/sh
-                         karma-binary-path
-                         "run"
-                         "tool_configurations/karma.config.js"
-                         "--no-colors")
-        output (get process-results :out)
-        exit-code (get process-results :exit)]
-    (println output)
-    (throw-if-karma-server-is-down exit-code output)
-    (throw-if-tests-failed exit-code)
-    (time-reporting/measure-and-report-elapsed-time
-     "Ran frontend tests after: "
-     started-at)
-    (println "Frontend Tests: OK")
-    ))
+  (try
+    (let [started-at (time-reporting/get-time-in-ms-now)
+          karma-binary-path "./node_modules/karma/bin/karma"
+          process-results (clojure-java-shell/sh
+                           karma-binary-path
+                           "run"
+                           "tool_configurations/karma.config.js"
+                           "--no-colors")
+          output (get process-results :out)
+          exit-code (get process-results :exit)]
+      (println output)
+      (throw-if-karma-server-is-down exit-code output)
+      (throw-if-tests-failed exit-code)
+      (time-reporting/measure-and-report-elapsed-time
+       "Ran frontend tests after: "
+       started-at)
+      (reset! frontend-test-results false)
+      (println "Frontend Tests: OK"))
+    (catch Exception e
+      (reset! frontend-test-results true)
+      (throw e))))
 
 (defn- run-in-shell
   [bash-command]
