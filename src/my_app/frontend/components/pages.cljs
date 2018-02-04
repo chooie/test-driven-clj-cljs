@@ -1,6 +1,7 @@
 (ns my-app.frontend.components.pages
   (:require
    [my-app.common.log :as log]
+   [my-app.frontend.components.common :as common]
    [my-app.frontend.components.navbar :as navbar]
    [my-app.frontend.routes :as routes]
    [my-app.frontend.routing :as routing]))
@@ -12,26 +13,27 @@
    [:h1 "Routing example: Index"]
    [navbar/component]])
 
-(defn make-link [item-id]
+(defn make-link-item
+  [item-id]
   [:li {:name (str "item-" item-id)
         :key (str "item-" item-id)}
-   [:a
-    {:href (routing/get-url-for-route routes/app :a-item :item-id item-id)}
+   [common/link
+    (routing/get-url-for-route routes/app :a-item :item-id item-id)
     (str "Item: " item-id)]])
 
 (defmethod page-contents :section-a []
   [:span
    [:h1 "Routing example: Section A"]
    [:ul
-    (map make-link (range 1 6))]])
+    (map make-link-item (range 1 6))]])
 
 (defn link-page
   [item]
   [:span
    [:h1 (str "Routing example: Section A, item " item)]
-   [:p [:a
-        {:href (routing/get-url-for-route routes/app :section-a)}
-        "Back to Section A"]]])
+   [common/link
+    (routing/get-url-for-route routes/app :section-a)
+    "Back to Section A"]])
 
 (defmethod page-contents :a-item []
   (let [routing-data (routing/get-route-state)
