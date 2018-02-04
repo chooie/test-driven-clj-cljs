@@ -78,3 +78,19 @@
      started-at)
     (println "Frontend Tests: OK")
     ))
+
+(defn- run-in-shell
+  [bash-command]
+  (clojure-java-shell/sh "bash" "-c" bash-command))
+
+(defonce last-frontend-hash-results (atom nil))
+
+(defn frontend-contents-changed? []
+  (let [process-results (run-in-shell
+                         "tar c src/my_app/frontend src/my_app/common | md5")
+        md5-hash (string/trim (get process-results :out))]
+    (if (not= @last-frontend-hash-results md5-hash)
+      (do
+        (reset! last-frontend-hash-results md5-hash)
+        true)
+      false)))
