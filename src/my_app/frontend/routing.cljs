@@ -2,6 +2,7 @@
   (:require
    [accountant.core :as accountant]
    [bidi.bidi :as bidi]
+   [my-app.common.error :as error]
    [reagent.session :as session]))
 
 (defn set-route-state
@@ -40,3 +41,10 @@
 (defn setup [routes]
   (setup-navigation-with-routes routes)
   (dispatch-to-current-browser-window-path))
+
+(defn get-url-for-route
+  [routes route]
+  (let [matched-url (bidi/path-for routes route)]
+    (when-not matched-url
+      (error/throw (str "No matching URL for route '" route "'")))
+    matched-url))
