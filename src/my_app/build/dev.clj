@@ -59,10 +59,10 @@
   namespaces because otherwise the server will still be running in the
   background and we'll have lost the reference. This will then cause
   a resource in use error when we want to start the component up again"
-  ([do-not-refresh-all?]
+  ([refresh-all?]
    (let [started-at (time-reporting/get-time-in-ms-now)]
      (stop)
-     (fix/refresh {:do-not-refresh-all? do-not-refresh-all?})
+     (fix/refresh {:refresh-all? refresh-all?})
      (time-reporting/measure-and-report-elapsed-time
       "Reloaded namespaces after: "
       started-at))))

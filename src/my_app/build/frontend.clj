@@ -59,8 +59,10 @@
     (throw (Exception. "Frontend tests failed!"))))
 
 (defonce frontend-test-results (atom false))
+
 (defn frontend-tests-failed-last? []
   @frontend-test-results)
+
 (defn run-tests-with-karma
   []
   (println "Running frontend tests...")
