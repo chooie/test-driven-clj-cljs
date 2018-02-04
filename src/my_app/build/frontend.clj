@@ -21,7 +21,10 @@
    karma-directory
    {:output-dir config/automated-testing-directory
     :output-to (str config/automated-testing-directory karma-output-file)
-    :parallel-build true}))
+    :parallel-build true
+    :optimizations :none
+    ;; :compiler-stats :true
+    }))
 
 (defn build-cljs
   []
@@ -31,7 +34,8 @@
         karma-output-file "js/karma_cljs.js"
         app-directory "src/my_app/frontend/"
         app-output-file "js/my_app.js"]
-    (clean-up)
+    ;; Probably don't need this
+    #_(clean-up)
     (compile-cljs karma-directory karma-output-file)
     (compile-cljs app-directory app-output-file)
     (time-reporting/measure-and-report-elapsed-time
