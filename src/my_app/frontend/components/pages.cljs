@@ -1,10 +1,9 @@
 (ns my-app.frontend.components.pages
   (:require
-   [bidi.bidi :as bidi]
    [my-app.common.log :as log]
    [my-app.frontend.components.navbar :as navbar]
    [my-app.frontend.routes :as routes]
-   [reagent.session :as session]))
+   [my-app.frontend.routing :as routing]))
 
 (defmulti page-contents identity)
 
@@ -17,8 +16,7 @@
   [:li {:name (str "item-" item-id)
         :key (str "item-" item-id)}
    [:a
-    {:href (bidi/path-for routes/app :a-item
-                          :item-id item-id)}
+    {:href (routing/get-url-for-route routes/app :a-item :item-id item-id)}
     (str "Item: " item-id)]])
 
 (defmethod page-contents :section-a []
@@ -32,11 +30,11 @@
   [:span
    [:h1 (str "Routing example: Section A, item " item)]
    [:p [:a
-        {:href (bidi/path-for routes/app :section-a)}
+        {:href (routing/get-url-for-route routes/app :section-a)}
         "Back to Section A"]]])
 
 (defmethod page-contents :a-item []
-  (let [routing-data (session/get :route)
+  (let [routing-data (routing/get-route-state)
         item (get-in routing-data [:route-params :item-id])]
     [link-page item]))
 

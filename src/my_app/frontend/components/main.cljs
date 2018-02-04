@@ -1,19 +1,18 @@
 (ns my-app.frontend.components.main
   (:require
-   [bidi.bidi :as bidi]
    [my-app.frontend.components.pages :as pages]
    [my-app.frontend.routes :as routes]
-   [reagent.session :as session]))
+   [my-app.frontend.routing :as routing]))
 
 (defn main []
   [:div#rendered-app
    [:h1 "Hello, world!"]])
 
 (defn page []
-  (let [page-id (get (session/get :route) :current-page)]
+  (let [page-id (get (routing/get-route-state) :current-page)]
     [:div
      [:p [:a
-          {:href (bidi/path-for routes/app :index)}
+          {:href (routing/get-url-for-route routes/app :index)}
           "Go home"]]
      [main]
      [:hr]
