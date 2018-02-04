@@ -5,15 +5,7 @@
    [clojure.string :as string]
    [my-app.build.config :as config]
    [my-app.build.time-reporting :as time-reporting]
-   [my-app.build.util :as util]
    ))
-
-(defn- clean-up
-  []
-  (util/delete-file-or-directory
-   (str config/automated-testing-directory "karma_cljs"))
-  (util/delete-file-or-directory
-   (str config/automated-testing-directory "my_app")))
 
 (defn- compile-cljs
   [karma-directory karma-output-file]
@@ -34,8 +26,6 @@
         karma-output-file "js/karma_cljs.js"
         app-directory "src/my_app/frontend/"
         app-output-file "js/my_app.js"]
-    ;; Probably don't need this
-    #_(clean-up)
     (compile-cljs karma-directory karma-output-file)
     (compile-cljs app-directory app-output-file)
     (time-reporting/measure-and-report-elapsed-time
