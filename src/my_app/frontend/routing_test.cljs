@@ -47,4 +47,7 @@
     (test/is (thrown?
               js/Error
               (routing/get-url-for-route example-routes :no-idea))
-             "An error is thrown for invalid routes")))
+             "An error is thrown for invalid routes")
+    (test/is (= "/section-a/item-1"
+                (routing/get-url-for-route example-routes :a-item :item-id 1))
+             "Nested routes resolve correctly")))

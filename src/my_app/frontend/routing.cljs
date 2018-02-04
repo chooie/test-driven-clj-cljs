@@ -43,8 +43,8 @@
   (dispatch-to-current-browser-window-path))
 
 (defn get-url-for-route
-  [routes route]
-  (let [matched-url (bidi/path-for routes route)]
+  [routes & route]
+  (let [matched-url (apply (partial bidi/path-for routes) route)]
     (when-not matched-url
       (error/throw (str "No matching URL for route '" route "'")))
     matched-url))
