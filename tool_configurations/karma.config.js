@@ -41,12 +41,9 @@ module.exports = function(config) {
         served: true
       },
       {
-        pattern: karmaPath + "**/*.js",
-        included: true,
+        pattern: basePath + "**/*.js.map",
+        included: false,
         served: true
-      },
-      {
-        pattern: myAppPath + "**/*.js",
       },
       {
         pattern: "src/load_karma_cljs.js",
