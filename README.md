@@ -1,4 +1,4 @@
-# my-app
+# Test-Driven Clojure and ClojureScript
 An example of how to setup a Clojure/ClojureScript project with a heavy toolset
 for Test-Driven Development.
 
