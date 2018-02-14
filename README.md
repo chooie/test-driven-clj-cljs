@@ -74,6 +74,7 @@ The idea behind this setup is that you should rarely ever have to restart the
 REPL during development.
 
 ## Steps
+- From a fresh repo clone, run `npm rebuild`
 - Start the development REPL
     - `boot my-app/start-cider-development-repl`
 - Leave the REPL process running
