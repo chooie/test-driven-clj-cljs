@@ -1,9 +1,54 @@
 # my-app
-
 An example of how to setup a Clojure/ClojureScript project with a heavy toolset
 for Test-Driven Development.
 
 IMPORTANT: See 'Gotchas' section if you're having issues
+
+# Thoughts on this Approach
+This workflow allows me to work faster, but it is still slow compared to using
+an alternative (e.g. NodeJs with Browserify). I want to get feedback in less
+than 5 seconds. I can do this with Node, but I can't do this with Clj/Cljs. With
+this wokflow, I can get full feedback after ~30 seconds of running them. Quite
+painful.
+
+## How can it be made faster?
+A large chunk of time (~10-20 seconds) is spent running a few frontend tests.
+This is a major issue.
+
+Ideas on how to improve the frontend feedback time include:
+
+- Ditch Cljs
+    - Cljs lazily loads Google Closure modules as it is evaluated. This is a
+    major problem when using the Karma test runner because it doesn't cache it.
+    The only solution I can think of is to not use Cljs in the first place.
+    - We could make use of dead-code elimination, but this takes over a
+      minute for a small amount of code
+- Build a REPL-based frontend test runner (competitor to Karma)
+    - It would need to cache libraries like Google Closure heavily
+
+Ideas on how to improve the smoke test time include:
+
+- Ditch Cljs (for the same reasons as above)
+
+Ideas on how to improve other problem areas:
+
+- Linting
+    - Find an alternative linter to Eastwood. Eastwood can take ~10 seconds as
+    it seems to evaluate all the namespaces rather than statically analyzing the
+    code. A tool like ESlint takes fractions of seconds to lint more code.
+- Namespace Refreshing
+    - Not too bad. Incrementally refreshing takes milliseconds. A full refresh
+      can take ~1-10 seconds (depending on if the REPL's 'warmed up'!?)
+- General slowness
+    -  Slow testing
+        - Aggressive caching of test results (incremental testing)
+        - See James Shore's
+          [repository](https://github.com/jamesshore/lets_code_javascript) for
+          an example of how to do this
+        - No need to run a test if the source code hasn't changed
+            - Does this apply to smoke tests?
+    - Slow REPL startup
+        - Still not sure how to address this
 
 # External Dependencies
 NOTE: You will need to manually install these dependencies before working on the
