@@ -7,8 +7,8 @@ IMPORTANT: See 'Gotchas' section if you're having issues
 # Thoughts on this Approach
 This workflow allows me to work faster, but it is still slow compared to using
 an alternative (e.g. NodeJs with Browserify). I want to get feedback in less
-than 5 seconds. I can do this with Node, but I can't do this with Clj/Cljs. With
-this wokflow, I can get full feedback after ~30 seconds of running them. Quite
+than 5 seconds. I can do this with Node, but I can't do this with clj/cljs. With
+this workflow, I can get full feedback after ~30 seconds of running them. Quite
 painful.
 
 ## How can it be made faster?
@@ -20,7 +20,7 @@ Ideas on how to improve the frontend feedback time include:
 - Ditch Cljs
     - Cljs lazily loads Google Closure modules as it is evaluated. This is a
     major problem when using the Karma test runner because it doesn't cache it.
-    The only solution I can think of is to not use Cljs in the first place.
+    The only solution I can think of is to not use cljs in the first place.
     - We could make use of dead-code elimination, but this takes over a
       minute for a small amount of code
 - Build a REPL-based frontend test runner (competitor to Karma)
@@ -28,7 +28,7 @@ Ideas on how to improve the frontend feedback time include:
 
 Ideas on how to improve the smoke test time include:
 
-- Ditch Cljs (for the same reasons as above)
+- Ditch cljs (for the same reasons as above)
 
 Ideas on how to improve other problem areas:
 
@@ -108,7 +108,7 @@ Here are the Emacs Cider variables to set:
 - `(setq cljr-auto-clean-ns nil)`
 - `(setq cljr-warn-on-eval t)`
 
-When doing any refactoring with clj-refactor, and it asks your permission to
+When doing any refactoring with clj-refactor, when it asks your permission to
 evaluate, make sure to stop your running application. Otherwise, it will
 redefine the value and you will lose the reference, requiring a REPL restart.
 
