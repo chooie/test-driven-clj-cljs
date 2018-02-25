@@ -20,8 +20,8 @@ generated/
 # Release artifact
 release/
 
-# NPM Binaries
-node_modules/fsevents/lib/binding/Release/node-v51-darwin-x64/
+# NPM
+node_modules/
 
 # Emacs
 ## Ignore temp files
